@@ -1,5 +1,5 @@
 class Tampone:
-#Vedere ereditarietà con prodotto dio canaglia
+#Vedere ereditarietà con prodotto
     def _init_(self, tipologia, id):
      self.tipologia = tipologia
      self.esito = False
