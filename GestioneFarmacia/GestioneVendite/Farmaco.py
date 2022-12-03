@@ -8,6 +8,4 @@ class Farmaco(Prodotto):
      self.ricetta  = False
      self.unitaMisuraDosaggio = unitaMisuraDosaggio
 
-farmaco1=Farmaco()
-farmaco1.setCodice('1')
-print(farmaco1.codice)
+

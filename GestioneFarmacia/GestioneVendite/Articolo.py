@@ -9,6 +9,3 @@ class Articolo(Prodotto):
      self.prezzo = prezzo
      self.scadenza = scadenza
 
-articolo1= Articolo()
-articolo1.setCodice('1')
-print(articolo1.codice)
