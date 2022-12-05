@@ -1,15 +1,14 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel
+from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5 import uic, QtWidgets
 
-def window():
-    app = QApplication(sys.argv)
-    widget = QWidget()
-    textlable = QLabel(widget)
-    textlable.setText("ciao")
-    widget.setGeometry(100,100,400,200)
-    widget.setWindowTitle("Gesione Farmacia")
-    widget.show()
+from GestioneFarmacia.Grafica.login import Ui_Login
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Login = QtWidgets.QDialog()
+    ui = Ui_Login()
+    ui.setupUi()
+    Login.show()
     sys.exit(app.exec_())
-
-if __name__ == '__main__':
-    window()
