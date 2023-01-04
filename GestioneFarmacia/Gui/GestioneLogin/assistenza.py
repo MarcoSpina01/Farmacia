@@ -49,7 +49,7 @@ class Ui_Assistenza(object):
         self.tornaloginbtn.setText(_translate("Form", "Torna al Login"))
 
     def returnLogin(self):
-        from GestioneFarmacia.Gui.login import Ui_Login
+        from GestioneFarmacia.Gui.GestioneLogin.login import Ui_Login
         self.login = QtWidgets.QFrame()
         self.ui = Ui_Login()
         self.ui.setupUi(self.login)

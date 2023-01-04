@@ -2,7 +2,7 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
 
-from Gui.login import Ui_Login
+from GestioneFarmacia.Gui.GestioneLogin.login import Ui_Login
 
 if __name__ == "__main__":
 
