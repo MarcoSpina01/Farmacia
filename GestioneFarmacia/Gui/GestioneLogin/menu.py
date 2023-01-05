@@ -1,5 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
+
 class Ui_Menu(object):
 
     def setupUi(self, Form):
@@ -108,7 +110,7 @@ class Ui_Menu(object):
         self.label.raise_()
         self.logoutbtn.raise_()
         self.logoutbtn.clicked.connect(self.returnToLogin)
-
+        self.magazzinobtn.clicked.connect(self.openMagazzino)
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -128,4 +130,12 @@ class Ui_Menu(object):
         self.ui = Ui_Login()
         self.ui.setupUi(self.login)
         self.login.show()
+        self.form.close()
+
+    def openMagazzino(self):
+        from GestioneFarmacia.Gui.GestioneMagazzino.magazzino import Ui_Magazzino
+        self.magazzino = QtWidgets.QFrame()
+        self.ui = Ui_Magazzino()
+        self.ui.setupUi(self.magazzino)
+        self.magazzino.show()
         self.form.close()
