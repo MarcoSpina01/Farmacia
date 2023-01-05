@@ -1,19 +1,19 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Assistenza(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(1121, 752)
-        Form.setStyleSheet("background-color: qconicalgradient(cx:1, cy:1, angle:0, stop:0 rgba(144, 115, 145, 255), stop:1 rgba(255, 255, 255, 255));")
+        Form.resize(978, 705)
+        Form.setStyleSheet("")
+        self.Frame = Form
         self.frame = QtWidgets.QFrame(Form)
-        self.frame.setGeometry(QtCore.QRect(100, 70, 911, 601))
-        self.frame.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(226, 255, 255, 255));")
+        self.frame.setGeometry(QtCore.QRect(110, 140, 771, 421))
+        self.frame.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(190, 220, 190, 255));")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(300, 10, 361, 101))
+        self.label.setGeometry(QtCore.QRect(220, 70, 361, 101))
         font = QtGui.QFont()
         font.setPointSize(20)
         font.setBold(True)
@@ -34,8 +34,16 @@ class Ui_Assistenza(object):
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.tornaloginbtn = QtWidgets.QPushButton(self.frame)
-        self.tornaloginbtn.setGeometry(QtCore.QRect(690, 450, 93, 28))
+        self.tornaloginbtn.setGeometry(QtCore.QRect(560, 300, 93, 28))
         self.tornaloginbtn.setObjectName("tornaloginbtn")
+        self.frame_2 = QtWidgets.QFrame(Form)
+        self.frame_2.setGeometry(QtCore.QRect(-10, -10, 1531, 941))
+        self.frame_2.setStyleSheet("background-image: url(C:/Users/Michelangelo/PycharmProjects/Farmacia/loghi-icone/logofarmacia.PNG)")
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.frame_2.raise_()
+        self.frame.raise_()
         self.tornaloginbtn.clicked.connect(self.returnLogin)
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -54,4 +62,5 @@ class Ui_Assistenza(object):
         self.ui = Ui_Login()
         self.ui.setupUi(self.login)
         self.login.show()
-        self.frame.close()
+        self.Frame.close()
+

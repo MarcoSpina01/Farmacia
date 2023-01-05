@@ -1,17 +1,15 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QLineEdit
-
-from GestioneFarmacia.Gui.GestioneLogin.assistenza import Ui_Assistenza
 
 
 class Ui_Login(object):
     def setupUi(self, Login):
         Login.setObjectName("Login")
         Login.resize(930, 686)
+        self.Frame = Login
         self.frame = QtWidgets.QFrame(Login)
         self.frame.setGeometry(QtCore.QRect(-20, -20, 1331, 931))
-        self.frame.setStyleSheet("background-image: url(C:/Users/Michelangelo/PycharmProjects/Farmacia/logofarmacia.PNG)")
+        self.frame.setStyleSheet("background-image: url(C:/Users/Michelangelo/PycharmProjects/Farmacia/loghi-icone/logofarmacia.PNG)")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -86,7 +84,7 @@ class Ui_Login(object):
         self.ErrorMessage.setText("")
         self.ErrorMessage.setObjectName("ErrorMessage")
         self.Password.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.pushButton.clicked.connect(self.Autenticazione)
+        self.pushButton.clicked.connect(self.autenticazione)
         self.Assistenzabtn.clicked.connect(self.openAssistenza)
         self.visualizzapwbtn.clicked.connect(self.gestionePassword)
         self.retranslateUi(Login)
@@ -103,27 +101,35 @@ class Ui_Login(object):
         self.label_2.setText(_translate("Login", "Username"))
         self.label_3.setText(_translate("Login", "Password"))
 
-    def Autenticazione(self):
+    def autenticazione(self):
         username = self.Username.text()
         password = self.Password.text()
         if (username == "ciao"):
             if (password == "ciao"):
-                self.ErrorMessage.setText("LOGIN CONFERMATO")
-                # collegare con la gui del menu
+                self.openMenu()
             else:
                 self.ErrorMessage.setText("PASSWORD ERRATA")
         else:
             self.ErrorMessage.setText("USERNAME O PASSWORD ERRATI")
 
     def openAssistenza(self):
+        from GestioneFarmacia.Gui.GestioneLogin.assistenza import Ui_Assistenza
         self.Assistenza = QtWidgets.QFrame()
         self.ui = Ui_Assistenza()
         self.ui.setupUi(self.Assistenza)
         self.Assistenza.show()
-        self.frame.close()
+        self.Frame.close()
 
     def gestionePassword(self):
         if (self.visualizzapwbtn.isChecked()):
             self.Password.setEchoMode(QLineEdit.EchoMode.Normal)
         else:
             self.Password.setEchoMode(QtWidgets.QLineEdit.Password)
+
+    def openMenu(self):
+        from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
+        self.Menu = QtWidgets.QFrame()
+        self.ui = Ui_Menu()
+        self.ui.setupUi(self.Menu)
+        self.Menu.show()
+        self.Frame.close()

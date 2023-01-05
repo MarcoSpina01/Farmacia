@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="no">
+    <file>loghi-icone/iconatampone.PNG</file>
+    <file>loghi-icone/schermatamenu.PNG</file>
+    <file>loghi-icone/logofarmacia.PNG</file>
+    <file>loghi-icone/iconalogout.PNG</file>
+    <file>loghi-icone/iconaarchivio.PNG</file>
+    <file>loghi-icone/iconamagazzino.PNG</file>
+    <file>loghi-icone/iconacalendario.PNG</file>
+    <file>loghi-icone/iconacassa.PNG</file>
+  </qresource>
+</RCC>
