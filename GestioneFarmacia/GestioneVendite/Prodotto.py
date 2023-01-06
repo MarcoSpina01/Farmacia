@@ -10,6 +10,7 @@ class Prodotto():
         self.scadenza = scadenza
         self.giacenza = giacenza
 
+
     def getCodice(self):
         return self.codice
 
