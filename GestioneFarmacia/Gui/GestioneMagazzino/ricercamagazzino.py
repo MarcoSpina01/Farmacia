@@ -28,7 +28,7 @@ class Ui_RicercaMagazzino(object):
         self.Ricercaarticolobtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/no/loghi-icone/iconalente.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconalente.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Ricercaarticolobtn.setIcon(icon)
         self.Ricercaarticolobtn.setObjectName("Ricercaarticolobtn")
         self.homebtn = QtWidgets.QPushButton(Form)

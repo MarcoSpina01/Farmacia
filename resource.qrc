@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="no">
+    <file>loghi-icone/iconacarrello.PNG</file>
+    <file>loghi-icone/sfondoangelini.PNG</file>
+    <file>loghi-icone/sfondopfizer.PNG</file>
     <file>loghi-icone/sfondofornitori.PNG</file>
     <file>loghi-icone/iconaindietro.PNG</file>
     <file>loghi-icone/iconalente.PNG</file>
