@@ -68,6 +68,7 @@ class Ui_RicercaMagazzino(object):
         self.pushButton.raise_()
         self.ricercamagazzinotb.raise_()
 
+
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToMagazzino)
 
