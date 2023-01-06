@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_pfizer(object):
     def setupUi(self, pfizer):
         self.Frame = pfizer
@@ -116,6 +117,9 @@ class Ui_pfizer(object):
         self.pushButton.raise_()
         self.homebtn.raise_()
 
+        self.homebtn.clicked.connect(self.returnToHome)
+        self.pushButton.clicked.connect(self.returnToFornitori)
+
         self.retranslateUi(pfizer)
         QtCore.QMetaObject.connectSlotsByName(pfizer)
 
@@ -130,4 +134,18 @@ class Ui_pfizer(object):
         self.label_3.setText(_translate("pfizer", "Carrello:"))
         self.homebtn.setText(_translate("pfizer", "Home"))
 
+    def returnToHome(self):
+        from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
+        self.menu = QtWidgets.QFrame()
+        self.ui = Ui_Menu()
+        self.ui.setupUi(self.menu)
+        self.menu.show()
+        self.Frame.close()
 
+    def returnToFornitori(self):
+        from GestioneFarmacia.Gui.GestioneMagazzino.sceltafornitore import Ui_Fornitori
+        self.fornitori = QtWidgets.QFrame()
+        self.ui = Ui_Fornitori()
+        self.ui.setupUi(self.fornitori)
+        self.fornitori.show()
+        self.Frame.close()

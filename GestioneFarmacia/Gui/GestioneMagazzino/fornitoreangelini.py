@@ -88,7 +88,7 @@ class Ui_angelini(object):
         self.homebtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/no/loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.homebtn.setIcon(icon3)
         self.homebtn.setIconSize(QtCore.QSize(40, 40))
         self.homebtn.setObjectName("homebtn")
@@ -118,6 +118,10 @@ class Ui_angelini(object):
         self.homebtn.raise_()
         self.pushButton.raise_()
 
+        self.homebtn.clicked.connect(self.returnToHome)
+        self.pushButton.clicked.connect(self.returnToFornitori)
+
+
         self.retranslateUi(angelini)
         QtCore.QMetaObject.connectSlotsByName(angelini)
 
@@ -132,3 +136,18 @@ class Ui_angelini(object):
         self.acquistabtn.setText(_translate("angelini", "  Acquista"))
         self.homebtn.setText(_translate("angelini", "Home"))
 
+    def returnToHome(self):
+        from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
+        self.menu = QtWidgets.QFrame()
+        self.ui = Ui_Menu()
+        self.ui.setupUi(self.menu)
+        self.menu.show()
+        self.Frame.close()
+
+    def returnToFornitori(self):
+        from GestioneFarmacia.Gui.GestioneMagazzino.sceltafornitore import Ui_Fornitori
+        self.fornitori = QtWidgets.QFrame()
+        self.ui = Ui_Fornitori()
+        self.ui.setupUi(self.fornitori)
+        self.fornitori.show()
+        self.Frame.close()
