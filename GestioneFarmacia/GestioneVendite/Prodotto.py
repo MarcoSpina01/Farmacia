@@ -1,4 +1,5 @@
-class Prodotto:
+
+class Prodotto():
 
     def __init__(self, codice, nome, tipologia, prezzo, dosaggio, scadenza, giacenza):
         self.codice = codice
