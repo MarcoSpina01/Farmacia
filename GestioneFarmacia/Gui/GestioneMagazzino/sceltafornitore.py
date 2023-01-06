@@ -11,6 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
+
 class Ui_Fornitori(object):
     def setupUi(self, Fornitori):
         self.Frame = Fornitori
@@ -73,6 +74,9 @@ class Ui_Fornitori(object):
         self.Angelinirbtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.Pfizerrbtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 
+        self.Angelinirbtn.clicked.connect(self.openFornitoreAngelini)
+        self.Pfizerrbtn.clicked.connect(self.openFornitorePfizer)
+
 
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToMagazzino)
@@ -102,4 +106,20 @@ class Ui_Fornitori(object):
         self.ui = Ui_Magazzino()
         self.ui.setupUi(self.magazzino)
         self.magazzino.show()
+        self.Frame.close()
+
+    def openFornitoreAngelini(self):
+        from GestioneFarmacia.Gui.GestioneMagazzino.fornitoreangelini import Ui_angelini
+        self.angelini = QtWidgets.QFrame()
+        self.ui = Ui_angelini()
+        self.ui.setupUi(self.angelini)
+        self.angelini.show()
+        self.Frame.close()
+
+    def openFornitorePfizer(self):
+        from GestioneFarmacia.Gui.GestioneMagazzino.fornitorepfizer import Ui_pfizer
+        self.pfizer = QtWidgets.QFrame()
+        self.ui = Ui_pfizer()
+        self.ui.setupUi(self.pfizer)
+        self.pfizer.show()
         self.Frame.close()
