@@ -1,4 +1,3 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -7,12 +6,6 @@ class Ui_RicercaMagazzino(object):
         self.Frame = Form
         Form.setObjectName("Form")
         Form.resize(597, 376)
-        self.ArticoliContainer = QtWidgets.QColumnView(Form)
-        self.ArticoliContainer.setGeometry(QtCore.QRect(30, 20, 461, 251))
-        self.ArticoliContainer.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.ArticoliContainer.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
-        self.ArticoliContainer.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
-        self.ArticoliContainer.setObjectName("ArticoliContainer")
         self.Ricercaarticolobtn = QtWidgets.QPushButton(Form)
         self.Ricercaarticolobtn.setGeometry(QtCore.QRect(30, 290, 91, 41))
         self.Ricercaarticolobtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -33,7 +26,7 @@ class Ui_RicercaMagazzino(object):
         self.homebtn.setIconSize(QtCore.QSize(40, 40))
         self.homebtn.setObjectName("homebtn")
         self.frame = QtWidgets.QFrame(Form)
-        self.frame.setGeometry(QtCore.QRect(-10, 0, 621, 391))
+        self.frame.setGeometry(QtCore.QRect(-20, -10, 621, 391))
         self.frame.setStyleSheet("background-image: url(C:/Users/Public/Pictures/loghi-icone/sfondomagazzino.PNG);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -52,16 +45,23 @@ class Ui_RicercaMagazzino(object):
         self.ricercamagazzinotb = QtWidgets.QLineEdit(Form)
         self.ricercamagazzinotb.setGeometry(QtCore.QRect(140, 300, 191, 21))
         self.ricercamagazzinotb.setObjectName("ricercamagazzinotb")
+        self.tableWidgetmagazzino = QtWidgets.QTableWidget(Form)
+        self.tableWidgetmagazzino.setGeometry(QtCore.QRect(40, 30, 501, 221))
+        self.tableWidgetmagazzino.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.tableWidgetmagazzino.setObjectName("tableWidgetmagazzino")
+        self.tableWidgetmagazzino.setColumnCount(0)
+        self.tableWidgetmagazzino.setRowCount(0)
         self.frame.raise_()
-        self.ArticoliContainer.raise_()
         self.Ricercaarticolobtn.raise_()
         self.homebtn.raise_()
         self.pushButton.raise_()
         self.ricercamagazzinotb.raise_()
+        self.tableWidgetmagazzino.raise_()
 
 
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToMagazzino)
+
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -71,6 +71,7 @@ class Ui_RicercaMagazzino(object):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.Ricercaarticolobtn.setText(_translate("Form", "  Ricerca"))
         self.homebtn.setText(_translate("Form", "Home"))
+
 
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
@@ -87,5 +88,3 @@ class Ui_RicercaMagazzino(object):
         self.ui.setupUi(self.magazzino)
         self.magazzino.show()
         self.Frame.close()
-
-

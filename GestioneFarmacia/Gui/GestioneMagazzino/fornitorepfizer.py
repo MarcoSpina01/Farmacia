@@ -1,3 +1,4 @@
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -39,7 +40,7 @@ class Ui_pfizer(object):
         self.quantitaprodsb.setGeometry(QtCore.QRect(240, 500, 42, 22))
         self.quantitaprodsb.setObjectName("quantitaprodsb")
         self.carrellobtn = QtWidgets.QPushButton(pfizer)
-        self.carrellobtn.setGeometry(QtCore.QRect(290, 530, 121, 41))
+        self.carrellobtn.setGeometry(QtCore.QRect(290, 530, 131, 41))
         self.carrellobtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.carrellobtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
@@ -49,21 +50,6 @@ class Ui_pfizer(object):
         self.carrellobtn.setIcon(icon1)
         self.carrellobtn.setIconSize(QtCore.QSize(30, 30))
         self.carrellobtn.setObjectName("carrellobtn")
-        self.acquistabtn = QtWidgets.QPushButton(pfizer)
-        self.acquistabtn.setGeometry(QtCore.QRect(790, 280, 121, 41))
-        self.acquistabtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.acquistabtn.setStyleSheet("border-radius: 10px;\n"
-"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconadollaro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.acquistabtn.setIcon(icon2)
-        self.acquistabtn.setIconSize(QtCore.QSize(30, 30))
-        self.acquistabtn.setObjectName("acquistabtn")
-        self.fornitorelist = QtWidgets.QListView(pfizer)
-        self.fornitorelist.setGeometry(QtCore.QRect(30, 70, 431, 221))
-        self.fornitorelist.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.fornitorelist.setObjectName("fornitorelist")
         self.label_3 = QtWidgets.QLabel(pfizer)
         self.label_3.setGeometry(QtCore.QRect(440, 20, 181, 31))
         font = QtGui.QFont()
@@ -71,12 +57,8 @@ class Ui_pfizer(object):
         self.label_3.setFont(font)
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
-        self.carrellolist = QtWidgets.QListView(pfizer)
-        self.carrellolist.setGeometry(QtCore.QRect(480, 70, 431, 201))
-        self.carrellolist.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.carrellolist.setObjectName("carrellolist")
         self.frame = QtWidgets.QFrame(pfizer)
-        self.frame.setGeometry(QtCore.QRect(0, 0, 951, 601))
+        self.frame.setGeometry(QtCore.QRect(-10, -10, 951, 601))
         self.frame.setStyleSheet("background-image: url(C:/Users/Public/Pictures/loghi-icone/sfondopfizer.PNG);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -87,9 +69,9 @@ class Ui_pfizer(object):
         self.pushButton.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         self.pushButton.setText("")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconaindietro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton.setIcon(icon3)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconaindietro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton.setIcon(icon2)
         self.pushButton.setIconSize(QtCore.QSize(40, 40))
         self.pushButton.setObjectName("pushButton")
         self.homebtn = QtWidgets.QPushButton(pfizer)
@@ -97,11 +79,32 @@ class Ui_pfizer(object):
         self.homebtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.homebtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.homebtn.setIcon(icon4)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.homebtn.setIcon(icon3)
         self.homebtn.setIconSize(QtCore.QSize(40, 40))
         self.homebtn.setObjectName("homebtn")
+        self.tableWidgetlist = QtWidgets.QTableWidget(pfizer)
+        self.tableWidgetlist.setGeometry(QtCore.QRect(20, 70, 451, 231))
+        self.tableWidgetlist.setObjectName("tableWidgetlist")
+        self.tableWidgetlist.setColumnCount(0)
+        self.tableWidgetlist.setRowCount(0)
+        self.tableWidgetcarrello = QtWidgets.QTableWidget(pfizer)
+        self.tableWidgetcarrello.setGeometry(QtCore.QRect(480, 70, 451, 231))
+        self.tableWidgetcarrello.setObjectName("tableWidgetcarrello")
+        self.tableWidgetcarrello.setColumnCount(0)
+        self.tableWidgetcarrello.setRowCount(0)
+        self.acquistabtn = QtWidgets.QPushButton(pfizer)
+        self.acquistabtn.setGeometry(QtCore.QRect(790, 320, 121, 41))
+        self.acquistabtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.acquistabtn.setStyleSheet("border-radius: 10px;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"")
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconadollaro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.acquistabtn.setIcon(icon4)
+        self.acquistabtn.setIconSize(QtCore.QSize(30, 30))
+        self.acquistabtn.setObjectName("acquistabtn")
         self.frame.raise_()
         self.label_4.raise_()
         self.ricercafornitorebtn.raise_()
@@ -110,12 +113,13 @@ class Ui_pfizer(object):
         self.label.raise_()
         self.quantitaprodsb.raise_()
         self.carrellobtn.raise_()
-        self.acquistabtn.raise_()
-        self.fornitorelist.raise_()
         self.label_3.raise_()
-        self.carrellolist.raise_()
         self.pushButton.raise_()
         self.homebtn.raise_()
+        self.tableWidgetlist.raise_()
+        self.tableWidgetcarrello.raise_()
+        self.acquistabtn.raise_()
+
 
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToFornitori)
@@ -130,9 +134,10 @@ class Ui_pfizer(object):
         self.ricercafornitorebtn.setText(_translate("pfizer", "  Ricerca"))
         self.label.setText(_translate("pfizer", "Inserisci codice e quantità da comprare"))
         self.carrellobtn.setText(_translate("pfizer", "Metti nel carrello"))
-        self.acquistabtn.setText(_translate("pfizer", "  Acquista"))
         self.label_3.setText(_translate("pfizer", "Carrello:"))
         self.homebtn.setText(_translate("pfizer", "Home"))
+        self.acquistabtn.setText(_translate("pfizer", "  Acquista"))
+
 
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
