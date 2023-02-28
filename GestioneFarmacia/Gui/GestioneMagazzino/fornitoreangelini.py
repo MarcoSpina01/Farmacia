@@ -1,7 +1,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
+
+p = Prodotto(1, "g", "f", 3, "h", "d", 2)
 
 class Ui_angelini(object):
+
+
+
     def setupUi(self, angelini):
         self.Frame = angelini
         angelini.setObjectName("angelini")
@@ -117,6 +123,53 @@ class Ui_angelini(object):
         self.pushButton.raise_()
         self.tableWidgetlist.raise_()
         self.tableWidgetcarrello.raise_()
+
+
+        self.tableWidgetlist.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.tableWidgetlist.setObjectName("tableWidget")
+        self.tableWidgetlist.setColumnCount(4)
+        self.tableWidgetlist.setRowCount(4)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidgetlist.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidgetlist.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidgetlist.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidgetlist.setHorizontalHeaderItem(3, item)
+
+        self.tableWidgetlist.horizontalHeader().setVisible(True)
+        self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(84)
+        self.tableWidgetlist.verticalHeader().setVisible(False)
+
+
+        item = self.tableWidgetlist.horizontalHeaderItem(0)
+        _translate = QtCore.QCoreApplication.translate
+        item.setText(_translate("angelini", "Prodotto"))
+        item = self.tableWidgetlist.horizontalHeaderItem(1)
+        item.setText(_translate("angelini", "Quantità"))
+        item = self.tableWidgetlist.horizontalHeaderItem(2)
+        item.setText(_translate("angelini", "Prezzo"))
+        item = self.tableWidgetlist.horizontalHeaderItem(3)
+        item.setText(_translate("angelini", "Codice Seriale"))
+
+        for riga in range(0, 4):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidgetlist.setItem(riga, colonna, item)
+
+        print(p.getCodice())
+
+        item = self.tableWidgetlist.item(0, 0)
+        item.setText(_translate("angelini", str(p.getCodice())))
+        item = self.tableWidgetlist.item(0, 1)
+        item.setText(_translate("angelini", p.getNome()))
+        item = self.tableWidgetlist.item(0, 2)
+        item.setText(_translate("angelini", str(p.getCodice())))
+        item = self.tableWidgetlist.item(0, 3)
+        item.setText(_translate("angelini", p.getNome()))
+
+
 
 
         self.homebtn.clicked.connect(self.returnToHome)
