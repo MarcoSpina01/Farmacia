@@ -168,7 +168,7 @@ class Ui_angelini(object):
         item.setText(_translate("angelini", str(p.getCodice())))
         item = self.tableWidgetlist.item(0, 3)
         item.setText(_translate("angelini", p.getNome()))
-
+#
 
 
 
