@@ -1,5 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
+
+p = Prodotto(1, "g", "f", 3, "h", "d", 2)
 
 class Ui_RicercaMagazzino(object):
     def setupUi(self, Form):
@@ -59,6 +62,9 @@ class Ui_RicercaMagazzino(object):
         self.tableWidgetmagazzino.raise_()
 
 
+        self.creaListaProdotti()
+
+
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToMagazzino)
 
@@ -88,3 +94,22 @@ class Ui_RicercaMagazzino(object):
         self.ui.setupUi(self.magazzino)
         self.magazzino.show()
         self.Frame.close()
+
+    def creaListaProdotti(self):
+
+        self.tableWidgetmagazzino.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.tableWidgetmagazzino.setObjectName("tableWidget")
+        self.tableWidgetmagazzino.setColumnCount(4)
+        self.tableWidgetmagazzino.setRowCount(4)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidgetmagazzino.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidgetmagazzino.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidgetmagazzino.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidgetmagazzino.setHorizontalHeaderItem(3, item)
+
+        self.tableWidgetmagazzino.horizontalHeader().setVisible(True)
+        self.tableWidgetmagazzino.horizontalHeader().setDefaultSectionSize(84)
+        self.tableWidgetmagazzino.verticalHeader().setVisible(True)
