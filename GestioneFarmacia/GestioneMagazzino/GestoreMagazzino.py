@@ -14,7 +14,7 @@ class GestoreMagazzino:
         self.downloadProdottiMagazzino()
 
     def downloadFarmaciMagazzino(self):
-        f = open("farmaci", "rb")
+        f = open("/Users/crowh/PycharmProjects/Farmacia/GestioneFarmacia/farmaci", "rb")
         farmaci = pickle.load(f)
         f.close()
         for i in range(len(farmaci)):
@@ -22,7 +22,7 @@ class GestoreMagazzino:
 
 
     def downloadProdottiMagazzino(self):
-        f = open("prodotti", "rb")
+        f = open("/Users/crowh/PycharmProjects/Farmacia/GestioneFarmacia/prodotti", "rb")
         prodotti = pickle.load(f)
         f.close()
         for i in range(len(prodotti)):
@@ -51,7 +51,7 @@ class GestoreMagazzino:
                 print(str(self.listaProdotti[i].scadenza) + " ")
             print(str(self.listaProdotti[i].giacenza) + " ")
 
-g1 = GestoreMagazzino()
-g1.downloadMagazzino()
-g1.showProdotti()
+#g1 = GestoreMagazzino()
+#g1.downloadMagazzino()
+#g1.showProdotti()
 

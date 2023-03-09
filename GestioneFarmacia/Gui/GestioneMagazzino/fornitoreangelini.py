@@ -1,7 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import pickle
 
+from GestioneFarmacia.GestioneMagazzino.GestoreMagazzino import GestoreMagazzino
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 
+g1 = GestoreMagazzino()
+g1.downloadMagazzino()
 p = Prodotto(1, "g", "f", 3, "h", "d", 2)
 
 class Ui_angelini(object):
@@ -213,18 +217,25 @@ class Ui_angelini(object):
         item = self.tableWidgetlist.horizontalHeaderItem(2)
         item.setText(_translate("angelini", "Prezzo"))
         item = self.tableWidgetlist.horizontalHeaderItem(3)
-        item.setText(_translate("angelini", "Codice Seriale"))
+        item.setText(_translate("angelini", "Codice"))
 
-        for riga in range(0, 4):
+
+        for riga in range(0, len(g1.listaFarmaci)):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
                 self.tableWidgetlist.setItem(riga, colonna, item)
+                item = self.tableWidgetlist.item(riga, colonna)
+                if(colonna == 0):
+                    item.setText(_translate("angelini", g1.listaFarmaci[riga].nome))
+                if(colonna == 1):
+                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].giacenza)))
+                if(colonna == 2):
+                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].prezzo)))
+                if(colonna == 3):
+                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].codice)))
 
-        item = self.tableWidgetlist.item(0, 0)
-        item.setText(_translate("angelini", str(p.getCodice())))
-        item = self.tableWidgetlist.item(0, 1)
-        item.setText(_translate("angelini", p.getNome()))
-        item = self.tableWidgetlist.item(0, 2)
-        item.setText(_translate("angelini", str(p.getCodice())))
-        item = self.tableWidgetlist.item(0, 3)
-        item.setText(_translate("angelini", p.getNome()))
+
+
+
+
+
