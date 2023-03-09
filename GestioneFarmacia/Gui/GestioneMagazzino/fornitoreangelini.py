@@ -6,7 +6,7 @@ from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 
 g1 = GestoreMagazzino()
 g1.downloadMagazzino()
-p = Prodotto(1, "g", "f", 3, "h", "d", 2)
+p = Prodotto(12, "nome", "tipologia", 3, "dosaggio", "scadenza", 2)
 
 class Ui_angelini(object):
 
@@ -173,16 +173,11 @@ class Ui_angelini(object):
 
         self.tableWidgetlist.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetlist.setObjectName("tableWidget")
-        self.tableWidgetlist.setColumnCount(4)
-        self.tableWidgetlist.setRowCount(4)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetlist.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetlist.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetlist.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetlist.setHorizontalHeaderItem(3, item)
+        self.tableWidgetlist.setColumnCount(10)
+        self.tableWidgetlist.setRowCount(10)
+        for i in range(0, 10):
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidgetlist.setHorizontalHeaderItem(i, item)
 
         self.tableWidgetlist.horizontalHeader().setVisible(True)
         self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(84)
@@ -218,13 +213,13 @@ class Ui_angelini(object):
         item.setText(_translate("angelini", "Prezzo"))
         item = self.tableWidgetlist.horizontalHeaderItem(3)
         item.setText(_translate("angelini", "Codice"))
-
-
-        for riga in range(0, len(g1.listaFarmaci)):
+        lenf = len(g1.listaFarmaci)
+        for riga in range(0, lenf):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item = self.tableWidgetlist.item(riga, colonna)
+                print(str(riga) + str(colonna))
                 if(colonna == 0):
                     item.setText(_translate("angelini", g1.listaFarmaci[riga].nome))
                 if(colonna == 1):
@@ -233,6 +228,21 @@ class Ui_angelini(object):
                     item.setText(_translate("angelini", str(g1.listaFarmaci[riga].prezzo)))
                 if(colonna == 3):
                     item.setText(_translate("angelini", str(g1.listaFarmaci[riga].codice)))
+        lenp = len(g1.listaProdotti)
+        for riga in range(lenf, lenp + lenf):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidgetlist.setItem(riga, colonna, item)
+                item = self.tableWidgetlist.item(riga, colonna)
+                print(str(riga) + str(colonna))
+                if(colonna == 0):
+                    item.setText(_translate("angelini", g1.listaProdotti[riga - lenf].nome))
+                if(colonna == 1):
+                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].giacenza)))
+                if(colonna == 2):
+                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].prezzo)))
+                if(colonna == 3):
+                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].codice)))
 
 
 

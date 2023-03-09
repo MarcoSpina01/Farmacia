@@ -13,6 +13,18 @@ class GestoreMagazzino:
         self.downloadFarmaciMagazzino()
         self.downloadProdottiMagazzino()
 
+    def uploadMagazzino(self):
+        self.uploadFarmaciMagazzino(farmaci)
+        self.uploadProdottiMagazzino(prodotti)
+
+    def uploadFarmaciMagazzino(self):
+        f = open("/Users/crowh/PycharmProjects/Farmacia/GestioneFarmacia/farmaci", "wb")
+        pickle.dump(self.listaFarmaci, f)
+
+    def uploadProdottiMagazzino(self):
+        f = open("/Users/crowh/PycharmProjects/Farmacia/GestioneFarmacia/farmaci", "wb")
+        pickle.dump(self.listaProdotti, f)
+
     def downloadFarmaciMagazzino(self):
         f = open("/Users/crowh/PycharmProjects/Farmacia/GestioneFarmacia/farmaci", "rb")
         farmaci = pickle.load(f)
