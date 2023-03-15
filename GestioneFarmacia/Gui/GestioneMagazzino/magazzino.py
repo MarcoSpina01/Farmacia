@@ -1,8 +1,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
-
+gestore = Gestore()
 
 class Ui_Magazzino(object):
+
     def setupUi(self, Magazzino):
         self.Frame = Magazzino
         Magazzino.setObjectName("Magazzino")
@@ -31,7 +33,7 @@ class Ui_Magazzino(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.homebtn.setIcon(icon)
         self.homebtn.setIconSize(QtCore.QSize(40, 40))
         self.homebtn.setObjectName("homebtn")
@@ -40,13 +42,13 @@ class Ui_Magazzino(object):
         self.Logoutbtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconalogout.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconalogout.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Logoutbtn.setIcon(icon1)
         self.Logoutbtn.setIconSize(QtCore.QSize(40, 40))
         self.Logoutbtn.setObjectName("Logoutbtn")
         self.frame = QtWidgets.QFrame(Magazzino)
         self.frame.setGeometry(QtCore.QRect(-10, -10, 781, 541))
-        self.frame.setStyleSheet("background-image: url(C:/Users/Public/Pictures/loghi-icone/sfondomagazzino.PNG);")
+        self.frame.setStyleSheet("background-image: url("+gestore.returnPth()+"loghi-icone/sfondomagazzino.PNG);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")

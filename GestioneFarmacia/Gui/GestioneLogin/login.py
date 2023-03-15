@@ -1,15 +1,18 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QLineEdit
+from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
+gestore = Gestore()
 
 class Ui_Login(object):
+
     def setupUi(self, Login):
         Login.setObjectName("Login")
         Login.resize(930, 686)
         self.Frame = Login
         self.frame = QtWidgets.QFrame(Login)
         self.frame.setGeometry(QtCore.QRect(-20, -20, 1331, 931))
-        self.frame.setStyleSheet("background-image: url(C:/Users/Public/Pictures/loghi-icone/logofarmacia.PNG)")
+        self.frame.setStyleSheet("background-image: url("+gestore.returnPth()+"loghi-icone/logofarmacia.PNG)")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")

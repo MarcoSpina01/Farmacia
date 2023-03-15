@@ -1,8 +1,9 @@
 import pickle
-
+from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Farmaco import Farmaco
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 
+gestore=Gestore()
 
 class GestoreMagazzino:
     def __init__(self):
@@ -14,19 +15,19 @@ class GestoreMagazzino:
         self.downloadProdottiMagazzino()
 
     def uploadMagazzino(self):
-        self.uploadFarmaciMagazzino(farmaci)
-        self.uploadProdottiMagazzino(prodotti)
+        self.uploadFarmaciMagazzino(self.listaFarmaci)
+        self.uploadProdottiMagazzino(self.listaProdotti)
 
     def uploadFarmaciMagazzino(self):
-        f = open("/Users/crowh/PycharmProjects/Farmacia/GestioneFarmacia/farmaci", "wb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/farmaci", "wb")
         pickle.dump(self.listaFarmaci, f)
 
     def uploadProdottiMagazzino(self):
-        f = open("/Users/crowh/PycharmProjects/Farmacia/GestioneFarmacia/farmaci", "wb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/farmaci", "wb")
         pickle.dump(self.listaProdotti, f)
 
     def downloadFarmaciMagazzino(self):
-        f = open("/Users/crowh/PycharmProjects/Farmacia/GestioneFarmacia/farmaci", "rb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/farmaci", "rb")
         farmaci = pickle.load(f)
         f.close()
         for i in range(len(farmaci)):
@@ -34,7 +35,7 @@ class GestoreMagazzino:
 
 
     def downloadProdottiMagazzino(self):
-        f = open("/Users/crowh/PycharmProjects/Farmacia/GestioneFarmacia/prodotti", "rb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/prodotti", "rb")
         prodotti = pickle.load(f)
         f.close()
         for i in range(len(prodotti)):

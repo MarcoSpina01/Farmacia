@@ -1,8 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 
 p = Prodotto(1, "g", "f", 3, "h", "d", 2)
+gestore = Gestore()
 
 class Ui_RicercaMagazzino(object):
     def setupUi(self, Form):
@@ -15,7 +16,7 @@ class Ui_RicercaMagazzino(object):
         self.Ricercaarticolobtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconalente.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconalente.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Ricercaarticolobtn.setIcon(icon)
         self.Ricercaarticolobtn.setObjectName("Ricercaarticolobtn")
         self.homebtn = QtWidgets.QPushButton(Form)
@@ -24,13 +25,13 @@ class Ui_RicercaMagazzino(object):
         self.homebtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.homebtn.setIcon(icon1)
         self.homebtn.setIconSize(QtCore.QSize(40, 40))
         self.homebtn.setObjectName("homebtn")
         self.frame = QtWidgets.QFrame(Form)
         self.frame.setGeometry(QtCore.QRect(-20, -10, 621, 391))
-        self.frame.setStyleSheet("background-image: url(C:/Users/Public/Pictures/loghi-icone/sfondomagazzino.PNG);")
+        self.frame.setStyleSheet("background-image: url(" +gestore.returnPth()+ "loghi-icone/sfondomagazzino.PNG);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -41,7 +42,7 @@ class Ui_RicercaMagazzino(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         self.pushButton.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconaindietro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconaindietro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton.setIcon(icon2)
         self.pushButton.setIconSize(QtCore.QSize(40, 40))
         self.pushButton.setObjectName("pushButton")
@@ -68,7 +69,6 @@ class Ui_RicercaMagazzino(object):
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToMagazzino)
 
-
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -77,7 +77,6 @@ class Ui_RicercaMagazzino(object):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.Ricercaarticolobtn.setText(_translate("Form", "  Ricerca"))
         self.homebtn.setText(_translate("Form", "Home"))
-
 
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
@@ -96,7 +95,6 @@ class Ui_RicercaMagazzino(object):
         self.Frame.close()
 
     def creaListaProdotti(self):
-
         self.tableWidgetmagazzino.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetmagazzino.setObjectName("tableWidget")
         self.tableWidgetmagazzino.setColumnCount(4)

@@ -1,8 +1,10 @@
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
+from GestioneFarmacia.GestioneSistema.gestione import Gestore
+
+gestore = Gestore()
 
 class Ui_Fornitori(object):
+
     def setupUi(self, Fornitori):
         self.Frame = Fornitori
         Fornitori.setObjectName("Fornitori")
@@ -12,7 +14,7 @@ class Ui_Fornitori(object):
         self.homebtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.homebtn.setIcon(icon)
         self.homebtn.setIconSize(QtCore.QSize(40, 40))
         self.homebtn.setObjectName("homebtn")
@@ -29,13 +31,13 @@ class Ui_Fornitori(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         self.pushButton.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconaindietro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconaindietro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton.setIcon(icon1)
         self.pushButton.setIconSize(QtCore.QSize(40, 40))
         self.pushButton.setObjectName("pushButton")
         self.frame = QtWidgets.QFrame(Fornitori)
         self.frame.setGeometry(QtCore.QRect(-30, -10, 781, 431))
-        self.frame.setStyleSheet("background-image: url(C:/Users/Public/Pictures/loghi-icone/sfondofornitori.PNG);")
+        self.frame.setStyleSheet("background-image: url("+gestore.returnPth()+"loghi-icone/sfondofornitori.PNG);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")

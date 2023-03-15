@@ -1,16 +1,19 @@
+from os.path import abspath
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 import pickle
 
 from GestioneFarmacia.GestioneMagazzino.GestoreMagazzino import GestoreMagazzino
+from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 
 g1 = GestoreMagazzino()
 g1.downloadMagazzino()
 p = Prodotto(12, "nome", "tipologia", 3, "dosaggio", "scadenza", 2)
+gestore = Gestore()
+
 
 class Ui_angelini(object):
-
-
 
     def setupUi(self, angelini):
         self.Frame = angelini
@@ -23,7 +26,7 @@ class Ui_angelini(object):
         self.ricercafornitorebtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconalente.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(gestore.returnPth() +"loghi-icone/iconacarrello.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.ricercafornitorebtn.setIcon(icon)
         self.ricercafornitorebtn.setObjectName("ricercafornitorebtn")
         self.lineEdit = QtWidgets.QLineEdit(angelini)
@@ -49,7 +52,7 @@ class Ui_angelini(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconacarrello.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(gestore.returnPth() +"loghi-icone/iconacarrello.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.carrellobtn.setIcon(icon1)
         self.carrellobtn.setIconSize(QtCore.QSize(30, 30))
         self.carrellobtn.setObjectName("carrellobtn")
@@ -60,13 +63,13 @@ class Ui_angelini(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconadollaro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap(gestore.returnPth() + "loghi-icone/iconadollaro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.acquistabtn.setIcon(icon2)
         self.acquistabtn.setIconSize(QtCore.QSize(30, 30))
         self.acquistabtn.setObjectName("acquistabtn")
         self.frame = QtWidgets.QFrame(angelini)
         self.frame.setGeometry(QtCore.QRect(-10, -10, 971, 631))
-        self.frame.setStyleSheet("background-image: url(C:/Users/Public/Pictures/loghi-icone/sfondoangelini.PNG);")
+        self.frame.setStyleSheet("background-image: url(" + gestore.returnPth() + "loghi-icone/sfondoangelini.PNG);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -90,7 +93,7 @@ class Ui_angelini(object):
         self.homebtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(gestore.returnPth() + "loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.homebtn.setIcon(icon3)
         self.homebtn.setIconSize(QtCore.QSize(40, 40))
         self.homebtn.setObjectName("homebtn")
@@ -101,7 +104,7 @@ class Ui_angelini(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         self.pushButton.setText("")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconaindietro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap(gestore.returnPth() + "loghi-icone/iconaindietro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton.setIcon(icon4)
         self.pushButton.setIconSize(QtCore.QSize(40, 40))
         self.pushButton.setObjectName("pushButton")
@@ -169,8 +172,8 @@ class Ui_angelini(object):
         self.fornitori.show()
         self.Frame.close()
 
-    def creaListaProdotti(self):
 
+    def creaListaProdotti(self):
         self.tableWidgetlist.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetlist.setObjectName("tableWidget")
         self.tableWidgetlist.setColumnCount(10)
@@ -184,7 +187,6 @@ class Ui_angelini(object):
         self.tableWidgetlist.verticalHeader().setVisible(True)
 
     def creaCarrello(self):
-
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetcarrello.setObjectName("tableWidget")
         self.tableWidgetcarrello.setColumnCount(4)
@@ -201,6 +203,7 @@ class Ui_angelini(object):
         self.tableWidgetcarrello.horizontalHeader().setVisible(True)
         self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(84)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
+
 
     def popolaListaProdotti(self):
 
@@ -219,7 +222,6 @@ class Ui_angelini(object):
                 item = QtWidgets.QTableWidgetItem()
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item = self.tableWidgetlist.item(riga, colonna)
-                print(str(riga) + str(colonna))
                 if(colonna == 0):
                     item.setText(_translate("angelini", g1.listaFarmaci[riga].nome))
                 if(colonna == 1):
@@ -234,7 +236,6 @@ class Ui_angelini(object):
                 item = QtWidgets.QTableWidgetItem()
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item = self.tableWidgetlist.item(riga, colonna)
-                print(str(riga) + str(colonna))
                 if(colonna == 0):
                     item.setText(_translate("angelini", g1.listaProdotti[riga - lenf].nome))
                 if(colonna == 1):

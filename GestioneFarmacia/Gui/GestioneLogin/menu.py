@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
-
+gestore = Gestore()
 
 class Ui_Menu(object):
 
@@ -22,7 +23,7 @@ class Ui_Menu(object):
         self.cassabtn.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "border-radius: 25px;")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconacassa.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconacassa.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.cassabtn.setIcon(icon)
         self.cassabtn.setIconSize(QtCore.QSize(90, 90))
         self.cassabtn.setObjectName("cassabtn")
@@ -37,7 +38,7 @@ class Ui_Menu(object):
         self.archiviobtn.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.0995025 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "border-radius: 25px;")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconaarchivio.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconaarchivio.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.archiviobtn.setIcon(icon1)
         self.archiviobtn.setIconSize(QtCore.QSize(90, 90))
         self.archiviobtn.setObjectName("archiviobtn")
@@ -52,7 +53,7 @@ class Ui_Menu(object):
         self.magazzinobtn.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.975124 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "border-radius: 25px;")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconamagazzino.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconamagazzino.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.magazzinobtn.setIcon(icon2)
         self.magazzinobtn.setIconSize(QtCore.QSize(90, 90))
         self.magazzinobtn.setObjectName("magazzinobtn")
@@ -67,7 +68,7 @@ class Ui_Menu(object):
         self.calendariobtn.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "border-radius: 25px;")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconatampone.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconatampone.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.calendariobtn.setIcon(icon3)
         self.calendariobtn.setIconSize(QtCore.QSize(90, 90))
         self.calendariobtn.setObjectName("calendariobtn")
@@ -82,7 +83,7 @@ class Ui_Menu(object):
         self.label.setObjectName("label")
         self.frame = QtWidgets.QFrame(Form)
         self.frame.setGeometry(QtCore.QRect(-10, -20, 1141, 751))
-        self.frame.setStyleSheet("background-image: url(C:/Users/Public/Pictures/loghi-icone/schermatamenu.PNG);")
+        self.frame.setStyleSheet("background-image: url("+gestore.returnPth()+"loghi-icone/schermatamenu.PNG);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -98,7 +99,7 @@ class Ui_Menu(object):
 "border-radius: 25px;")
         self.logoutbtn.setInputMethodHints(QtCore.Qt.ImhNone)
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconalogout.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap(gestore.returnPth()+"loghi-icone/iconalogout.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.logoutbtn.setIcon(icon4)
         self.logoutbtn.setIconSize(QtCore.QSize(90, 90))
         self.logoutbtn.setObjectName("logoutbtn")

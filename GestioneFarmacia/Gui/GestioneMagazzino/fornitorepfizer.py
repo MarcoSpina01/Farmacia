@@ -1,10 +1,11 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 
 p = Prodotto(1, "g", "f", 3, "h", "d", 2)
-
+gestore = Gestore()
 
 class Ui_pfizer(object):
     def setupUi(self, pfizer):
@@ -24,7 +25,7 @@ class Ui_pfizer(object):
         self.ricercafornitorebtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconalente.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(gestore.returnPth() + "loghi-icone/iconalente.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.ricercafornitorebtn.setIcon(icon)
         self.ricercafornitorebtn.setObjectName("ricercafornitorebtn")
         self.lineEdit = QtWidgets.QLineEdit(pfizer)
@@ -50,7 +51,7 @@ class Ui_pfizer(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconacarrello.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconacarrello.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.carrellobtn.setIcon(icon1)
         self.carrellobtn.setIconSize(QtCore.QSize(30, 30))
         self.carrellobtn.setObjectName("carrellobtn")
@@ -63,7 +64,7 @@ class Ui_pfizer(object):
         self.label_3.setObjectName("label_3")
         self.frame = QtWidgets.QFrame(pfizer)
         self.frame.setGeometry(QtCore.QRect(-10, -10, 951, 601))
-        self.frame.setStyleSheet("background-image: url(C:/Users/Public/Pictures/loghi-icone/sfondopfizer.PNG);")
+        self.frame.setStyleSheet("background-image: url("+ gestore.returnPth() +"loghi-icone/sfondopfizer.PNG);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -74,7 +75,7 @@ class Ui_pfizer(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         self.pushButton.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconaindietro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconaindietro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton.setIcon(icon2)
         self.pushButton.setIconSize(QtCore.QSize(40, 40))
         self.pushButton.setObjectName("pushButton")
@@ -84,7 +85,7 @@ class Ui_pfizer(object):
         self.homebtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.homebtn.setIcon(icon3)
         self.homebtn.setIconSize(QtCore.QSize(40, 40))
         self.homebtn.setObjectName("homebtn")
@@ -105,7 +106,7 @@ class Ui_pfizer(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("C:/Users/Public/Pictures/loghi-icone/iconadollaro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap(gestore.returnPth()+ "loghi-icone/iconadollaro.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.acquistabtn.setIcon(icon4)
         self.acquistabtn.setIconSize(QtCore.QSize(30, 30))
         self.acquistabtn.setObjectName("acquistabtn")

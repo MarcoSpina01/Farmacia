@@ -1,4 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from GestioneFarmacia.GestioneSistema.gestione import Gestore
+
+gestore = Gestore()
 
 class Ui_Assistenza(object):
     def setupUi(self, Form):
@@ -38,7 +41,7 @@ class Ui_Assistenza(object):
         self.tornaloginbtn.setObjectName("tornaloginbtn")
         self.frame_2 = QtWidgets.QFrame(Form)
         self.frame_2.setGeometry(QtCore.QRect(-10, -10, 1531, 941))
-        self.frame_2.setStyleSheet("background-image: url(C:/Users/Public/Pictures/loghi-icone/logofarmacia.PNG)")
+        self.frame_2.setStyleSheet("background-image: url("+gestore.returnPth()+"loghi-icone/logofarmacia.PNG)")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
