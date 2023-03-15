@@ -7,64 +7,95 @@ gestore=Gestore()
 
 class GestoreMagazzino:
     def __init__(self):
-        self.listaFarmaci = []
-        self.listaProdotti = []
+        self.listaFarmaciMagazzino = []
+        self.listaProdottiMagazzino = []
+        self.listaProdottiFornitore = []
+        self.listaFarmaciFornitore = []
+
+
 
     def downloadMagazzino(self):
         self.downloadFarmaciMagazzino()
         self.downloadProdottiMagazzino()
 
     def uploadMagazzino(self):
-        self.uploadFarmaciMagazzino(self.listaFarmaci)
-        self.uploadProdottiMagazzino(self.listaProdotti)
+        self.uploadFarmaciMagazzino(self.listaFarmaciMagazzino)
+        self.uploadProdottiMagazzino(self.listaProdottiMagazzino)
+
+    def uploadFarmaciFornitore(self):
+        f = open(gestore.returnPth()+"GestioneFarmacia/farmaciFornitore", "wb")
+        pickle.dump(self.listaFarmaciFornitore, f)
+
+    def uploadProdottiFornitore(self):
+        f = open(gestore.returnPth()+"GestioneFarmacia/prodottiFornitore", "wb")
+        pickle.dump(self.listaProdottiFornitore, f)
 
     def uploadFarmaciMagazzino(self):
-        f = open(gestore.returnPth()+"GestioneFarmacia/farmaci", "wb")
-        pickle.dump(self.listaFarmaci, f)
+        f = open(gestore.returnPth()+"GestioneFarmacia/farmaciMagazzino", "wb")
+        pickle.dump(self.listaFarmaciMagazzino, f)
 
     def uploadProdottiMagazzino(self):
-        f = open(gestore.returnPth()+"GestioneFarmacia/farmaci", "wb")
-        pickle.dump(self.listaProdotti, f)
+        f = open(gestore.returnPth()+"GestioneFarmacia/prodottiMagazzino", "wb")
+        pickle.dump(self.listaProdottiMagazzino, f)
 
     def downloadFarmaciMagazzino(self):
-        f = open(gestore.returnPth()+"GestioneFarmacia/farmaci", "rb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/farmaciMagazzino", "rb")
         farmaci = pickle.load(f)
         f.close()
         for i in range(len(farmaci)):
-            self.listaFarmaci.append(farmaci[i])
+            self.listaFarmaciMagazzino.append(farmaci[i])
 
+    def downloadFarmaciFornitore(self):
+        f = open(gestore.returnPth()+"GestioneFarmacia/farmaciFornitore", "rb")
+        farmaci = pickle.load(f)
+        f.close()
+        for i in range(len(farmaci)):
+            self.listaFarmaciFornitore.append(farmaci[i])
 
-    def downloadProdottiMagazzino(self):
-        f = open(gestore.returnPth()+"GestioneFarmacia/prodotti", "rb")
+    def downloadProdottiFornitore(self):
+        f = open(gestore.returnPth()+"GestioneFarmacia/prodottiFornitore", "rb")
         prodotti = pickle.load(f)
         f.close()
         for i in range(len(prodotti)):
-            self.listaProdotti.append(prodotti[i])
+            self.listaProdottiFornitore.append(prodotti[i])
 
-    def showProdotti(self):
-        for i in range(len(self.listaFarmaci)):
-            print(str(self.listaFarmaci[i].codice) + " " +
-                  self.listaFarmaci[i].nome + " " +
-                  self.listaFarmaci[i].tipologia + " " +
-                  str(self.listaFarmaci[i].prezzo) + " " +
-                  self.listaFarmaci[i].dosaggio + " " +
-                  str(self.listaFarmaci[i].scadenza) + " " +
-                  str(self.listaFarmaci[i].giacenza) + " " +
-                  str(self.listaFarmaci[i].minsan) + " " +
-                  str(self.listaFarmaci[i].flagRicetta) + " " +
-                  str(self.listaFarmaci[i].flagBase))
-        for i in range(len(self.listaProdotti)):
-            print(str(self.listaProdotti[i].codice) + " " +
-                  self.listaProdotti[i].nome + " " +
-                  self.listaProdotti[i].tipologia + " " +
-                  str(self.listaProdotti[i].prezzo) + " ")
-            if((self.listaProdotti[i].dosaggio != None)):
-                print(self.listaProdotti[i].dosaggio + " ")
-            if ((self.listaProdotti[i].scadenza != None)):
-                print(str(self.listaProdotti[i].scadenza) + " ")
-            print(str(self.listaProdotti[i].giacenza) + " ")
+    def downloadProdottiMagazzino(self):
+        f = open(gestore.returnPth()+"GestioneFarmacia/prodottiMagazzino", "rb")
+        prodotti = pickle.load(f)
+        f.close()
+        for i in range(len(prodotti)):
+            self.listaProdottiMagazzino.append(prodotti[i])
 
-#g1 = GestoreMagazzino()
-#g1.downloadMagazzino()
-#g1.showProdotti()
+    def showListe(self):
+        for i in range(len(self.listaFarmaciMagazzino)):
+            print(str(self.listaFarmaciMagazzino[i].codice) + " " +
+                  self.listaFarmaciMagazzino[i].nome + " " +
+                  self.listaFarmaciMagazzino[i].tipologia + " " +
+                  str(self.listaFarmaciMagazzino[i].prezzo) + " " +
+                  self.listaFarmaciMagazzino[i].dosaggio + " " +
+                  str(self.listaFarmaciMagazzino[i].scadenza) + " " +
+                  str(self.listaFarmaciMagazzino[i].giacenza) + " " +
+                  str(self.listaFarmaciMagazzino[i].minsan) + " " +
+                  str(self.listaFarmaciMagazzino[i].flagRicetta) + " " +
+                  str(self.listaFarmaciMagazzino[i].flagBase))
+        for i in range(len(self.listaProdottiMagazzino)):
+            print(str(self.listaProdottiMagazzino[i].codice) + " " +
+                  self.listaProdottiMagazzino[i].nome + " " +
+                  self.listaProdottiMagazzino[i].tipologia + " " +
+                  str(self.listaProdottiMagazzino[i].prezzo) + " ")
+            if((self.listaProdottiMagazzino[i].dosaggio != None)):
+                print(self.listaProdottiMagazzino[i].dosaggio + " ")
+            if ((self.listaProdottiMagazzino[i].scadenza != None)):
+                print(str(self.listaProdottiMagazzino[i].scadenza) + " ")
+            print(str(self.listaProdottiMagazzino[i].giacenza) + " ")
 
+f = Farmaco("0000025491734", "Benagol fragola", "Farmaco da banco", 6.70, "16 pastiglie", "2024-09-01", 3, "016242190", False, False)
+p = Prodotto("0000092830745", "Allume di potassio", "Prodotti per igiene", 8,"120g",None, 2)
+g1 = GestoreMagazzino()
+g1.downloadMagazzino()
+g1.showListe()
+#g1.listaFarmaciMagazzino.pop(3)
+#g1.listaFarmaciMagazzino.append(f)
+#g1.listaProdottiMagazzino.append(p)
+g1.uploadFarmaciMagazzino()
+g1.showListe()
