@@ -1,8 +1,4 @@
-from os.path import abspath
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-import pickle
-
 from GestioneFarmacia.GestioneMagazzino.GestoreMagazzino import GestoreMagazzino
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
@@ -216,7 +212,7 @@ class Ui_angelini(object):
         item.setText(_translate("angelini", "Prezzo"))
         item = self.tableWidgetlist.horizontalHeaderItem(3)
         item.setText(_translate("angelini", "Codice"))
-        lenf = len(g1.listaFarmaci)
+        lenf = len(g1.listaFarmaciFornitore)
         for riga in range(0, lenf):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
@@ -230,7 +226,7 @@ class Ui_angelini(object):
                     item.setText(_translate("angelini", str(g1.listaFarmaci[riga].prezzo)))
                 if(colonna == 3):
                     item.setText(_translate("angelini", str(g1.listaFarmaci[riga].codice)))
-        lenp = len(g1.listaProdotti)
+        lenp = len(g1.listaProdottiFornitore)
         for riga in range(lenf, lenp + lenf):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()

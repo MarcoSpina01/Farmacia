@@ -2,7 +2,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
 gestore = Gestore()
-
 class Ui_Menu(object):
 
     def setupUi(self, Form):
