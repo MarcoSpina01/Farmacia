@@ -5,7 +5,6 @@ from GestioneFarmacia.GestioneSistema.gestione import Gestore
 gestore = Gestore()
 
 class Ui_Login(object):
-
     def setupUi(self, Login):
         Login.setObjectName("Login")
         Login.resize(930, 686)
