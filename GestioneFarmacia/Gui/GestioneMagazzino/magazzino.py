@@ -78,6 +78,7 @@ class Ui_Magazzino(object):
         self.EffettuaOrdinebtn.clicked.connect(self.openSceltaFornitore)
 
 
+
         self.retranslateUi(Magazzino)
         QtCore.QMetaObject.connectSlotsByName(Magazzino)
 

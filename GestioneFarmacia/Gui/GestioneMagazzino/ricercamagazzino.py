@@ -1,9 +1,10 @@
+from tkinter import Tk
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 from GestioneFarmacia.GestioneSistema.data import data
 
-p = Prodotto(1, "g", "f", 3, "h", "d", 2)
 gestore = Gestore()
 
 class Ui_RicercaMagazzino(object):
@@ -63,16 +64,20 @@ class Ui_RicercaMagazzino(object):
         self.ricercamagazzinotb.raise_()
         self.tableWidgetmagazzino.raise_()
 
-
         self.creaListaProdotti()
         self.popolaMagazzino()
-
 
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToMagazzino)
 
+
+        self.Ricercaarticolobtn.clicked.connect(self.ricercaArticolo)
+
+
+
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -150,15 +155,23 @@ class Ui_RicercaMagazzino(object):
                 if(colonna == 3):
                     item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
 
-    def ricercaArticolo(self, param):
-        prodottiRicercati = []
-        for element in data.listaFarmaciMagazzino:
-            if param in element.nome or param in element.codice:
-                prodottiRicercati.append(element)
-        for element in data.listaProdottiMagazzino:
-            if param in element.nome or param in element.codice:
-                prodottiRicercati.append(element)
-        return prodottiRicercati
+    def ricercaArticolo(self):
+        from tkinter import messagebox
+        param = self.ricercamagazzinotb.text()
+        if (param == ""):
+            messagebox.showinfo("Errore", "Imposta almeno un carattere prima della ricerca")
+        else:
+            prodottiRicercati = []
+            for element in data.listaFarmaciMagazzino:
+                if param in element.nome or param in element.codice:
+                    prodottiRicercati.append(element)
+            for element in data.listaProdottiMagazzino:
+                if param in element.nome or param in element.codice:
+                    prodottiRicercati.append(element)
+            p = ""
+            for x in range(len(prodottiRicercati)):
+                p += str(prodottiRicercati[x].nome +"  "+str(prodottiRicercati[x].giacenza)+"  "+prodottiRicercati[x].codice+"  "+str(prodottiRicercati[x].prezzo)+"€"+"\n")
+            messagebox.showinfo("Articolo/i", p)
 
 
 

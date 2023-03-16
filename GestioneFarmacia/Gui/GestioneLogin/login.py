@@ -85,9 +85,11 @@ class Ui_Login(object):
         self.ErrorMessage.setText("")
         self.ErrorMessage.setObjectName("ErrorMessage")
         self.Password.setEchoMode(QtWidgets.QLineEdit.Password)
+
         self.pushButton.clicked.connect(self.autenticazione)
         self.Assistenzabtn.clicked.connect(self.openAssistenza)
         self.visualizzapwbtn.clicked.connect(self.gestionePassword)
+
         self.retranslateUi(Login)
         QtCore.QMetaObject.connectSlotsByName(Login)
 
