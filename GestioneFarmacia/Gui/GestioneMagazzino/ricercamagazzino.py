@@ -4,7 +4,6 @@ from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 
 p = Prodotto(1, "g", "f", 3, "h", "d", 2)
 gestore = Gestore()
-
 class Ui_RicercaMagazzino(object):
     def setupUi(self, Form):
         self.Frame = Form
@@ -111,3 +110,34 @@ class Ui_RicercaMagazzino(object):
         self.tableWidgetmagazzino.horizontalHeader().setVisible(True)
         self.tableWidgetmagazzino.horizontalHeader().setDefaultSectionSize(84)
         self.tableWidgetmagazzino.verticalHeader().setVisible(True)
+
+    def popolaMagazzino(self):
+        _translate = QtCore.QCoreApplication.translate
+        lenf = len(g1.listaFarmaciFornitore)
+        for riga in range(0, lenf):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidgetlist.setItem(riga, colonna, item)
+                item = self.tableWidgetlist.item(riga, colonna)
+                if(colonna == 0):
+                    item.setText(_translate("angelini", g1.listaFarmaci[riga].nome))
+                if(colonna == 1):
+                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].giacenza)))
+                if(colonna == 2):
+                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].prezzo)))
+                if(colonna == 3):
+                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].codice)))
+        lenp = len(g1.listaProdottiFornitore)
+        for riga in range(lenf, lenp + lenf):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidgetlist.setItem(riga, colonna, item)
+                item = self.tableWidgetlist.item(riga, colonna)
+                if(colonna == 0):
+                    item.setText(_translate("angelini", g1.listaProdotti[riga - lenf].nome))
+                if(colonna == 1):
+                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].giacenza)))
+                if(colonna == 2):
+                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].prezzo)))
+                if(colonna == 3):
+                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].codice)))

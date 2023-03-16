@@ -1,6 +1,9 @@
 from os.path import abspath
+from GestioneFarmacia.GestioneSistema.data import data
 
 class Gestore:
+
+    dati = data()
 
     def returnPth(self):
         abp = abspath("")

@@ -5,7 +5,7 @@ from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 
 gestore=Gestore()
 
-class GestoreMagazzino:
+class data:
     def __init__(self):
         self.listaFarmaciMagazzino = []
         self.listaProdottiMagazzino = []
@@ -17,6 +17,14 @@ class GestoreMagazzino:
     def downloadMagazzino(self):
         self.downloadFarmaciMagazzino()
         self.downloadProdottiMagazzino()
+
+    def downloadFornitore(self):
+        self.downloadFarmaciFornitore()
+        self.downloadProdottiFornitore()
+
+    def uploadFornitore(self):
+        self.uploadFarmaciFornitore()
+        self.uploadProdottiFornitore()
 
     def uploadMagazzino(self):
         self.uploadFarmaciMagazzino(self.listaFarmaciMagazzino)
@@ -89,11 +97,11 @@ class GestoreMagazzino:
                 print(str(self.listaProdottiMagazzino[i].scadenza) + " ")
             print(str(self.listaProdottiMagazzino[i].giacenza) + " ")
 
-f = Farmaco("0000025491734", "Benagol fragola", "Farmaco da banco", 6.70, "16 pastiglie", "2024-09-01", 3, "016242190", False, False)
-p = Prodotto("0000092830745", "Allume di potassio", "Prodotti per igiene", 8,"120g",None, 2)
-g1 = GestoreMagazzino()
-g1.downloadMagazzino()
-#g1.listaFarmaciMagazzino.pop(3)
-#g1.listaFarmaciMagazzino.append(f)
-#g1.listaProdottiMagazzino.append(p)
-g1.uploadFarmaciMagazzino()
+# f = Farmaco("0000025491734", "Benagol fragola", "Farmaco da banco", 6.70, "16 pastiglie", "2024-09-01", 3, "016242190", False, False)
+# p = Prodotto("0000092830745", "Allume di potassio", "Prodotti per igiene", 8,"120g",None, 2)
+# g1 = GestoreMagazzino()
+# g1.downloadMagazzino()
+# #g1.listaFarmaciMagazzino.pop(3)
+# #g1.listaFarmaciMagazzino.append(f)
+# #g1.listaProdottiMagazzino.append(p)
+# g1.uploadFarmaciMagazzino()

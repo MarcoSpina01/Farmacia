@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from GestioneFarmacia.GestioneMagazzino.GestoreMagazzino import GestoreMagazzino
+from GestioneFarmacia.GestioneSistema.data import GestoreMagazzino
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 
@@ -202,7 +202,6 @@ class Ui_angelini(object):
 
 
     def popolaListaProdotti(self):
-
         item = self.tableWidgetlist.horizontalHeaderItem(0)
         _translate = QtCore.QCoreApplication.translate
         item.setText(_translate("angelini", "Prodotto"))
