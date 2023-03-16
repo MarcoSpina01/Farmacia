@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
 gestore = Gestore()
+
 class Ui_Menu(object):
 
     def setupUi(self, Form):
@@ -111,6 +112,10 @@ class Ui_Menu(object):
         self.logoutbtn.raise_()
         self.logoutbtn.clicked.connect(self.returnToLogin)
         self.magazzinobtn.clicked.connect(self.openMagazzino)
+        self.archiviobtn.clicked.connect(self.openArchivio)
+        self.cassabtn.clicked.connect(self.openCassa)
+
+
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -138,4 +143,20 @@ class Ui_Menu(object):
         self.ui = Ui_Magazzino()
         self.ui.setupUi(self.magazzino)
         self.magazzino.show()
+        self.form.close()
+
+    def openCassa(self):
+        from GestioneFarmacia.Gui.GestioneCassa.cassa import Ui_Cassa
+        self.cassa = QtWidgets.QFrame()
+        self.ui = Ui_Cassa()
+        self.ui.setupUi(self.cassa)
+        self.cassa.show()
+        self.form.close()
+
+    def openArchivio(self):
+        from GestioneFarmacia.Gui.GestioneArchivio.archivio import Ui_Archivio
+        self.archivio = QtWidgets.QFrame()
+        self.ui = Ui_Archivio()
+        self.ui.setupUi(self.archivio)
+        self.archivio.show()
         self.form.close()

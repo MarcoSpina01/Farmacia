@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QLineEdit
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
 gestore = Gestore()
-
 class Ui_Login(object):
     def setupUi(self, Login):
         Login.setObjectName("Login")
