@@ -162,3 +162,4 @@ class Ui_RicercaMagazzino(object):
 
 
 
+
