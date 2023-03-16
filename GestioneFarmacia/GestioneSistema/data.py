@@ -45,27 +45,27 @@ class data:
 
     @staticmethod
     def uploadFarmaciFornitore():
-        f = open(gestore.returnPth()+"/GestioneFarmacia/farmaciFornitore", "wb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/farmaciFornitore", "wb")
         pickle.dump(data.listaFarmaciFornitore, f)
 
     @staticmethod
     def uploadProdottiFornitore():
-        f = open(gestore.returnPth()+"/GestioneFarmacia/prodottiFornitore", "wb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/prodottiFornitore", "wb")
         pickle.dump(data.listaProdottiFornitore, f)
 
     @staticmethod
     def uploadFarmaciMagazzino():
-        f = open(gestore.returnPth()+"/GestioneFarmacia/farmaciMagazzino", "wb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/farmaciMagazzino", "wb")
         pickle.dump(data.listaFarmaciMagazzino, f)
 
     @staticmethod
     def uploadProdottiMagazzino():
-        f = open(gestore.returnPth()+"/GestioneFarmacia/prodottiMagazzino", "wb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/prodottiMagazzino", "wb")
         pickle.dump(data.listaProdottiMagazzino, f)
 
     @staticmethod
     def downloadFarmaciMagazzino():
-        f = open(gestore.returnPth()+"/GestioneFarmacia/farmaciMagazzino", "rb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/farmaciMagazzino", "rb")
         farmaci = pickle.load(f)
         f.close()
         data.listaFarmaciMagazzino.clear()
@@ -74,7 +74,7 @@ class data:
 
     @staticmethod
     def downloadFarmaciFornitore():
-        f = open(gestore.returnPth()+"/GestioneFarmacia/farmaciFornitore", "rb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/farmaciFornitore", "rb")
         farmaci = pickle.load(f)
         f.close()
         data.listaFarmaciFornitore.clear()
@@ -83,7 +83,7 @@ class data:
 
     @staticmethod
     def downloadProdottiFornitore():
-        f = open(gestore.returnPth()+"/GestioneFarmacia/prodottiFornitore", "rb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/prodottiFornitore", "rb")
         prodotti = pickle.load(f)
         f.close()
         data.listaProdottiFornitore.clear()
@@ -92,7 +92,7 @@ class data:
 
     @staticmethod
     def downloadProdottiMagazzino():
-        f = open(gestore.returnPth()+"/GestioneFarmacia/prodottiMagazzino", "rb")
+        f = open(gestore.returnPth()+"GestioneFarmacia/prodottiMagazzino", "rb")
         prodotti = pickle.load(f)
         f.close()
         data.listaProdottiMagazzino.clear()
@@ -100,7 +100,7 @@ class data:
             data.listaProdottiMagazzino.append(prodotti[i])
 
     @staticmethod
-    def showListe():
+    def showMagazzino():
         for i in range(len(data.listaFarmaciMagazzino)):
             print(str(data.listaFarmaciMagazzino[i].codice) + " " +
                   data.listaFarmaciMagazzino[i].nome + " " +
@@ -123,13 +123,28 @@ class data:
                 print(str(data.listaProdottiMagazzino[i].scadenza) + " ")
             print(str(data.listaProdottiMagazzino[i].giacenza) + " ")
 
-# f = Farmaco("0000025491734", "Benagol fragola", "Farmaco da banco", 6.70, "16 pastiglie", "2024-09-01", 3, "016242190", False, False)
-# p = Prodotto("0000092830745", "Allume di potassio", "Prodotti per igiene", 8,"120g",None, 2)
-# g1 = GestoreMagazzino()
-# data.downloadMagazzino()
-# data.showListe()
+    @staticmethod
+    def showFornitore():
+        for i in range(len(data.listaFarmaciFornitore)):
+            print(str(data.listaFarmaciFornitore[i].codice) + " " +
+                  data.listaFarmaciFornitore[i].nome + " " +
+                  data.listaFarmaciFornitore[i].tipologia + " " +
+                  str(data.listaFarmaciFornitore[i].prezzo) + " " +
+                  data.listaFarmaciFornitore[i].dosaggio + " " +
+                  str(data.listaFarmaciFornitore[i].scadenza) + " " +
+                  str(data.listaFarmaciFornitore[i].giacenza) + " " +
+                  str(data.listaFarmaciFornitore[i].minsan) + " " +
+                  str(data.listaFarmaciFornitore[i].flagRicetta) + " " +
+                  str(data.listaFarmaciFornitore[i].flagBase))
+        for i in range(len(data.listaProdottiFornitore)):
+            print(str(data.listaProdottiFornitore[i].codice) + " " +
+                  data.listaProdottiFornitore[i].nome + " " +
+                  data.listaProdottiFornitore[i].tipologia + " " +
+                  str(data.listaProdottiFornitore[i].prezzo) + " ")
+            if((data.listaProdottiFornitore[i].dosaggio != None)):
+                print(data.listaProdottiFornitore[i].dosaggio + " ")
+            if ((data.listaProdottiFornitore[i].scadenza != None)):
+                print(str(data.listaProdottiFornitore[i].scadenza) + " ")
+            print(str(data.listaProdottiFornitore[i].giacenza) + " ")
 
-# g1.listaFarmaciMagazzino.pop(3)
-# g1.listaFarmaciMagazzino.append(f)
-# g1.listaProdottiMagazzino.append(p)
-# g1.uploadFarmaciMagazzino()
+

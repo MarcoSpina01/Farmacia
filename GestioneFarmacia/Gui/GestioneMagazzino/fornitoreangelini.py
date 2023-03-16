@@ -167,7 +167,7 @@ class Ui_angelini(object):
 
 
     def creaListaProdotti(self):
-        data.downloadMagazzino()
+        data.downloadFornitore()
         self.tableWidgetlist.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetlist.setObjectName("tableWidget")
         self.tableWidgetlist.setColumnCount(10)
