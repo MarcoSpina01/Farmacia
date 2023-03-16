@@ -1,5 +1,3 @@
-from tkinter import Tk
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
@@ -172,7 +170,3 @@ class Ui_RicercaMagazzino(object):
             for x in range(len(prodottiRicercati)):
                 p += str(prodottiRicercati[x].nome +"  "+str(prodottiRicercati[x].giacenza)+"  "+prodottiRicercati[x].codice+"  "+str(prodottiRicercati[x].prezzo)+"€"+"\n")
             messagebox.showinfo("Articolo/i", p)
-
-
-
-
