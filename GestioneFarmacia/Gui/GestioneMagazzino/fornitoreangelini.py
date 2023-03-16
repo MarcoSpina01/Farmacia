@@ -19,7 +19,7 @@ class Ui_angelini(object):
         self.ricercafornitorebtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(gestore.returnPth() +"loghi-icone/iconacarrello.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(gestore.returnPth() +"loghi-icone/iconalente.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.ricercafornitorebtn.setIcon(icon)
         self.ricercafornitorebtn.setObjectName("ricercafornitorebtn")
         self.lineEdit = QtWidgets.QLineEdit(angelini)
@@ -129,10 +129,10 @@ class Ui_angelini(object):
 
         self.popolaListaProdotti()
 
-
-
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToFornitori)
+
+        self.ricercafornitorebtn.clicked.connect(self.ricercaArticolo)
 
         self.retranslateUi(angelini)
         QtCore.QMetaObject.connectSlotsByName(angelini)
@@ -141,13 +141,12 @@ class Ui_angelini(object):
         _translate = QtCore.QCoreApplication.translate
         angelini.setWindowTitle(_translate("angelini", "Form"))
         self.ricercafornitorebtn.setText(_translate("angelini", "  Ricerca"))
-        self.label.setText(_translate("angelini", "Inserisci codice e quantità da comprare"))
+        self.label.setText(_translate("angelini", "Inserisci nome e quantità da comprare"))
         self.carrellobtn.setText(_translate("angelini", "Metti nel carrello"))
         self.acquistabtn.setText(_translate("angelini", "  Acquista"))
         self.label_3.setText(_translate("angelini", "Carrello:"))
         self.label_4.setText(_translate("angelini", "Lista prodotti:"))
         self.homebtn.setText(_translate("angelini", "Home"))
-
 
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
@@ -164,7 +163,6 @@ class Ui_angelini(object):
         self.ui.setupUi(self.fornitori)
         self.fornitori.show()
         self.Frame.close()
-
 
     def creaListaProdotti(self):
         data.downloadFornitore()
@@ -198,7 +196,6 @@ class Ui_angelini(object):
         self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(84)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
 
-
     def popolaListaProdotti(self):
         item = self.tableWidgetlist.horizontalHeaderItem(0)
         _translate = QtCore.QCoreApplication.translate
@@ -222,7 +219,6 @@ class Ui_angelini(object):
                     item.setText(_translate("angelini", str(data.listaFarmaciFornitore[riga].prezzo)))
                 if(colonna == 3):
                     item.setText(_translate("angelini", str(data.listaFarmaciFornitore[riga].codice)))
-        lenp = len(data.listaProdottiFornitore)
         for riga in range(data.nFarmForn, data.nFarmForn + data.nProdForn):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
@@ -237,6 +233,23 @@ class Ui_angelini(object):
                 if(colonna == 3):
                     item.setText(_translate("angelini", str(data.listaProdottiFornitore[riga - data.nFarmForn].codice)))
 
+    def ricercaArticolo(self):
+        from tkinter import messagebox
+        param = self.lineEdit.text()
+        if (param == ""):
+            messagebox.showinfo("Errore", "Imposta almeno un carattere prima della ricerca")
+        else:
+            prodottiRicercati = []
+            for element in data.listaFarmaciFornitore:
+                if param in element.nome or param in element.codice:
+                    prodottiRicercati.append(element)
+            for element in data.listaProdottiFornitore:
+                if param in element.nome or param in element.codice:
+                    prodottiRicercati.append(element)
+            p = ""
+            for x in range(len(prodottiRicercati)):
+                p += str(prodottiRicercati[x].nome +"  "+str(prodottiRicercati[x].giacenza)+"  "+prodottiRicercati[x].codice+"  "+str(prodottiRicercati[x].prezzo)+"€"+"\n")
+            messagebox.showinfo("Articolo/i", p)
 
 
 
