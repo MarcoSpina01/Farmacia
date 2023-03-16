@@ -1,9 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
+from GestioneFarmacia.GestioneSistema.data import data
 
 p = Prodotto(1, "g", "f", 3, "h", "d", 2)
 gestore = Gestore()
+
 class Ui_RicercaMagazzino(object):
     def setupUi(self, Form):
         self.Frame = Form
@@ -63,6 +65,7 @@ class Ui_RicercaMagazzino(object):
 
 
         self.creaListaProdotti()
+        self.popolaMagazzino()
 
 
         self.homebtn.clicked.connect(self.returnToHome)
@@ -94,50 +97,68 @@ class Ui_RicercaMagazzino(object):
         self.Frame.close()
 
     def creaListaProdotti(self):
+        data.downloadMagazzino()
         self.tableWidgetmagazzino.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetmagazzino.setObjectName("tableWidget")
         self.tableWidgetmagazzino.setColumnCount(4)
-        self.tableWidgetmagazzino.setRowCount(4)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetmagazzino.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetmagazzino.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetmagazzino.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetmagazzino.setHorizontalHeaderItem(3, item)
-
+        self.tableWidgetmagazzino.setRowCount(data.nFarmMagaz + data.nProdMagaz)
+        for i in range(0, data.nFarmMagaz + data.nProdMagaz):
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidgetmagazzino.setHorizontalHeaderItem(i, item)
+        _translate = QtCore.QCoreApplication.translate
+        item = self.tableWidgetmagazzino.horizontalHeaderItem(0)
+        item.setText(_translate("angelini", "Prodotto"))
+        item = self.tableWidgetmagazzino.horizontalHeaderItem(1)
+        item.setText(_translate("angelini", "Quantità"))
+        item = self.tableWidgetmagazzino.horizontalHeaderItem(2)
+        item.setText(_translate("angelini", "Prezzo"))
+        item = self.tableWidgetmagazzino.horizontalHeaderItem(3)
+        item.setText(_translate("angelini", "Codice"))
         self.tableWidgetmagazzino.horizontalHeader().setVisible(True)
         self.tableWidgetmagazzino.horizontalHeader().setDefaultSectionSize(84)
         self.tableWidgetmagazzino.verticalHeader().setVisible(True)
+        # risposta = self.ricercaArticolo("3")
+        # for element in risposta:
+        #     print(element.nome)
 
     def popolaMagazzino(self):
         _translate = QtCore.QCoreApplication.translate
-        lenf = len(g1.listaFarmaciFornitore)
-        for riga in range(0, lenf):
+        for riga in range(0, data.nFarmMagaz):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
-                self.tableWidgetlist.setItem(riga, colonna, item)
-                item = self.tableWidgetlist.item(riga, colonna)
+                self.tableWidgetmagazzino.setItem(riga, colonna, item)
+                item = self.tableWidgetmagazzino.item(riga, colonna)
                 if(colonna == 0):
-                    item.setText(_translate("angelini", g1.listaFarmaci[riga].nome))
+                    item.setText(_translate("angelini", data.listaFarmaciMagazzino[riga].nome))
                 if(colonna == 1):
-                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].giacenza)))
+                    item.setText(_translate("angelini", str(data.listaFarmaciMagazzino[riga].giacenza)))
                 if(colonna == 2):
-                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].prezzo)))
+                    item.setText(_translate("angelini", str(data.listaFarmaciMagazzino[riga].prezzo)))
                 if(colonna == 3):
-                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].codice)))
-        lenp = len(g1.listaProdottiFornitore)
-        for riga in range(lenf, lenp + lenf):
+                    item.setText(_translate("angelini", str(data.listaFarmaciMagazzino[riga].codice)))
+        for riga in range(data.nFarmMagaz, data.nProdMagaz + data.nFarmMagaz):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
-                self.tableWidgetlist.setItem(riga, colonna, item)
-                item = self.tableWidgetlist.item(riga, colonna)
+                self.tableWidgetmagazzino.setItem(riga, colonna, item)
+                item = self.tableWidgetmagazzino.item(riga, colonna)
                 if(colonna == 0):
-                    item.setText(_translate("angelini", g1.listaProdotti[riga - lenf].nome))
+                    item.setText(_translate("angelini", data.listaProdottiMagazzino[riga - data.nFarmMagaz].nome))
                 if(colonna == 1):
-                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].giacenza)))
+                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].giacenza)))
                 if(colonna == 2):
-                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].prezzo)))
+                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].prezzo)))
                 if(colonna == 3):
-                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].codice)))
+                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
+
+    def ricercaArticolo(self, param):
+        prodottiRicercati = []
+        for element in data.listaFarmaciMagazzino:
+            if param in element.nome or param in element.codice:
+                prodottiRicercati.append(element)
+        for element in data.listaProdottiMagazzino:
+            if param in element.nome or param in element.codice:
+                prodottiRicercati.append(element)
+        return prodottiRicercati
+
+
+

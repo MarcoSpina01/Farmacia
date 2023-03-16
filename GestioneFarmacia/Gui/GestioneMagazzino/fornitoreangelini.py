@@ -1,11 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from GestioneFarmacia.GestioneSistema.data import GestoreMagazzino
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
+from GestioneFarmacia.GestioneSistema.data import data
 
-g1 = GestoreMagazzino()
-g1.downloadMagazzino()
-p = Prodotto(12, "nome", "tipologia", 3, "dosaggio", "scadenza", 2)
 gestore = Gestore()
 
 
@@ -170,11 +167,12 @@ class Ui_angelini(object):
 
 
     def creaListaProdotti(self):
+        data.downloadMagazzino()
         self.tableWidgetlist.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetlist.setObjectName("tableWidget")
         self.tableWidgetlist.setColumnCount(10)
-        self.tableWidgetlist.setRowCount(10)
-        for i in range(0, 10):
+        self.tableWidgetlist.setRowCount(data.nFarmForn + data.nProdForn)
+        for i in range(0, data.nFarmForn + data.nProdForn):
             item = QtWidgets.QTableWidgetItem()
             self.tableWidgetlist.setHorizontalHeaderItem(i, item)
 
@@ -211,34 +209,33 @@ class Ui_angelini(object):
         item.setText(_translate("angelini", "Prezzo"))
         item = self.tableWidgetlist.horizontalHeaderItem(3)
         item.setText(_translate("angelini", "Codice"))
-        lenf = len(g1.listaFarmaciFornitore)
-        for riga in range(0, lenf):
+        for riga in range(0, data.nFarmForn):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item = self.tableWidgetlist.item(riga, colonna)
                 if(colonna == 0):
-                    item.setText(_translate("angelini", g1.listaFarmaci[riga].nome))
+                    item.setText(_translate("angelini", data.listaFarmaciFornitore[riga].nome))
                 if(colonna == 1):
-                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].giacenza)))
+                    item.setText(_translate("angelini", str(data.listaFarmaciFornitore[riga].giacenza)))
                 if(colonna == 2):
-                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].prezzo)))
+                    item.setText(_translate("angelini", str(data.listaFarmaciFornitore[riga].prezzo)))
                 if(colonna == 3):
-                    item.setText(_translate("angelini", str(g1.listaFarmaci[riga].codice)))
-        lenp = len(g1.listaProdottiFornitore)
-        for riga in range(lenf, lenp + lenf):
+                    item.setText(_translate("angelini", str(data.listaFarmaciFornitore[riga].codice)))
+        lenp = len(data.listaProdottiFornitore)
+        for riga in range(data.nFarmForn, data.nFarmForn + data.nProdForn):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item = self.tableWidgetlist.item(riga, colonna)
                 if(colonna == 0):
-                    item.setText(_translate("angelini", g1.listaProdotti[riga - lenf].nome))
+                    item.setText(_translate("angelini", data.listaProdottiFornitore[riga - data.nFarmForn].nome))
                 if(colonna == 1):
-                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].giacenza)))
+                    item.setText(_translate("angelini", str(data.listaProdottiFornitore[riga - data.nFarmForn].giacenza)))
                 if(colonna == 2):
-                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].prezzo)))
+                    item.setText(_translate("angelini", str(data.listaProdottiFornitore[riga - data.nFarmForn].prezzo)))
                 if(colonna == 3):
-                    item.setText(_translate("angelini", str(g1.listaProdotti[riga - lenf].codice)))
+                    item.setText(_translate("angelini", str(data.listaProdottiFornitore[riga - data.nFarmForn].codice)))
 
 
 
