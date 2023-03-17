@@ -118,17 +118,16 @@ class Ui_RicercaMagazzino(object):
         item = self.tableWidgetmagazzino.horizontalHeaderItem(3)
         item.setText(_translate("angelini", "Codice"))
         self.tableWidgetmagazzino.horizontalHeader().setVisible(True)
-        self.tableWidgetmagazzino.horizontalHeader().setDefaultSectionSize(84)
+        self.tableWidgetmagazzino.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetmagazzino.verticalHeader().setVisible(True)
-        # risposta = self.ricercaArticolo("3")
-        # for element in risposta:
-        #     print(element.nome)
+
 
     def popolaMagazzino(self):
         _translate = QtCore.QCoreApplication.translate
         for riga in range(0, data.nFarmMagaz):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
                 self.tableWidgetmagazzino.setItem(riga, colonna, item)
                 item = self.tableWidgetmagazzino.item(riga, colonna)
                 if(colonna == 0):
@@ -143,6 +142,7 @@ class Ui_RicercaMagazzino(object):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
                 self.tableWidgetmagazzino.setItem(riga, colonna, item)
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
                 item = self.tableWidgetmagazzino.item(riga, colonna)
                 if(colonna == 0):
                     item.setText(_translate("angelini", data.listaProdottiMagazzino[riga - data.nFarmMagaz].nome))
@@ -169,4 +169,7 @@ class Ui_RicercaMagazzino(object):
             p = ""
             for x in range(len(prodottiRicercati)):
                 p += str(prodottiRicercati[x].nome +"  "+str(prodottiRicercati[x].giacenza)+"  "+prodottiRicercati[x].codice+"  "+str(prodottiRicercati[x].prezzo)+"€"+"\n")
-            messagebox.showinfo("Articolo/i", p)
+            if(p==""):
+                messagebox.showinfo("Errore", "Non è stato trovato alcun farmaco")
+            else:
+                messagebox.showinfo("Articolo/i", p)

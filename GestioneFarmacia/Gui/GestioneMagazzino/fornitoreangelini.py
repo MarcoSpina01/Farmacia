@@ -168,14 +168,14 @@ class Ui_angelini(object):
         data.downloadFornitore()
         self.tableWidgetlist.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetlist.setObjectName("tableWidget")
-        self.tableWidgetlist.setColumnCount(10)
+        self.tableWidgetlist.setColumnCount(4)
         self.tableWidgetlist.setRowCount(data.nFarmForn + data.nProdForn)
         for i in range(0, data.nFarmForn + data.nProdForn):
             item = QtWidgets.QTableWidgetItem()
             self.tableWidgetlist.setHorizontalHeaderItem(i, item)
 
         self.tableWidgetlist.horizontalHeader().setVisible(True)
-        self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(84)
+        self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetlist.verticalHeader().setVisible(True)
 
     def creaCarrello(self):
@@ -193,7 +193,7 @@ class Ui_angelini(object):
         self.tableWidgetcarrello.setHorizontalHeaderItem(3, item)
 
         self.tableWidgetcarrello.horizontalHeader().setVisible(True)
-        self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(84)
+        self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
 
     def popolaListaProdotti(self):
@@ -209,6 +209,7 @@ class Ui_angelini(object):
         for riga in range(0, data.nFarmForn):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item = self.tableWidgetlist.item(riga, colonna)
                 if(colonna == 0):
@@ -222,6 +223,7 @@ class Ui_angelini(object):
         for riga in range(data.nFarmForn, data.nFarmForn + data.nProdForn):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item = self.tableWidgetlist.item(riga, colonna)
                 if(colonna == 0):
@@ -249,7 +251,10 @@ class Ui_angelini(object):
             p = ""
             for x in range(len(prodottiRicercati)):
                 p += str(prodottiRicercati[x].nome +"  "+str(prodottiRicercati[x].giacenza)+"  "+prodottiRicercati[x].codice+"  "+str(prodottiRicercati[x].prezzo)+"€"+"\n")
-            messagebox.showinfo("Articolo/i", p)
+            if(p==""):
+                messagebox.showinfo("Errore", "Non è stato trovato alcun farmaco")
+            else:
+                messagebox.showinfo("Articolo/i", p)
 
 
 

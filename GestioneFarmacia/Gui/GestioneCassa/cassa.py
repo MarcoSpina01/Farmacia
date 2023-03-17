@@ -1,9 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
+from GestioneFarmacia.GestioneSistema.data import data
+
 
 gestore = Gestore()
 
 class Ui_Cassa(object):
+    i = 0
     def setupUi(self, Cassa):
         self.Frame = Cassa
         Cassa.setObjectName("Cassa")
@@ -20,15 +23,15 @@ class Ui_Cassa(object):
         self.tableWidgetcarrello.setObjectName("tableWidgetcarrello")
         self.tableWidgetcarrello.setColumnCount(0)
         self.tableWidgetcarrello.setRowCount(0)
-        self.ricercafornitorebtn = QtWidgets.QPushButton(Cassa)
-        self.ricercafornitorebtn.setGeometry(QtCore.QRect(70, 30, 91, 41))
-        self.ricercafornitorebtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.ricercafornitorebtn.setStyleSheet("border-radius: 10px;\n"
+        self.ricercabtn = QtWidgets.QPushButton(Cassa)
+        self.ricercabtn.setGeometry(QtCore.QRect(70, 30, 91, 41))
+        self.ricercabtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.ricercabtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(gestore.returnPth()+"loghi-icone/iconalente.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.ricercafornitorebtn.setIcon(icon)
-        self.ricercafornitorebtn.setObjectName("ricercafornitorebtn")
+        self.ricercabtn.setIcon(icon)
+        self.ricercabtn.setObjectName("ricercabtn")
         self.homebtn = QtWidgets.QPushButton(Cassa)
         self.homebtn.setGeometry(QtCore.QRect(610, 530, 111, 41))
         self.homebtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -62,12 +65,12 @@ class Ui_Cassa(object):
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
-        self.lineEdit_2 = QtWidgets.QLineEdit(Cassa)
-        self.lineEdit_2.setGeometry(QtCore.QRect(120, 150, 113, 20))
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.lineEdit = QtWidgets.QLineEdit(Cassa)
-        self.lineEdit.setGeometry(QtCore.QRect(170, 40, 131, 20))
-        self.lineEdit.setObjectName("lineEdit")
+        self.codicele = QtWidgets.QLineEdit(Cassa)
+        self.codicele.setGeometry(QtCore.QRect(120, 150, 113, 20))
+        self.codicele.setObjectName("codicele")
+        self.ricercale = QtWidgets.QLineEdit(Cassa)
+        self.ricercale.setGeometry(QtCore.QRect(170, 40, 131, 20))
+        self.ricercale.setObjectName("ricercale")
         self.quantitaprodsb = QtWidgets.QSpinBox(Cassa)
         self.quantitaprodsb.setGeometry(QtCore.QRect(260, 150, 42, 22))
         self.quantitaprodsb.setObjectName("quantitaprodsb")
@@ -98,18 +101,31 @@ class Ui_Cassa(object):
         self.Cassa_2.raise_()
         self.label_4.raise_()
         self.tableWidgetcarrello.raise_()
-        self.ricercafornitorebtn.raise_()
+        self.ricercabtn.raise_()
         self.homebtn.raise_()
         self.tableWidgetlist.raise_()
         self.carrellobtn.raise_()
         self.label.raise_()
-        self.lineEdit_2.raise_()
-        self.lineEdit.raise_()
+        self.codicele.raise_()
+        self.ricercale.raise_()
         self.quantitaprodsb.raise_()
         self.acquistabtn.raise_()
         self.label_3.raise_()
 
+        self.carrellobtn.clicked.connect(self.selezionaProdotto)
+
+
+
+        self.creaListaVendita()
+        self.popolaListaVendita()
+
+        self.ricercabtn.clicked.connect(self.ricercaArticolo)
+
+        self.carrellobtn.clicked.connect(self.selezionaProdotto)
+
+
         self.homebtn.clicked.connect(self.returnToHome)
+
 
         self.retranslateUi(Cassa)
         QtCore.QMetaObject.connectSlotsByName(Cassa)
@@ -118,7 +134,7 @@ class Ui_Cassa(object):
         _translate = QtCore.QCoreApplication.translate
         Cassa.setWindowTitle(_translate("Cassa", "Form"))
         self.label_4.setText(_translate("Cassa", "Lista prodotti:"))
-        self.ricercafornitorebtn.setText(_translate("Cassa", "  Ricerca"))
+        self.ricercabtn.setText(_translate("Cassa", "  Ricerca"))
         self.homebtn.setText(_translate("Cassa", "Home"))
         self.carrellobtn.setText(_translate("Cassa", "Metti nel carrello"))
         self.label.setText(_translate("Cassa", "Inserisci codice e quantità da comprare"))
@@ -132,3 +148,143 @@ class Ui_Cassa(object):
         self.ui.setupUi(self.menu)
         self.menu.show()
         self.Frame.close()
+
+    def creaListaVendita(self):
+        data.downloadMagazzino()
+        self.tableWidgetlist.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.tableWidgetlist.setObjectName("tableWidget")
+        self.tableWidgetlist.setColumnCount(4)
+        self.tableWidgetlist.setRowCount(data.nFarmMagaz + data.nProdMagaz)
+        for i in range(0, data.nFarmMagaz + data.nProdMagaz):
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidgetlist.setHorizontalHeaderItem(i, item)
+        _translate = QtCore.QCoreApplication.translate
+        item = self.tableWidgetlist.horizontalHeaderItem(0)
+        item.setText(_translate("cassa", "Prodotto"))
+        item = self.tableWidgetlist.horizontalHeaderItem(1)
+        item.setText(_translate("cassa", "Quantità"))
+        item = self.tableWidgetlist.horizontalHeaderItem(2)
+        item.setText(_translate("cassa", "Prezzo"))
+        item = self.tableWidgetlist.horizontalHeaderItem(3)
+        item.setText(_translate("cassa", "Codice"))
+        self.tableWidgetlist.horizontalHeader().setVisible(True)
+        self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(158)
+        self.tableWidgetlist.verticalHeader().setVisible(True)
+
+    def popolaListaVendita(self):
+        _translate = QtCore.QCoreApplication.translate
+        for riga in range(0, data.nFarmMagaz):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetlist.setItem(riga, colonna, item)
+                item = self.tableWidgetlist.item(riga, colonna)
+                if(colonna == 0):
+                    item.setText(_translate("cassa", data.listaFarmaciMagazzino[riga].nome))
+                if(colonna == 1):
+                    item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].giacenza)))
+                if(colonna == 2):
+                    item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].prezzo)))
+                if(colonna == 3):
+                    item.setText(_translate("angelini", str(data.listaFarmaciMagazzino[riga].codice)))
+        for riga in range(data.nFarmMagaz, data.nProdMagaz + data.nFarmMagaz):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                self.tableWidgetlist.setItem(riga, colonna, item)
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                item = self.tableWidgetlist.item(riga, colonna)
+                if(colonna == 0):
+                    item.setText(_translate("angelini", data.listaProdottiMagazzino[riga - data.nFarmMagaz].nome))
+                if(colonna == 1):
+                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].giacenza)))
+                if(colonna == 2):
+                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].prezzo)))
+                if(colonna == 3):
+                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
+
+    def ricercaArticolo(self):
+        from tkinter import messagebox
+        param = self.ricercale.text()
+        if (param == ""):
+            messagebox.showinfo("Errore", "Imposta almeno un carattere prima della ricerca")
+        else:
+            prodottiRicercati = []
+            for element in data.listaFarmaciMagazzino:
+                if param in element.nome or param in element.codice:
+                    prodottiRicercati.append(element)
+            for element in data.listaProdottiMagazzino:
+                if param in element.nome or param in element.codice:
+                    prodottiRicercati.append(element)
+            p = ""
+            for x in range(len(prodottiRicercati)):
+                p += str(prodottiRicercati[x].nome +"  "+str(prodottiRicercati[x].giacenza)+"  "+prodottiRicercati[x].codice+"  "+str(prodottiRicercati[x].prezzo)+"€"+"\n")
+            if(p==""):
+                messagebox.showinfo("Errore", "Non è stato trovato alcun farmaco")
+            else:
+                messagebox.showinfo("Articolo/i", p)
+
+    def selezionaProdotto(self):
+        from tkinter import messagebox
+
+        param = self.codicele.text()
+        prodottoSelezionat0 = []
+        check = False
+        for element in data.listaFarmaciMagazzino:
+            if (param == element.codice):
+                prodottoSelezionat0.append(element)
+                check = True
+
+        for element in data.listaProdottiMagazzino:
+            if (param == element.codice):
+                prodottoSelezionat0.append(element)
+                check = True
+        if check:
+            self.creaCarrello()
+            self.popolaListaVendita(prodottoSelezionat0)
+        else:
+            messagebox.showinfo("Errore","Inserisci il codice corretto")
+
+
+    def creaCarrello(self):
+        Ui_Cassa.i+=1
+        self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.tableWidgetcarrello.setObjectName("tableWidget")
+        self.tableWidgetcarrello.setColumnCount(4)
+        print(data.nFarmMagaz)
+        self.tableWidgetcarrello.setRowCount(data.nFarmMagaz + data.nProdMagaz)
+        for x in range(data.nFarmMagaz + data.nProdMagaz):
+            print(Ui_Cassa.i)
+            item = QtWidgets.QTableWidgetItem()
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.tableWidgetcarrello.setHorizontalHeaderItem(x, item)
+        _translate = QtCore.QCoreApplication.translate
+        item = self.tableWidgetcarrello.horizontalHeaderItem(0)
+        item.setText(_translate("cassa", "Prodotto"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(1)
+        item.setText(_translate("cassa", "Quantità"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(2)
+        item.setText(_translate("cassa", "Prezzo"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(3)
+        item.setText(_translate("cassa", "Codice"))
+        self.tableWidgetcarrello.horizontalHeader().setVisible(True)
+        self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
+        self.tableWidgetcarrello.verticalHeader().setVisible(True)
+#   0000196719863
+    def popolaCarrello(self, prodottoSelezionato):
+        _translate = QtCore.QCoreApplication.translate
+        for colonna in range(0, 4):
+            item = QtWidgets.QTableWidgetItem()
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.tableWidgetcarrello.setItem(Ui_Cassa.i, colonna, item)
+            item = self.tableWidgetcarrello.item(Ui_Cassa.i, colonna)
+            if(colonna == 0):
+                item.setText(_translate("angelini", prodottoSelezionato[Ui_Cassa.i].nome))
+            if(colonna == 1):
+                item.setText(_translate("angelini", str(prodottoSelezionato[Ui_Cassa.i].giacenza)))
+            if(colonna == 2):
+                item.setText(_translate("angelini", str(prodottoSelezionato[Ui_Cassa.i].prezzo)))
+            if(colonna == 3):
+                item.setText(_translate("angelini", str(prodottoSelezionato[Ui_Cassa.i].codice)))
+
+
+
