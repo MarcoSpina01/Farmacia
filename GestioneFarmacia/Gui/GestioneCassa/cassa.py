@@ -6,7 +6,8 @@ from GestioneFarmacia.GestioneSistema.data import data
 gestore = Gestore()
 
 class Ui_Cassa(object):
-    i = 0
+    nProdSelezionati = 0
+    prodSelezionati = []
     def setupUi(self, Cassa):
         self.Frame = Cassa
         Cassa.setObjectName("Cassa")
@@ -112,7 +113,7 @@ class Ui_Cassa(object):
         self.acquistabtn.raise_()
         self.label_3.raise_()
 
-        self.carrellobtn.clicked.connect(self.selezionaProdotto)
+ #       self.carrellobtn.clicked.connect(self.selezionaProdotto)
 
 
 
@@ -227,33 +228,31 @@ class Ui_Cassa(object):
         from tkinter import messagebox
 
         param = self.codicele.text()
-        prodottoSelezionat0 = []
+        Ui_Cassa.prodSelezionati
         check = False
         for element in data.listaFarmaciMagazzino:
             if (param == element.codice):
-                prodottoSelezionat0.append(element)
+                Ui_Cassa.prodSelezionati.append(element)
                 check = True
 
         for element in data.listaProdottiMagazzino:
             if (param == element.codice):
-                prodottoSelezionat0.append(element)
+                Ui_Cassa.prodSelezionati.append(element)
                 check = True
         if check:
             self.creaCarrello()
-            self.popolaListaVendita(prodottoSelezionat0)
+            self.popolaCarrello()
         else:
             messagebox.showinfo("Errore","Inserisci il codice corretto")
 
 
     def creaCarrello(self):
-        Ui_Cassa.i+=1
+        Ui_Cassa.nProdSelezionati+=1
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetcarrello.setObjectName("tableWidget")
         self.tableWidgetcarrello.setColumnCount(4)
-        print(data.nFarmMagaz)
         self.tableWidgetcarrello.setRowCount(data.nFarmMagaz + data.nProdMagaz)
         for x in range(data.nFarmMagaz + data.nProdMagaz):
-            print(Ui_Cassa.i)
             item = QtWidgets.QTableWidgetItem()
             item.setFlags(QtCore.Qt.ItemIsEnabled)
             self.tableWidgetcarrello.setHorizontalHeaderItem(x, item)
@@ -270,21 +269,22 @@ class Ui_Cassa(object):
         self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
 #   0000196719863
-    def popolaCarrello(self, prodottoSelezionato):
+    def popolaCarrello(self):
         _translate = QtCore.QCoreApplication.translate
         for colonna in range(0, 4):
             item = QtWidgets.QTableWidgetItem()
             item.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.tableWidgetcarrello.setItem(Ui_Cassa.i, colonna, item)
-            item = self.tableWidgetcarrello.item(Ui_Cassa.i, colonna)
+            self.tableWidgetcarrello.setItem(Ui_Cassa.nProdSelezionati, colonna, item)
+            print(Ui_Cassa.nProdSelezionati)
+            item = self.tableWidgetcarrello.item(Ui_Cassa.nProdSelezionati, colonna)
             if(colonna == 0):
-                item.setText(_translate("angelini", prodottoSelezionato[Ui_Cassa.i].nome))
+                item.setText(_translate("angelini", Ui_Cassa.prodSelezionati[Ui_Cassa.nProdSelezionati-1].nome))
             if(colonna == 1):
-                item.setText(_translate("angelini", str(prodottoSelezionato[Ui_Cassa.i].giacenza)))
+                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[Ui_Cassa.nProdSelezionati-1].giacenza)))
             if(colonna == 2):
-                item.setText(_translate("angelini", str(prodottoSelezionato[Ui_Cassa.i].prezzo)))
+                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[Ui_Cassa.nProdSelezionati-1].prezzo)))
             if(colonna == 3):
-                item.setText(_translate("angelini", str(prodottoSelezionato[Ui_Cassa.i].codice)))
+                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[Ui_Cassa.nProdSelezionati-1].codice)))
 
 
 
