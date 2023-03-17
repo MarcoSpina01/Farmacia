@@ -247,7 +247,6 @@ class Ui_Cassa(object):
 
 
     def creaCarrello(self):
-        Ui_Cassa.nProdSelezionati+=1
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetcarrello.setObjectName("tableWidget")
         self.tableWidgetcarrello.setColumnCount(4)
@@ -270,21 +269,22 @@ class Ui_Cassa(object):
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
 #   0000196719863
     def popolaCarrello(self):
+        nProdSelezionati = len(Ui_Cassa.prodSelezionati)
         _translate = QtCore.QCoreApplication.translate
         for colonna in range(0, 4):
             item = QtWidgets.QTableWidgetItem()
             item.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.tableWidgetcarrello.setItem(Ui_Cassa.nProdSelezionati, colonna, item)
-            print(Ui_Cassa.nProdSelezionati)
-            item = self.tableWidgetcarrello.item(Ui_Cassa.nProdSelezionati, colonna)
+            self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
+            print(nProdSelezionati)
+            item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
             if(colonna == 0):
-                item.setText(_translate("angelini", Ui_Cassa.prodSelezionati[Ui_Cassa.nProdSelezionati-1].nome))
+                item.setText(_translate("angelini", Ui_Cassa.prodSelezionati[nProdSelezionati-1].nome))
             if(colonna == 1):
-                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[Ui_Cassa.nProdSelezionati-1].giacenza)))
+                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[nProdSelezionati-1].giacenza)))
             if(colonna == 2):
-                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[Ui_Cassa.nProdSelezionati-1].prezzo)))
+                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[nProdSelezionati-1].prezzo)))
             if(colonna == 3):
-                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[Ui_Cassa.nProdSelezionati-1].codice)))
+                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[nProdSelezionati-1].codice)))
 
 
 
