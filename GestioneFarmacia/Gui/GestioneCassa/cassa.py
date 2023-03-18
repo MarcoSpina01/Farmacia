@@ -184,7 +184,7 @@ class Ui_Cassa(object):
                 if(colonna == 2):
                     item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].prezzo)))
                 if(colonna == 3):
-                    item.setText(_translate("angelini", str(data.listaFarmaciMagazzino[riga].codice)))
+                    item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].codice)))
         for riga in range(data.nFarmMagaz, data.nProdMagaz + data.nFarmMagaz):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
@@ -192,13 +192,13 @@ class Ui_Cassa(object):
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
                 item = self.tableWidgetlist.item(riga, colonna)
                 if(colonna == 0):
-                    item.setText(_translate("angelini", data.listaProdottiMagazzino[riga - data.nFarmMagaz].nome))
+                    item.setText(_translate("cassa", data.listaProdottiMagazzino[riga - data.nFarmMagaz].nome))
                 if(colonna == 1):
-                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].giacenza)))
+                    item.setText(_translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].giacenza)))
                 if(colonna == 2):
-                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].prezzo)))
+                    item.setText(_translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].prezzo)))
                 if(colonna == 3):
-                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
+                    item.setText(_translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
 
     def ricercaArticolo(self):
         from tkinter import messagebox
@@ -225,16 +225,15 @@ class Ui_Cassa(object):
         from tkinter import messagebox
 
         param = self.codicele.text()
-        Ui_Cassa.prodSelezionati
         check = False
         for element in data.listaFarmaciMagazzino:
             if (param == element.codice):
-                Ui_Cassa.prodSelezionati.append(element)
+                self.prodSelezionati.append(element)
                 check = True
 
         for element in data.listaProdottiMagazzino:
             if (param == element.codice):
-                Ui_Cassa.prodSelezionati.append(element)
+                self.prodSelezionati.append(element)
                 check = True
         if check:
             self.creaCarrello()
@@ -265,26 +264,35 @@ class Ui_Cassa(object):
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
 
     def popolaCarrello(self):
-        nProdSelezionati = len(Ui_Cassa.prodSelezionati)
+        from tkinter import messagebox
+        nProdSelezionati = len(self.prodSelezionati)
         _translate = QtCore.QCoreApplication.translate
         nProdSelezionati -= 1
-        if self.quantitaprodsb.text < Ui_Cassa.prodSelezionati.giacenza:
+
+        if self.quantitaprodsb.value() == 0:
+            messagebox.showinfo("Errore", "Inserisci la quantità da aquistare")
+            return
+
+        elif self.quantitaprodsb.value() > self.prodSelezionati[nProdSelezionati].giacenza:
+            messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
+            print(self.nProdSelezionati)
+            return
+
+        elif self.quantitaprodsb.value() <= self.prodSelezionati[self.nProdSelezionati].giacenza and self.quantitaprodsb.value() != 0:
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
-                Ui_Cassa.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
-                item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
+                self.tableWidgetcarrello.setItem(self.nProdSelezionati, colonna, item)
+                item = self.tableWidgetcarrello.item(self.nProdSelezionati, colonna)
                 if(colonna == 0):
-                    item.setText(_translate("angelini", Ui_Cassa.prodSelezionati[nProdSelezionati].nome))
+                    item.setText(_translate("cassa", self.prodSelezionati[self.nProdSelezionati].nome))
                 if(colonna == 1):
-                    item.setText(_translate("angelini", str(Ui_Cassa.quantitaprodsb.text)))
+                    item.setText(_translate("cassa", str(self.quantitaprodsb.value())))
                 if(colonna == 2):
-                    item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[nProdSelezionati].prezzo)))
+                    item.setText(_translate("cassa", str(self.prodSelezionati[self.nProdSelezionati].prezzo)))
                 if(colonna == 3):
-                    item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[nProdSelezionati].codice)))
-        else:
-            from tkinter import messagebox
-            messagebox.showinfo("Errore","Quantità inserita maggiore della giacenza dell'articolo")
+                    item.setText(_translate("cassa", str(self.prodSelezionati[self.nProdSelezionati].codice)))
+
 
 
 
