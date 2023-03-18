@@ -136,7 +136,7 @@ class Ui_angelini(object):
         self.pushButton.clicked.connect(self.returnToFornitori)
 
         self.ricercafornitorebtn.clicked.connect(self.ricercaArticolo)
-
+        self.prodSelezionati.clear()
         self.carrellobtn.clicked.connect(self.selezionaProdotto)
 
         self.retranslateUi(angelini)
@@ -146,7 +146,7 @@ class Ui_angelini(object):
         _translate = QtCore.QCoreApplication.translate
         angelini.setWindowTitle(_translate("angelini", "Form"))
         self.ricercafornitorebtn.setText(_translate("angelini", "  Ricerca"))
-        self.label.setText(_translate("angelini", "Inserisci nome e quantità da comprare"))
+        self.label.setText(_translate("angelini", "Inserisci codice e quantità da comprare"))
         self.carrellobtn.setText(_translate("angelini", "Metti nel carrello"))
         self.acquistabtn.setText(_translate("angelini", "  Acquista"))
         self.label_3.setText(_translate("angelini", "Carrello:"))
@@ -187,16 +187,15 @@ class Ui_angelini(object):
         from tkinter import messagebox
 
         param = self.lineEdit_2.text()
-        self.prodSelezionati
         check = False
         for element in data.listaFarmaciFornitore:
             if (param == element.codice):
-                Ui_angelini.prodSelezionati.append(element)
+                self.prodSelezionati.append(element)
                 check = True
 
         for element in data.listaProdottiFornitore:
             if (param == element.codice):
-                Ui_angelini.prodSelezionati.append(element)
+                self.prodSelezionati.append(element)
                 check = True
         if check:
             self.creaCarrello()
@@ -205,7 +204,6 @@ class Ui_angelini(object):
             messagebox.showinfo("Errore","Inserisci il codice corretto")
 
     def creaCarrello(self):
-        self.prodSelezionati.clear()
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetcarrello.setObjectName("tableWidget")
         self.tableWidgetcarrello.setColumnCount(4)
@@ -237,13 +235,13 @@ class Ui_angelini(object):
             self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
             item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
             if(colonna == 0):
-                item.setText(_translate("angelini", Ui_angelini.prodSelezionati[nProdSelezionati].nome))
+                item.setText(_translate("angelini", self.prodSelezionati[nProdSelezionati].nome))
             if(colonna == 1):
-                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].giacenza)))
+                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].giacenza)))
             if(colonna == 2):
-                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].prezzo)))
+                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].prezzo)))
             if(colonna == 3):
-                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].codice)))
+                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].codice)))
 
     def popolaListaProdotti(self):
         item = self.tableWidgetlist.horizontalHeaderItem(0)

@@ -40,8 +40,8 @@ class data:
 
     @staticmethod
     def uploadMagazzino():
-        data.uploadFarmaciMagazzino(data.listaFarmaciMagazzino)
-        data.uploadProdottiMagazzino(data.listaProdottiMagazzino)
+        data.uploadFarmaciMagazzino()
+        data.uploadProdottiMagazzino()
 
     @staticmethod
     def uploadFarmaciFornitore():

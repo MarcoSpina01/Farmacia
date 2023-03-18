@@ -3,11 +3,16 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
+from GestioneFarmacia.GestioneVendite.Farmaco import Farmaco
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 
 gestore = Gestore()
 
 class Ui_pfizer(object):
+
+    nProdSelezionati = 0
+    prodSelezionati = []
+
     def setupUi(self, pfizer):
         self.Frame = pfizer
         pfizer.setObjectName("pfizer")
@@ -131,10 +136,13 @@ class Ui_pfizer(object):
 
         self.popolaListaProdotti()
 
-
-
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToFornitori)
+
+        self.ricercafornitorebtn.clicked.connect(self.ricercaArticolo)
+        self.prodSelezionati.clear()
+        self.carrellobtn.clicked.connect(self.selezionaProdotto)
+        self.acquistabtn.clicked.connect(self.chiudiOrdine)
 
         self.retranslateUi(pfizer)
         QtCore.QMetaObject.connectSlotsByName(pfizer)
@@ -181,28 +189,6 @@ class Ui_pfizer(object):
         self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetlist.verticalHeader().setVisible(True)
 
-    def creaCarrello(self):
-        self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
-        self.tableWidgetcarrello.setObjectName("tableWidget")
-        self.tableWidgetcarrello.setColumnCount(4)
-        self.tableWidgetcarrello.setRowCount(data.nFarmForn + data.nProdForn)
-        for x in range(data.nFarmForn + data.nProdForn):
-            item = QtWidgets.QTableWidgetItem()
-            item.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.tableWidgetcarrello.setHorizontalHeaderItem(x, item)
-        _translate = QtCore.QCoreApplication.translate
-        item = self.tableWidgetcarrello.horizontalHeaderItem(0)
-        item.setText(_translate("cassa", "Prodotto"))
-        item = self.tableWidgetcarrello.horizontalHeaderItem(1)
-        item.setText(_translate("cassa", "Quantità"))
-        item = self.tableWidgetcarrello.horizontalHeaderItem(2)
-        item.setText(_translate("cassa", "Prezzo"))
-        item = self.tableWidgetcarrello.horizontalHeaderItem(3)
-        item.setText(_translate("cassa", "Codice"))
-        self.tableWidgetcarrello.horizontalHeader().setVisible(True)
-        self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
-        self.tableWidgetcarrello.verticalHeader().setVisible(True)
-
     def popolaCarrello(self):
         nProdSelezionati = len(self.prodSelezionati)
         _translate = QtCore.QCoreApplication.translate
@@ -213,13 +199,14 @@ class Ui_pfizer(object):
             self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
             item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
             if(colonna == 0):
-                item.setText(_translate("angelini", Ui_angelini.prodSelezionati[nProdSelezionati].nome))
+                item.setText(_translate("angelini", self.prodSelezionati[nProdSelezionati].nome))
             if(colonna == 1):
-                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].giacenza)))
+                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].giacenza)))
             if(colonna == 2):
-                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].prezzo)))
+                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].prezzo)))
             if(colonna == 3):
-                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].codice)))
+                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].codice)))
+
 
     def popolaListaProdotti(self):
 
@@ -260,4 +247,99 @@ class Ui_pfizer(object):
                     item.setText(_translate("pfizer", str(data.listaProdottiFornitore[riga - data.nFarmForn].prezzo)))
                 if (colonna == 3):
                     item.setText(_translate("pfizer", str(data.listaProdottiFornitore[riga - data.nFarmForn].codice)))
+
+    def ricercaArticolo(self):
+        from tkinter import messagebox
+        param = self.lineEdit.text()
+        if (param == ""):
+            messagebox.showinfo("Errore", "Imposta almeno un carattere prima della ricerca")
+        else:
+            prodottiRicercati = []
+            for element in data.listaFarmaciFornitore:
+                if param in element.nome or param in element.codice:
+                    prodottiRicercati.append(element)
+            for element in data.listaProdottiFornitore:
+                if param in element.nome or param in element.codice:
+                    prodottiRicercati.append(element)
+            p = ""
+            for x in range(len(prodottiRicercati)):
+                p += str(
+                    prodottiRicercati[x].nome + "  " + str(prodottiRicercati[x].giacenza) + "  " + prodottiRicercati[
+                        x].codice + "  " + str(prodottiRicercati[x].prezzo) + "€" + "\n")
+            if (p == ""):
+                messagebox.showinfo("Errore", "Non è stato trovato alcun farmaco")
+            else:
+                messagebox.showinfo("Articolo/i", p)
+
+    def creaCarrello(self):
+        self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.tableWidgetcarrello.setObjectName("tableWidget")
+        self.tableWidgetcarrello.setColumnCount(4)
+        self.tableWidgetcarrello.setRowCount(data.nFarmForn + data.nProdForn)
+        for x in range(data.nFarmForn + data.nProdForn):
+            item = QtWidgets.QTableWidgetItem()
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.tableWidgetcarrello.setHorizontalHeaderItem(x, item)
+        _translate = QtCore.QCoreApplication.translate
+        item = self.tableWidgetcarrello.horizontalHeaderItem(0)
+        item.setText(_translate("cassa", "Prodotto"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(1)
+        item.setText(_translate("cassa", "Quantità"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(2)
+        item.setText(_translate("cassa", "Prezzo"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(3)
+        item.setText(_translate("cassa", "Codice"))
+        self.tableWidgetcarrello.horizontalHeader().setVisible(True)
+        self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
+        self.tableWidgetcarrello.verticalHeader().setVisible(True)
+
+    def selezionaProdotto(self):
+        from tkinter import messagebox
+
+        param = self.lineEdit_2.text()
+        check = False
+        for element in data.listaFarmaciFornitore:
+            if (param == element.codice):
+                self.prodSelezionati.append(element)
+                check = True
+
+        for element in data.listaProdottiFornitore:
+            if (param == element.codice):
+                self.prodSelezionati.append(element)
+                check = True
+        if check:
+            self.creaCarrello()
+            self.popolaCarrello()
+        else:
+            messagebox.showinfo("Errore","Inserisci il codice corretto")
+
+    def chiudiOrdine(self):
+        for element in self.prodSelezionati:
+            if (isinstance(element, Prodotto)):
+#                for prodottoM in data.listaProdottiMagazzino:
+#                    if (element.codice == prodottoM.codice):
+#                        prodottoM.giacenza += quantità
+#                    else data.listaProdottiMagazzino.append(element)
+                for prodottoF in data.listaProdottiFornitore:
+                    if (element.codice == prodottoF.codice):
+#                        if(quantità == prodottoF.giacenza):
+#                            data.listaProdottiFornitore.remove(prodottoF)
+#                        else prodottoF.giacenza -= quantità
+            if (isinstance(element, Farmaco)):
+#                for farmacoM in data.listaFarmaciMagazzino:
+#                   if (element.codice == farmacoM.codice):
+#                        farmacoM.giacenza += quantità
+#                   else data.listaFarmaciMagazzino.append(element)
+                for farmacoF in data.listaFarmaciFornitore:
+                    if (element.codice == farmacoF.codice):
+#                        if(quantità == farmacoF.giacenza):
+#                            data.listaFarmaciFornitore.remove(farmacoF)
+#                        else farmacoF.giacenza -= quantità
+        data.uploadMagazzino()
+        data.uploadFornitore()
+
+
+
+
+
 
