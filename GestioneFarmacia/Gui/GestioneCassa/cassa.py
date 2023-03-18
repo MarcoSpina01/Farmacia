@@ -271,20 +271,27 @@ class Ui_Cassa(object):
     def popolaCarrello(self):
         nProdSelezionati = len(Ui_Cassa.prodSelezionati)
         _translate = QtCore.QCoreApplication.translate
-        for colonna in range(0, 4):
-            item = QtWidgets.QTableWidgetItem()
-            item.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
-            print(nProdSelezionati)
-            item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
-            if(colonna == 0):
-                item.setText(_translate("angelini", Ui_Cassa.prodSelezionati[nProdSelezionati-1].nome))
-            if(colonna == 1):
-                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[nProdSelezionati-1].giacenza)))
-            if(colonna == 2):
-                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[nProdSelezionati-1].prezzo)))
-            if(colonna == 3):
-                item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[nProdSelezionati-1].codice)))
+        nProdSelezionati -= 1
+        if self.quantitaprodsb.text < Ui_Cassa.prodSelezionati.giacenza:
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                Ui_Cassa.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
+                item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
+                if(colonna == 0):
+                    item.setText(_translate("angelini", Ui_Cassa.prodSelezionati[nProdSelezionati].nome))
+                if(colonna == 1):
+                    item.setText(_translate("angelini", str(Ui_Cassa.quantitaprodsb.text)))
+                if(colonna == 2):
+                    item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[nProdSelezionati].prezzo)))
+                if(colonna == 3):
+                    item.setText(_translate("angelini", str(Ui_Cassa.prodSelezionati[nProdSelezionati].codice)))
+        else:
+            from tkinter import messagebox
+            messagebox.showinfo("Errore","Quantità inserita maggiore della giacenza dell'articolo")
+
+
+
 
 
 

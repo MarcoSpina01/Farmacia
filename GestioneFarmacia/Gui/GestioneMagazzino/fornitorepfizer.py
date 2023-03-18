@@ -1,10 +1,10 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 
-p = Prodotto(1, "g", "f", 3, "h", "d", 2)
 gestore = Gestore()
 
 class Ui_pfizer(object):
@@ -168,66 +168,96 @@ class Ui_pfizer(object):
         self.Frame.close()
 
     def creaListaProdotti(self):
-
+        data.downloadFornitore()
         self.tableWidgetlist.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetlist.setObjectName("tableWidget")
         self.tableWidgetlist.setColumnCount(4)
-        self.tableWidgetlist.setRowCount(4)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetlist.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetlist.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetlist.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetlist.setHorizontalHeaderItem(3, item)
+        self.tableWidgetlist.setRowCount(data.nFarmForn + data.nProdForn)
+        for i in range(0, data.nFarmForn + data.nProdForn):
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidgetlist.setHorizontalHeaderItem(i, item)
 
         self.tableWidgetlist.horizontalHeader().setVisible(True)
-        self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(84)
+        self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetlist.verticalHeader().setVisible(True)
 
     def creaCarrello(self):
-
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetcarrello.setObjectName("tableWidget")
         self.tableWidgetcarrello.setColumnCount(4)
-        self.tableWidgetcarrello.setRowCount(4)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetcarrello.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetcarrello.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetcarrello.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetcarrello.setHorizontalHeaderItem(3, item)
-
+        self.tableWidgetcarrello.setRowCount(data.nFarmForn + data.nProdForn)
+        for x in range(data.nFarmForn + data.nProdForn):
+            item = QtWidgets.QTableWidgetItem()
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.tableWidgetcarrello.setHorizontalHeaderItem(x, item)
+        _translate = QtCore.QCoreApplication.translate
+        item = self.tableWidgetcarrello.horizontalHeaderItem(0)
+        item.setText(_translate("cassa", "Prodotto"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(1)
+        item.setText(_translate("cassa", "Quantità"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(2)
+        item.setText(_translate("cassa", "Prezzo"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(3)
+        item.setText(_translate("cassa", "Codice"))
         self.tableWidgetcarrello.horizontalHeader().setVisible(True)
-        self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(84)
+        self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
+
+    def popolaCarrello(self):
+        nProdSelezionati = len(self.prodSelezionati)
+        _translate = QtCore.QCoreApplication.translate
+        nProdSelezionati -= 1
+        for colonna in range(0, 4):
+            item = QtWidgets.QTableWidgetItem()
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
+            item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
+            if(colonna == 0):
+                item.setText(_translate("angelini", Ui_angelini.prodSelezionati[nProdSelezionati].nome))
+            if(colonna == 1):
+                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].giacenza)))
+            if(colonna == 2):
+                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].prezzo)))
+            if(colonna == 3):
+                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].codice)))
 
     def popolaListaProdotti(self):
 
         item = self.tableWidgetlist.horizontalHeaderItem(0)
         _translate = QtCore.QCoreApplication.translate
-        item.setText(_translate("angelini", "Prodotto"))
+        item.setText(_translate("pfizer", "Prodotto"))
         item = self.tableWidgetlist.horizontalHeaderItem(1)
-        item.setText(_translate("angelini", "Quantità"))
+        item.setText(_translate("pfizer", "Quantità"))
         item = self.tableWidgetlist.horizontalHeaderItem(2)
-        item.setText(_translate("angelini", "Prezzo"))
+        item.setText(_translate("pfizer", "Prezzo"))
         item = self.tableWidgetlist.horizontalHeaderItem(3)
-        item.setText(_translate("angelini", "Codice Seriale"))
-
-        for riga in range(0, 4):
+        item.setText(_translate("pfizer", "Codice"))
+        for riga in range(0, data.nFarmForn):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
                 self.tableWidgetlist.setItem(riga, colonna, item)
-
-        item = self.tableWidgetlist.item(0, 0)
-        item.setText(_translate("angelini", str(p.getCodice())))
-        item = self.tableWidgetlist.item(0, 1)
-        item.setText(_translate("angelini", p.getNome()))
-        item = self.tableWidgetlist.item(0, 2)
-        item.setText(_translate("angelini", str(p.getCodice())))
-        item = self.tableWidgetlist.item(0, 3)
-        item.setText(_translate("angelini", p.getNome()))
+                item = self.tableWidgetlist.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("pfizer", data.listaFarmaciFornitore[riga].nome))
+                if (colonna == 1):
+                    item.setText(_translate("pfizer", str(data.listaFarmaciFornitore[riga].giacenza)))
+                if (colonna == 2):
+                    item.setText(_translate("pfizer", str(data.listaFarmaciFornitore[riga].prezzo)))
+                if (colonna == 3):
+                    item.setText(_translate("pfizer", str(data.listaFarmaciFornitore[riga].codice)))
+        for riga in range(data.nFarmForn, data.nFarmForn + data.nProdForn):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetlist.setItem(riga, colonna, item)
+                item = self.tableWidgetlist.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("pfizer", data.listaProdottiFornitore[riga - data.nFarmForn].nome))
+                if (colonna == 1):
+                    item.setText(_translate("pfizer", str(data.listaProdottiFornitore[riga - data.nFarmForn].giacenza)))
+                if (colonna == 2):
+                    item.setText(_translate("pfizer", str(data.listaProdottiFornitore[riga - data.nFarmForn].prezzo)))
+                if (colonna == 3):
+                    item.setText(_translate("pfizer", str(data.listaProdottiFornitore[riga - data.nFarmForn].codice)))
 

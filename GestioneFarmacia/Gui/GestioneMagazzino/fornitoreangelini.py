@@ -186,8 +186,8 @@ class Ui_angelini(object):
     def selezionaProdotto(self):
         from tkinter import messagebox
 
-        param = self.lineEdit.text()
-        Ui_angelini.prodSelezionati
+        param = self.lineEdit_2.text()
+        self.prodSelezionati
         check = False
         for element in data.listaFarmaciFornitore:
             if (param == element.codice):
@@ -205,6 +205,7 @@ class Ui_angelini(object):
             messagebox.showinfo("Errore","Inserisci il codice corretto")
 
     def creaCarrello(self):
+        self.prodSelezionati.clear()
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetcarrello.setObjectName("tableWidget")
         self.tableWidgetcarrello.setColumnCount(4)
@@ -227,22 +228,22 @@ class Ui_angelini(object):
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
 
     def popolaCarrello(self):
-        nProdSelezionati = len(Ui_angelini.prodSelezionati)
+        nProdSelezionati = len(self.prodSelezionati)
         _translate = QtCore.QCoreApplication.translate
+        nProdSelezionati -= 1
         for colonna in range(0, 4):
             item = QtWidgets.QTableWidgetItem()
             item.setFlags(QtCore.Qt.ItemIsEnabled)
             self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
-            print(nProdSelezionati)
             item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
             if(colonna == 0):
-                item.setText(_translate("angelini", Ui_angelini.prodSelezionati[nProdSelezionati-1].nome))
+                item.setText(_translate("angelini", Ui_angelini.prodSelezionati[nProdSelezionati].nome))
             if(colonna == 1):
-                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati-1].giacenza)))
+                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].giacenza)))
             if(colonna == 2):
-                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati-1].prezzo)))
+                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].prezzo)))
             if(colonna == 3):
-                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati-1].codice)))
+                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati].codice)))
 
     def popolaListaProdotti(self):
         item = self.tableWidgetlist.horizontalHeaderItem(0)
