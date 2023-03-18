@@ -113,9 +113,6 @@ class Ui_Cassa(object):
         self.acquistabtn.raise_()
         self.label_3.raise_()
 
- #       self.carrellobtn.clicked.connect(self.selezionaProdotto)
-
-
 
         self.creaListaVendita()
         self.popolaListaVendita()
@@ -245,7 +242,6 @@ class Ui_Cassa(object):
         else:
             messagebox.showinfo("Errore","Inserisci il codice corretto")
 
-
     def creaCarrello(self):
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetcarrello.setObjectName("tableWidget")
@@ -267,7 +263,7 @@ class Ui_Cassa(object):
         self.tableWidgetcarrello.horizontalHeader().setVisible(True)
         self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
-#   0000196719863
+
     def popolaCarrello(self):
         nProdSelezionati = len(Ui_Cassa.prodSelezionati)
         _translate = QtCore.QCoreApplication.translate
