@@ -8,6 +8,9 @@ gestore = Gestore()
 
 class Ui_angelini(object):
 
+    nProdSelezionati = 0
+    prodSelezionati = []
+
     def setupUi(self, angelini):
         self.Frame = angelini
         angelini.setObjectName("angelini")
@@ -134,6 +137,8 @@ class Ui_angelini(object):
 
         self.ricercafornitorebtn.clicked.connect(self.ricercaArticolo)
 
+        self.carrellobtn.clicked.connect(self.selezionaProdotto)
+
         self.retranslateUi(angelini)
         QtCore.QMetaObject.connectSlotsByName(angelini)
 
@@ -178,23 +183,66 @@ class Ui_angelini(object):
         self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetlist.verticalHeader().setVisible(True)
 
+    def selezionaProdotto(self):
+        from tkinter import messagebox
+
+        param = self.lineEdit.text()
+        Ui_angelini.prodSelezionati
+        check = False
+        for element in data.listaFarmaciFornitore:
+            if (param == element.codice):
+                Ui_angelini.prodSelezionati.append(element)
+                check = True
+
+        for element in data.listaProdottiFornitore:
+            if (param == element.codice):
+                Ui_angelini.prodSelezionati.append(element)
+                check = True
+        if check:
+            self.creaCarrello()
+            self.popolaCarrello()
+        else:
+            messagebox.showinfo("Errore","Inserisci il codice corretto")
+
     def creaCarrello(self):
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetcarrello.setObjectName("tableWidget")
         self.tableWidgetcarrello.setColumnCount(4)
-        self.tableWidgetcarrello.setRowCount(4)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetcarrello.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetcarrello.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetcarrello.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidgetcarrello.setHorizontalHeaderItem(3, item)
-
+        self.tableWidgetcarrello.setRowCount(data.nFarmForn + data.nProdForn)
+        for x in range(data.nFarmForn + data.nProdForn):
+            item = QtWidgets.QTableWidgetItem()
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.tableWidgetcarrello.setHorizontalHeaderItem(x, item)
+        _translate = QtCore.QCoreApplication.translate
+        item = self.tableWidgetcarrello.horizontalHeaderItem(0)
+        item.setText(_translate("cassa", "Prodotto"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(1)
+        item.setText(_translate("cassa", "Quantità"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(2)
+        item.setText(_translate("cassa", "Prezzo"))
+        item = self.tableWidgetcarrello.horizontalHeaderItem(3)
+        item.setText(_translate("cassa", "Codice"))
         self.tableWidgetcarrello.horizontalHeader().setVisible(True)
         self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
+
+    def popolaCarrello(self):
+        nProdSelezionati = len(Ui_angelini.prodSelezionati)
+        _translate = QtCore.QCoreApplication.translate
+        for colonna in range(0, 4):
+            item = QtWidgets.QTableWidgetItem()
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
+            print(nProdSelezionati)
+            item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
+            if(colonna == 0):
+                item.setText(_translate("angelini", Ui_angelini.prodSelezionati[nProdSelezionati-1].nome))
+            if(colonna == 1):
+                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati-1].giacenza)))
+            if(colonna == 2):
+                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati-1].prezzo)))
+            if(colonna == 3):
+                item.setText(_translate("angelini", str(Ui_angelini.prodSelezionati[nProdSelezionati-1].codice)))
 
     def popolaListaProdotti(self):
         item = self.tableWidgetlist.horizontalHeaderItem(0)
