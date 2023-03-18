@@ -226,22 +226,37 @@ class Ui_angelini(object):
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
 
     def popolaCarrello(self):
+        from tkinter import messagebox
         nProdSelezionati = len(self.prodSelezionati)
         _translate = QtCore.QCoreApplication.translate
         nProdSelezionati -= 1
-        for colonna in range(0, 4):
-            item = QtWidgets.QTableWidgetItem()
-            item.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
-            item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
-            if(colonna == 0):
-                item.setText(_translate("angelini", self.prodSelezionati[nProdSelezionati].nome))
-            if(colonna == 1):
-                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].giacenza)))
-            if(colonna == 2):
-                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].prezzo)))
-            if(colonna == 3):
-                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].codice)))
+
+        if self.quantitaprodsb.value() == 0:
+            messagebox.showinfo("Errore", "Inserisci la quantità da aquistare")
+            return
+
+        elif self.quantitaprodsb.value() > self.prodSelezionati[nProdSelezionati].giacenza:
+            messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
+            print(self.nProdSelezionati)
+            return
+
+        elif self.quantitaprodsb.value() <= self.prodSelezionati[self.nProdSelezionati].giacenza and self.quantitaprodsb.value() != 0:
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetcarrello.setItem(self.nProdSelezionati, colonna, item)
+                item = self.tableWidgetcarrello.item(self.nProdSelezionati, colonna)
+                if(colonna == 0):
+                    item.setText(_translate("angelini", self.prodSelezionati[self.nProdSelezionati].nome))
+                if(colonna == 1):
+                    item.setText(_translate("angelini", str(self.quantitaprodsb.value())))
+                if(colonna == 2):
+                    item.setText(_translate("angelini", str(self.prodSelezionati[self.nProdSelezionati].prezzo)))
+                if(colonna == 3):
+                    item.setText(_translate("angelini", str(self.prodSelezionati[self.nProdSelezionati].codice)))
+
+
+
 
     def popolaListaProdotti(self):
         item = self.tableWidgetlist.horizontalHeaderItem(0)

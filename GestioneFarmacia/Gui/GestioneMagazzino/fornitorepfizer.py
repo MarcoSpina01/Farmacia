@@ -139,6 +139,7 @@ class Ui_pfizer(object):
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToFornitori)
 
+
         self.ricercafornitorebtn.clicked.connect(self.ricercaArticolo)
         self.prodSelezionati.clear()
         self.carrellobtn.clicked.connect(self.selezionaProdotto)
@@ -190,23 +191,35 @@ class Ui_pfizer(object):
         self.tableWidgetlist.verticalHeader().setVisible(True)
 
     def popolaCarrello(self):
+        from tkinter import messagebox
         nProdSelezionati = len(self.prodSelezionati)
         _translate = QtCore.QCoreApplication.translate
         nProdSelezionati -= 1
-        for colonna in range(0, 4):
-            item = QtWidgets.QTableWidgetItem()
-            item.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
-            item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
-            if(colonna == 0):
-                item.setText(_translate("angelini", self.prodSelezionati[nProdSelezionati].nome))
-            if(colonna == 1):
-                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].giacenza)))
-            if(colonna == 2):
-                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].prezzo)))
-            if(colonna == 3):
-                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].codice)))
 
+        if self.quantitaprodsb.value() == 0:
+            messagebox.showinfo("Errore", "Inserisci la quantità da aquistare")
+            return
+
+        elif self.quantitaprodsb.value() > self.prodSelezionati[nProdSelezionati].giacenza:
+            messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
+            print(self.nProdSelezionati)
+            return
+
+        elif self.quantitaprodsb.value() <= self.prodSelezionati[
+            self.nProdSelezionati].giacenza and self.quantitaprodsb.value() != 0:
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetcarrello.setItem(self.nProdSelezionati, colonna, item)
+                item = self.tableWidgetcarrello.item(self.nProdSelezionati, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("pfizer", self.prodSelezionati[self.nProdSelezionati].nome))
+                if (colonna == 1):
+                    item.setText(_translate("pfizer", str(self.quantitaprodsb.value())))
+                if (colonna == 2):
+                    item.setText(_translate("pfizer", str(self.prodSelezionati[self.nProdSelezionati].prezzo)))
+                if (colonna == 3):
+                    item.setText(_translate("pfizer", str(self.prodSelezionati[self.nProdSelezionati].codice)))
 
     def popolaListaProdotti(self):
 
@@ -316,25 +329,31 @@ class Ui_pfizer(object):
     def chiudiOrdine(self):
         for element in self.prodSelezionati:
             if (isinstance(element, Prodotto)):
-#                for prodottoM in data.listaProdottiMagazzino:
-#                    if (element.codice == prodottoM.codice):
-#                        prodottoM.giacenza += quantità
-#                    else data.listaProdottiMagazzino.append(element)
-                for prodottoF in data.listaProdottiFornitore:
-                    if (element.codice == prodottoF.codice):
-#                        if(quantità == prodottoF.giacenza):
-#                            data.listaProdottiFornitore.remove(prodottoF)
-#                        else prodottoF.giacenza -= quantità
+               for prodottoM in data.listaProdottiMagazzino:
+                   if (element.codice == prodottoM.codice):
+                       prodottoM.giacenza += self.quantitaprodsb.value()
+                   else:
+                       data.listaProdottiMagazzino.append(element)
+
+                   for prodottoF in data.listaProdottiFornitore:
+                       if (element.codice == prodottoF.codice):
+                           if(self.quantitaprodsb.value() == prodottoF.giacenza):
+                               data.listaProdottiFornitore.remove(prodottoF)
+                           else:
+                               prodottoF.giacenza -= self.quantitaprodsb.value()
+
             if (isinstance(element, Farmaco)):
-#                for farmacoM in data.listaFarmaciMagazzino:
-#                   if (element.codice == farmacoM.codice):
-#                        farmacoM.giacenza += quantità
-#                   else data.listaFarmaciMagazzino.append(element)
-                for farmacoF in data.listaFarmaciFornitore:
+               for farmacoM in data.listaFarmaciMagazzino:
+                  if (element.codice == farmacoM.codice):
+                       farmacoM.giacenza += self.quantitaprodsb.value()
+                  else:
+                      data.listaFarmaciMagazzino.append(element)
+               for farmacoF in data.listaFarmaciFornitore:
                     if (element.codice == farmacoF.codice):
-#                        if(quantità == farmacoF.giacenza):
-#                            data.listaFarmaciFornitore.remove(farmacoF)
-#                        else farmacoF.giacenza -= quantità
+                       if(self.quantitaprodsb.value() == farmacoF.giacenza):
+                           data.listaFarmaciFornitore.remove(farmacoF)
+                       else:
+                           farmacoF.giacenza -= self.quantitaprodsb.value()
         data.uploadMagazzino()
         data.uploadFornitore()
 

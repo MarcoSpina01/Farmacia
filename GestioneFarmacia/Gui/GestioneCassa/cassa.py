@@ -238,6 +238,7 @@ class Ui_Cassa(object):
         if check:
             self.creaCarrello()
             self.popolaCarrello()
+
         else:
             messagebox.showinfo("Errore","Inserisci il codice corretto")
 
@@ -265,33 +266,29 @@ class Ui_Cassa(object):
 
     def popolaCarrello(self):
         from tkinter import messagebox
-        nProdSelezionati = len(self.prodSelezionati)
+        nProdSelezionati = len(Ui_Cassa.prodSelezionati)-1
         _translate = QtCore.QCoreApplication.translate
-        nProdSelezionati -= 1
-
         if self.quantitaprodsb.value() == 0:
             messagebox.showinfo("Errore", "Inserisci la quantità da aquistare")
-            return
 
-        elif self.quantitaprodsb.value() > self.prodSelezionati[nProdSelezionati].giacenza:
+        elif self.quantitaprodsb.value() > Ui_Cassa.prodSelezionati[nProdSelezionati].giacenza:
             messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
-            print(self.nProdSelezionati)
-            return
 
-        elif self.quantitaprodsb.value() <= self.prodSelezionati[self.nProdSelezionati].giacenza and self.quantitaprodsb.value() != 0:
+        elif self.quantitaprodsb.value() <= Ui_Cassa.prodSelezionati[Ui_Cassa.nProdSelezionati].giacenza and self.quantitaprodsb.value() != 0:
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
                 self.tableWidgetcarrello.setItem(self.nProdSelezionati, colonna, item)
                 item = self.tableWidgetcarrello.item(self.nProdSelezionati, colonna)
                 if(colonna == 0):
-                    item.setText(_translate("cassa", self.prodSelezionati[self.nProdSelezionati].nome))
+                    item.setText(_translate("cassa", Ui_Cassa.prodSelezionati[self.nProdSelezionati].nome))
                 if(colonna == 1):
                     item.setText(_translate("cassa", str(self.quantitaprodsb.value())))
                 if(colonna == 2):
-                    item.setText(_translate("cassa", str(self.prodSelezionati[self.nProdSelezionati].prezzo)))
+                    item.setText(_translate("cassa", str(Ui_Cassa.prodSelezionati[self.nProdSelezionati].prezzo)))
+                    print(str(self.prodSelezionati[self.nProdSelezionati].prezzo))
                 if(colonna == 3):
-                    item.setText(_translate("cassa", str(self.prodSelezionati[self.nProdSelezionati].codice)))
+                    item.setText(_translate("cassa", str(Ui_Cassa.prodSelezionati[self.nProdSelezionati].codice)))
 
 
 
