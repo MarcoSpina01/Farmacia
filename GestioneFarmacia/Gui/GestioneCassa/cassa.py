@@ -6,7 +6,6 @@ from GestioneFarmacia.GestioneSistema.data import data
 gestore = Gestore()
 
 class Ui_Cassa(object):
-    nProdSelezionati = 0
     prodSelezionati = []
     def setupUi(self, Cassa):
         self.Frame = Cassa
@@ -223,24 +222,43 @@ class Ui_Cassa(object):
 
     def selezionaProdotto(self):
         from tkinter import messagebox
-
         param = self.codicele.text()
-        check = False
+
+        if self.quantitaprodsb.value() == 0:
+            messagebox.showinfo("Errore", "Inserisci la quantità da aquistare")
+            return
+
         for element in data.listaFarmaciMagazzino:
-            if (param == element.codice):
+            if param == element.codice:
+                nProdSelezionati = len(self.prodSelezionati)
                 self.prodSelezionati.append(element)
-                check = True
+
+                if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    self.creaCarrello()
+                    self.popolaCarrello(nProdSelezionati)
+                    return
+                else:
+                    self.prodSelezionati.remove(element)
+                    messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
+                    return
 
         for element in data.listaProdottiMagazzino:
-            if (param == element.codice):
+            if param == element.codice:
+                nProdSelezionati = len(self.prodSelezionati)
                 self.prodSelezionati.append(element)
-                check = True
-        if check:
-            self.creaCarrello()
-            self.popolaCarrello()
 
-        else:
-            messagebox.showinfo("Errore","Inserisci il codice corretto")
+                if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    self.prodSelezionati.append(element)
+                    self.creaCarrello()
+                    self.popolaCarrello(nProdSelezionati)
+                    return
+                else:
+                    self.prodSelezionati.remove(element)
+                    messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
+                    return
+
+        messagebox.showinfo("Errore","Inserisci il codice corretto")
+        return
 
     def creaCarrello(self):
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
@@ -264,31 +282,25 @@ class Ui_Cassa(object):
         self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
 
-    def popolaCarrello(self):
-        from tkinter import messagebox
-        nProdSelezionati = len(Ui_Cassa.prodSelezionati)-1
+    def popolaCarrello(self, nProdSelezionati):
         _translate = QtCore.QCoreApplication.translate
-        if self.quantitaprodsb.value() == 0:
-            messagebox.showinfo("Errore", "Inserisci la quantità da aquistare")
-
-        elif self.quantitaprodsb.value() > Ui_Cassa.prodSelezionati[nProdSelezionati].giacenza:
-            messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
-
-        elif self.quantitaprodsb.value() <= Ui_Cassa.prodSelezionati[Ui_Cassa.nProdSelezionati].giacenza and self.quantitaprodsb.value() != 0:
-            for colonna in range(0, 4):
-                item = QtWidgets.QTableWidgetItem()
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
-                self.tableWidgetcarrello.setItem(self.nProdSelezionati, colonna, item)
-                item = self.tableWidgetcarrello.item(self.nProdSelezionati, colonna)
-                if(colonna == 0):
-                    item.setText(_translate("cassa", Ui_Cassa.prodSelezionati[self.nProdSelezionati].nome))
-                if(colonna == 1):
-                    item.setText(_translate("cassa", str(self.quantitaprodsb.value())))
-                if(colonna == 2):
-                    item.setText(_translate("cassa", str(Ui_Cassa.prodSelezionati[self.nProdSelezionati].prezzo)))
-                    print(str(self.prodSelezionati[self.nProdSelezionati].prezzo))
-                if(colonna == 3):
-                    item.setText(_translate("cassa", str(Ui_Cassa.prodSelezionati[self.nProdSelezionati].codice)))
+        print(self.codicele.text())
+        print(str(self.prodSelezionati[nProdSelezionati].prezzo))
+        print(nProdSelezionati)
+        print(len(self.prodSelezionati))
+        for colonna in range(0, 4):
+            item = QtWidgets.QTableWidgetItem()
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
+            item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
+            if(colonna == 0):
+                item.setText(_translate("cassa", self.prodSelezionati[nProdSelezionati].nome))
+            if(colonna == 1):
+                item.setText(_translate("cassa", str(self.quantitaprodsb.value())))
+            if(colonna == 2):
+                item.setText(_translate("cassa", str(self.prodSelezionati[nProdSelezionati].prezzo)))
+            if(colonna == 3):
+                item.setText(_translate("cassa", str(self.prodSelezionati[nProdSelezionati].codice)))
 
 
 

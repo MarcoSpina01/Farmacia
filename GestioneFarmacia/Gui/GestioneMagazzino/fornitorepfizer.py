@@ -36,9 +36,9 @@ class Ui_pfizer(object):
         self.lineEdit = QtWidgets.QLineEdit(pfizer)
         self.lineEdit.setGeometry(QtCore.QRect(140, 380, 131, 20))
         self.lineEdit.setObjectName("lineEdit")
-        self.lineEdit_2 = QtWidgets.QLineEdit(pfizer)
-        self.lineEdit_2.setGeometry(QtCore.QRect(70, 500, 131, 20))
-        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.codicele = QtWidgets.QLineEdit(pfizer)
+        self.codicele.setGeometry(QtCore.QRect(70, 500, 131, 20))
+        self.codicele.setObjectName("codicele")
         self.label = QtWidgets.QLabel(pfizer)
         self.label.setGeometry(QtCore.QRect(50, 450, 281, 31))
         font = QtGui.QFont()
@@ -119,7 +119,7 @@ class Ui_pfizer(object):
         self.label_4.raise_()
         self.ricercafornitorebtn.raise_()
         self.lineEdit.raise_()
-        self.lineEdit_2.raise_()
+        self.codicele.raise_()
         self.label.raise_()
         self.quantitaprodsb.raise_()
         self.carrellobtn.raise_()
@@ -132,8 +132,6 @@ class Ui_pfizer(object):
 
 
         self.creaListaProdotti()
-        self.creaCarrello()
-
         self.popolaListaProdotti()
 
         self.homebtn.clicked.connect(self.returnToHome)
@@ -143,7 +141,7 @@ class Ui_pfizer(object):
         self.ricercafornitorebtn.clicked.connect(self.ricercaArticolo)
         self.prodSelezionati.clear()
         self.carrellobtn.clicked.connect(self.selezionaProdotto)
-        self.acquistabtn.clicked.connect(self.chiudiOrdine)
+        # self.acquistabtn.clicked.connect(self.chiudiOrdine)
 
         self.retranslateUi(pfizer)
         QtCore.QMetaObject.connectSlotsByName(pfizer)
@@ -158,7 +156,6 @@ class Ui_pfizer(object):
         self.label_3.setText(_translate("pfizer", "Carrello:"))
         self.homebtn.setText(_translate("pfizer", "Home"))
         self.acquistabtn.setText(_translate("pfizer", "  Acquista"))
-
 
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
@@ -189,37 +186,6 @@ class Ui_pfizer(object):
         self.tableWidgetlist.horizontalHeader().setVisible(True)
         self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetlist.verticalHeader().setVisible(True)
-
-    def popolaCarrello(self):
-        from tkinter import messagebox
-        nProdSelezionati = len(self.prodSelezionati)
-        _translate = QtCore.QCoreApplication.translate
-        nProdSelezionati -= 1
-
-        if self.quantitaprodsb.value() == 0:
-            messagebox.showinfo("Errore", "Inserisci la quantità da aquistare")
-            return
-
-        elif self.quantitaprodsb.value() > self.prodSelezionati[nProdSelezionati].giacenza:
-            messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
-            print(self.nProdSelezionati)
-            return
-
-        elif self.quantitaprodsb.value() <= self.prodSelezionati[
-            self.nProdSelezionati].giacenza and self.quantitaprodsb.value() != 0:
-            for colonna in range(0, 4):
-                item = QtWidgets.QTableWidgetItem()
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
-                self.tableWidgetcarrello.setItem(self.nProdSelezionati, colonna, item)
-                item = self.tableWidgetcarrello.item(self.nProdSelezionati, colonna)
-                if (colonna == 0):
-                    item.setText(_translate("pfizer", self.prodSelezionati[self.nProdSelezionati].nome))
-                if (colonna == 1):
-                    item.setText(_translate("pfizer", str(self.quantitaprodsb.value())))
-                if (colonna == 2):
-                    item.setText(_translate("pfizer", str(self.prodSelezionati[self.nProdSelezionati].prezzo)))
-                if (colonna == 3):
-                    item.setText(_translate("pfizer", str(self.prodSelezionati[self.nProdSelezionati].codice)))
 
     def popolaListaProdotti(self):
 
@@ -308,54 +274,91 @@ class Ui_pfizer(object):
 
     def selezionaProdotto(self):
         from tkinter import messagebox
+        param = self.codicele.text()
 
-        param = self.lineEdit_2.text()
-        check = False
+        if self.quantitaprodsb.value() == 0:
+            messagebox.showinfo("Errore", "Inserisci la quantità da aquistare")
+            return
+
         for element in data.listaFarmaciFornitore:
-            if (param == element.codice):
+            if param == element.codice:
+                nProdSelezionati = len(self.prodSelezionati)
                 self.prodSelezionati.append(element)
-                check = True
+
+                if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    self.creaCarrello()
+                    self.popolaCarrello(nProdSelezionati)
+                    return
+                else:
+                    self.prodSelezionati.remove(element)
+                    messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
+                    return
 
         for element in data.listaProdottiFornitore:
-            if (param == element.codice):
+            if param == element.codice:
+                nProdSelezionati = len(self.prodSelezionati)
                 self.prodSelezionati.append(element)
-                check = True
-        if check:
-            self.creaCarrello()
-            self.popolaCarrello()
-        else:
-            messagebox.showinfo("Errore","Inserisci il codice corretto")
 
-    def chiudiOrdine(self):
-        for element in self.prodSelezionati:
-            if (isinstance(element, Prodotto)):
-               for prodottoM in data.listaProdottiMagazzino:
-                   if (element.codice == prodottoM.codice):
-                       prodottoM.giacenza += self.quantitaprodsb.value()
-                   else:
-                       data.listaProdottiMagazzino.append(element)
+                if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    self.prodSelezionati.append(element)
+                    self.creaCarrello()
+                    self.popolaCarrello(nProdSelezionati)
+                    return
+                else:
+                    self.prodSelezionati.remove(element)
+                    messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
+                    return
 
-                   for prodottoF in data.listaProdottiFornitore:
-                       if (element.codice == prodottoF.codice):
-                           if(self.quantitaprodsb.value() == prodottoF.giacenza):
-                               data.listaProdottiFornitore.remove(prodottoF)
-                           else:
-                               prodottoF.giacenza -= self.quantitaprodsb.value()
+        messagebox.showinfo("Errore","Inserisci il codice corretto")
+        return
 
-            if (isinstance(element, Farmaco)):
-               for farmacoM in data.listaFarmaciMagazzino:
-                  if (element.codice == farmacoM.codice):
-                       farmacoM.giacenza += self.quantitaprodsb.value()
-                  else:
-                      data.listaFarmaciMagazzino.append(element)
-               for farmacoF in data.listaFarmaciFornitore:
-                    if (element.codice == farmacoF.codice):
-                       if(self.quantitaprodsb.value() == farmacoF.giacenza):
-                           data.listaFarmaciFornitore.remove(farmacoF)
-                       else:
-                           farmacoF.giacenza -= self.quantitaprodsb.value()
-        data.uploadMagazzino()
-        data.uploadFornitore()
+
+    def popolaCarrello(self, nProdSelezionati):
+        _translate = QtCore.QCoreApplication.translate
+        for colonna in range(0, 4):
+            item = QtWidgets.QTableWidgetItem()
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
+            item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
+            if(colonna == 0):
+                item.setText(_translate("pfizer", self.prodSelezionati[nProdSelezionati].nome))
+            if(colonna == 1):
+                item.setText(_translate("pfizer", str(self.quantitaprodsb.value())))
+            if(colonna == 2):
+                item.setText(_translate("pfizer", str(self.prodSelezionati[nProdSelezionati].prezzo)))
+            if(colonna == 3):
+                item.setText(_translate("pfizer", str(self.prodSelezionati[nProdSelezionati].codice)))
+
+    # def chiudiOrdine(self):
+    #     for element in self.prodSelezionati:
+    #         if (isinstance(element, Prodotto)):
+    #            for prodottoM in data.listaProdottiMagazzino:
+    #                if (element.codice == prodottoM.codice):
+    #                    prodottoM.giacenza += self.quantitaprodsb.value()
+    #                else:
+    #                    data.listaProdottiMagazzino.append(element)
+    #
+    #                for prodottoF in data.listaProdottiFornitore:
+    #                    if (element.codice == prodottoF.codice):
+    #                        if(self.quantitaprodsb.value() == prodottoF.giacenza):
+    #                            data.listaProdottiFornitore.remove(prodottoF)
+    #                        else:
+    #                            prodottoF.giacenza -= self.quantitaprodsb.value()
+    #
+    #         if (isinstance(element, Farmaco)):
+    #            for farmacoM in data.listaFarmaciMagazzino:
+    #               if (element.codice == farmacoM.codice):
+    #                    farmacoM.giacenza += self.quantitaprodsb.value()
+    #               else:
+    #                   data.listaFarmaciMagazzino.append(element)
+    #            for farmacoF in data.listaFarmaciFornitore:
+    #                 if (element.codice == farmacoF.codice):
+    #                    if(self.quantitaprodsb.value() == farmacoF.giacenza):
+    #                        data.listaFarmaciFornitore.remove(farmacoF)
+    #                    else:
+    #                        farmacoF.giacenza -= self.quantitaprodsb.value()
+    #     data.uploadMagazzino()
+    #     data.uploadFornitore()
 
 
 

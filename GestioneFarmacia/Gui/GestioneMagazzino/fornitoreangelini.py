@@ -31,9 +31,9 @@ class Ui_angelini(object):
         self.quantitaprodsb = QtWidgets.QSpinBox(angelini)
         self.quantitaprodsb.setGeometry(QtCore.QRect(790, 190, 42, 22))
         self.quantitaprodsb.setObjectName("quantitaprodsb")
-        self.lineEdit_2 = QtWidgets.QLineEdit(angelini)
-        self.lineEdit_2.setGeometry(QtCore.QRect(650, 190, 113, 20))
-        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.codicele = QtWidgets.QLineEdit(angelini)
+        self.codicele.setGeometry(QtCore.QRect(650, 190, 113, 20))
+        self.codicele.setObjectName("codicele")
         self.label = QtWidgets.QLabel(angelini)
         self.label.setGeometry(QtCore.QRect(620, 140, 281, 31))
         font = QtGui.QFont()
@@ -118,7 +118,7 @@ class Ui_angelini(object):
         self.ricercafornitorebtn.raise_()
         self.lineEdit.raise_()
         self.quantitaprodsb.raise_()
-        self.lineEdit_2.raise_()
+        self.codicele.raise_()
         self.label.raise_()
         self.carrellobtn.raise_()
         self.acquistabtn.raise_()
@@ -128,8 +128,6 @@ class Ui_angelini(object):
         self.tableWidgetcarrello.raise_()
 
         self.creaListaProdotti()
-        self.creaCarrello()
-
         self.popolaListaProdotti()
 
         self.homebtn.clicked.connect(self.returnToHome)
@@ -183,26 +181,6 @@ class Ui_angelini(object):
         self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetlist.verticalHeader().setVisible(True)
 
-    def selezionaProdotto(self):
-        from tkinter import messagebox
-
-        param = self.lineEdit_2.text()
-        check = False
-        for element in data.listaFarmaciFornitore:
-            if (param == element.codice):
-                self.prodSelezionati.append(element)
-                check = True
-
-        for element in data.listaProdottiFornitore:
-            if (param == element.codice):
-                self.prodSelezionati.append(element)
-                check = True
-        if check:
-            self.creaCarrello()
-            self.popolaCarrello()
-        else:
-            messagebox.showinfo("Errore","Inserisci il codice corretto")
-
     def creaCarrello(self):
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetcarrello.setObjectName("tableWidget")
@@ -224,39 +202,6 @@ class Ui_angelini(object):
         self.tableWidgetcarrello.horizontalHeader().setVisible(True)
         self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
-
-    def popolaCarrello(self):
-        from tkinter import messagebox
-        nProdSelezionati = len(self.prodSelezionati)
-        _translate = QtCore.QCoreApplication.translate
-        nProdSelezionati -= 1
-
-        if self.quantitaprodsb.value() == 0:
-            messagebox.showinfo("Errore", "Inserisci la quantità da aquistare")
-            return
-
-        elif self.quantitaprodsb.value() > self.prodSelezionati[nProdSelezionati].giacenza:
-            messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
-            print(self.nProdSelezionati)
-            return
-
-        elif self.quantitaprodsb.value() <= self.prodSelezionati[self.nProdSelezionati].giacenza and self.quantitaprodsb.value() != 0:
-            for colonna in range(0, 4):
-                item = QtWidgets.QTableWidgetItem()
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
-                self.tableWidgetcarrello.setItem(self.nProdSelezionati, colonna, item)
-                item = self.tableWidgetcarrello.item(self.nProdSelezionati, colonna)
-                if(colonna == 0):
-                    item.setText(_translate("angelini", self.prodSelezionati[self.nProdSelezionati].nome))
-                if(colonna == 1):
-                    item.setText(_translate("angelini", str(self.quantitaprodsb.value())))
-                if(colonna == 2):
-                    item.setText(_translate("angelini", str(self.prodSelezionati[self.nProdSelezionati].prezzo)))
-                if(colonna == 3):
-                    item.setText(_translate("angelini", str(self.prodSelezionati[self.nProdSelezionati].codice)))
-
-
-
 
     def popolaListaProdotti(self):
         item = self.tableWidgetlist.horizontalHeaderItem(0)
@@ -318,7 +263,61 @@ class Ui_angelini(object):
             else:
                 messagebox.showinfo("Articolo/i", p)
 
+    def selezionaProdotto(self):
+        from tkinter import messagebox
+        param = self.codicele.text()
 
+        if self.quantitaprodsb.value() == 0:
+            messagebox.showinfo("Errore", "Inserisci la quantità da aquistare")
+            return
+
+        for element in data.listaFarmaciFornitore:
+            if param == element.codice:
+                nProdSelezionati = len(self.prodSelezionati)
+                self.prodSelezionati.append(element)
+
+                if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    self.creaCarrello()
+                    self.popolaCarrello(nProdSelezionati)
+                    return
+                else:
+                    self.prodSelezionati.remove(element)
+                    messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
+                    return
+
+        for element in data.listaProdottiFornitore:
+            if param == element.codice:
+                nProdSelezionati = len(self.prodSelezionati)
+                self.prodSelezionati.append(element)
+
+                if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    self.prodSelezionati.append(element)
+                    self.creaCarrello()
+                    self.popolaCarrello(nProdSelezionati)
+                    return
+                else:
+                    self.prodSelezionati.remove(element)
+                    messagebox.showinfo("Errore", "La quantità inserita è maggiore della giacenza dell'articolo")
+                    return
+
+        messagebox.showinfo("Errore","Inserisci il codice corretto")
+        return
+
+    def popolaCarrello(self, nProdSelezionati):
+        _translate = QtCore.QCoreApplication.translate
+        for colonna in range(0, 4):
+            item = QtWidgets.QTableWidgetItem()
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.tableWidgetcarrello.setItem(nProdSelezionati, colonna, item)
+            item = self.tableWidgetcarrello.item(nProdSelezionati, colonna)
+            if(colonna == 0):
+                item.setText(_translate("angelini", self.prodSelezionati[nProdSelezionati].nome))
+            if(colonna == 1):
+                item.setText(_translate("angelini", str(self.quantitaprodsb.value())))
+            if(colonna == 2):
+                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].prezzo)))
+            if(colonna == 3):
+                item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].codice)))
 
 
 
