@@ -234,6 +234,17 @@ class Ui_Cassa(object):
                 self.prodSelezionati.append(element)
 
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    for x in range (nProdSelezionati):
+                        if param == self.prodSelezionati[x].codice:
+                            self.prodSelezionati.remove(self.prodSelezionati[x])
+                            messagebox.showinfo("Imprevisto",
+                                                "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
+                                                " a favore dell'inserimento del prodotto appena selezionato")
+                            nProdSelezionati -= 1
+                            self.creaCarrello()
+                            self.popolaCarrello(nProdSelezionati)
+                            return
+
                     self.creaCarrello()
                     self.popolaCarrello(nProdSelezionati)
                     return
@@ -248,7 +259,17 @@ class Ui_Cassa(object):
                 self.prodSelezionati.append(element)
 
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
-                    self.prodSelezionati.append(element)
+                    for x in range (nProdSelezionati):
+                        if param == self.prodSelezionati[x].codice:
+                            self.prodSelezionati.remove(self.prodSelezionati[x])
+                            messagebox.showinfo("Imprevisto",
+                                                "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
+                                                " a favore dell'inserimento del prodotto appena selezionato")
+                            nProdSelezionati -= 1
+                            self.creaCarrello()
+                            self.popolaCarrello(nProdSelezionati)
+                            return
+
                     self.creaCarrello()
                     self.popolaCarrello(nProdSelezionati)
                     return
@@ -284,10 +305,6 @@ class Ui_Cassa(object):
 
     def popolaCarrello(self, nProdSelezionati):
         _translate = QtCore.QCoreApplication.translate
-        print(self.codicele.text())
-        print(str(self.prodSelezionati[nProdSelezionati].prezzo))
-        print(nProdSelezionati)
-        print(len(self.prodSelezionati))
         for colonna in range(0, 4):
             item = QtWidgets.QTableWidgetItem()
             item.setFlags(QtCore.Qt.ItemIsEnabled)

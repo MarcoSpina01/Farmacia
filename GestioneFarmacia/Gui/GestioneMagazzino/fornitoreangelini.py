@@ -192,13 +192,13 @@ class Ui_angelini(object):
             self.tableWidgetcarrello.setHorizontalHeaderItem(x, item)
         _translate = QtCore.QCoreApplication.translate
         item = self.tableWidgetcarrello.horizontalHeaderItem(0)
-        item.setText(_translate("cassa", "Prodotto"))
+        item.setText(_translate("angelini", "Prodotto"))
         item = self.tableWidgetcarrello.horizontalHeaderItem(1)
-        item.setText(_translate("cassa", "Quantità"))
+        item.setText(_translate("angelini", "Quantità"))
         item = self.tableWidgetcarrello.horizontalHeaderItem(2)
-        item.setText(_translate("cassa", "Prezzo"))
+        item.setText(_translate("angelini", "Prezzo"))
         item = self.tableWidgetcarrello.horizontalHeaderItem(3)
-        item.setText(_translate("cassa", "Codice"))
+        item.setText(_translate("angelini", "Codice"))
         self.tableWidgetcarrello.horizontalHeader().setVisible(True)
         self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
@@ -277,6 +277,17 @@ class Ui_angelini(object):
                 self.prodSelezionati.append(element)
 
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    for x in range (nProdSelezionati):
+                        if param == self.prodSelezionati[x].codice:
+                            self.prodSelezionati.remove(self.prodSelezionati[x])
+                            messagebox.showinfo("Imprevisto",
+                                                "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
+                                                " a favore dell'inserimento del prodotto appena selezionato")
+                            nProdSelezionati -= 1
+                            self.creaCarrello()
+                            self.popolaCarrello(nProdSelezionati)
+                            return
+
                     self.creaCarrello()
                     self.popolaCarrello(nProdSelezionati)
                     return
@@ -291,7 +302,17 @@ class Ui_angelini(object):
                 self.prodSelezionati.append(element)
 
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
-                    self.prodSelezionati.append(element)
+                    for x in range (nProdSelezionati):
+                        if param == self.prodSelezionati[x].codice:
+                            self.prodSelezionati.remove(self.prodSelezionati[x])
+                            messagebox.showinfo("Imprevisto",
+                                                "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
+                                                " a favore dell'inserimento del prodotto appena selezionato")
+                            nProdSelezionati -= 1
+                            self.creaCarrello()
+                            self.popolaCarrello(nProdSelezionati)
+                            return
+
                     self.creaCarrello()
                     self.popolaCarrello(nProdSelezionati)
                     return
