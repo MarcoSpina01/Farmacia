@@ -136,6 +136,8 @@ class Ui_angelini(object):
         self.ricercafornitorebtn.clicked.connect(self.ricercaArticolo)
         self.prodSelezionati.clear()
         self.carrellobtn.clicked.connect(self.selezionaProdotto)
+        self.acquistabtn.clicked.connect(self.chiudiOrdine)
+
 
         self.retranslateUi(angelini)
         QtCore.QMetaObject.connectSlotsByName(angelini)
@@ -360,5 +362,47 @@ class Ui_angelini(object):
             if(colonna == 3):
                 item.setText(_translate("cassa", str(elemrimosso.codice)))
 
+    def chiudiOrdine(self):
+        check = False
+        check2 = False
+        data.downloadMagazzino()
+        data.downloadFornitore()
+        for element in self.prodSelezionati:
+            for prodotto in data.listaProdottiFornitore:
+                if (element.codice == prodotto.codice):
+                    check2 = True
+                    for prodottoM in data.listaProdottiMagazzino:
+                        if (element.codice == prodottoM.codice):
+                            prodottoM.giacenza += self.quantitaprodsb.value()
+                            check = True
+                    if (not(check)):
+                        data.listaProdottiMagazzino.append(element)
+                        element.giacenza = self.quantitaprodsb.value()
+                    for prodottoF in data.listaProdottiFornitore:
+                        if (element.codice == prodottoF.codice):
+                            if(self.quantitaprodsb.value() == prodottoF.giacenza):
+                                data.listaFarmaciFornitore.remove(prodottoF)
+                            else:
+                                prodottoF.giacenza -= self.quantitaprodsb.value()
 
+            if(not(check2)):
+                check = False
+                for farmacoM in data.listaFarmaciMagazzino:
+                    if (element.codice == farmacoM.codice):
+                        farmacoM.giacenza += self.quantitaprodsb.value()
+                        check = True
+                if(not(check)):
+                    data.listaFarmaciMagazzino.append(element)
+                    element.giacenza = self.quantitaprodsb.value()
+                for farmacoF in data.listaFarmaciFornitore:
+                    if (element.codice == farmacoF.codice):
+                       if(self.quantitaprodsb.value() == farmacoF.giacenza):
+                            data.listaFarmaciFornitore.remove(farmacoF)
+                       else:
+                           farmacoF.giacenza -= self.quantitaprodsb.value()
+
+
+        data.uploadMagazzino()
+        data.uploadFornitore()
+        self.popolaListaProdotti()
 

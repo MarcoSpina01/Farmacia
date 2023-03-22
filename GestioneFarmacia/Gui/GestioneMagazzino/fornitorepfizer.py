@@ -12,6 +12,7 @@ class Ui_pfizer(object):
 
     nProdSelezionati = 0
     prodSelezionati = []
+    totale = 0
 
     def setupUi(self, pfizer):
         self.Frame = pfizer
@@ -352,6 +353,7 @@ class Ui_pfizer(object):
                 item.setText(_translate("pfizer", str(self.prodSelezionati[nProdSelezionati].prezzo)))
             if(colonna == 3):
                 item.setText(_translate("pfizer", str(self.prodSelezionati[nProdSelezionati].codice)))
+        self.totale += self.prodSelezionati[nProdSelezionati].prezzo*self.quantitaprodsb.value()
 
     def modificaCarrello(self, riga, elemrimosso):
         _translate = QtCore.QCoreApplication.translate
@@ -368,31 +370,34 @@ class Ui_pfizer(object):
                 item.setText(_translate("cassa", str(elemrimosso.prezzo)))
             if(colonna == 3):
                 item.setText(_translate("cassa", str(elemrimosso.codice)))
+        self.totale += elemrimosso.prezzo*self.quantitaprodsb.value()
 
 
     def chiudiOrdine(self):
+        from tkinter import messagebox
         check = False
         check2 = False
         data.downloadMagazzino()
         data.downloadFornitore()
         for element in self.prodSelezionati:
-            if (isinstance(element, Prodotto)):
-                check2 = True
-                for prodottoM in data.listaProdottiMagazzino:
-                    if (element.codice == prodottoM.codice):
-                        prodottoM.giacenza += self.quantitaprodsb.value()
-                        check = True
-                if (not(check)):
-                    data.listaProdottiMagazzino.append(element)
-                    element.giacenza = self.quantitaprodsb.value()
-                for prodottoF in data.listaProdottiFornitore:
-                    if (element.codice == prodottoF.codice):
-                        if(self.quantitaprodsb.value() == prodottoF.giacenza):
-                            data.listaProdottiFornitore.remove(prodottoF)
-                        else:
-                            prodottoF.giacenza -= self.quantitaprodsb.value()
+            for prodotto in data.listaProdottiFornitore:
+                if (element.codice == prodotto.codice):
+                    check2 = True
+                    for prodottoM in data.listaProdottiMagazzino:
+                        if (element.codice == prodottoM.codice):
+                            prodottoM.giacenza += self.quantitaprodsb.value()
+                            check = True
+                    if (not(check)):
+                        data.listaProdottiMagazzino.append(element)
+                        element.giacenza = self.quantitaprodsb.value()
+                    for prodottoF in data.listaProdottiFornitore:
+                        if (element.codice == prodottoF.codice):
+                            if(self.quantitaprodsb.value() == prodottoF.giacenza):
+                                data.listaFarmaciFornitore.remove(prodottoF)
+                            else:
+                                prodottoF.giacenza -= self.quantitaprodsb.value()
 
-            if (not(check2)):
+            if(not(check2)):
                 check = False
                 for farmacoM in data.listaFarmaciMagazzino:
                     if (element.codice == farmacoM.codice):
@@ -408,9 +413,10 @@ class Ui_pfizer(object):
                        else:
                            farmacoF.giacenza -= self.quantitaprodsb.value()
 
-
         data.uploadMagazzino()
         data.uploadFornitore()
+        self.popolaListaProdotti()
+
 
 
 
