@@ -114,7 +114,7 @@ class Ui_Menu(object):
         self.magazzinobtn.clicked.connect(self.openMagazzino)
         self.archiviobtn.clicked.connect(self.openArchivio)
         self.cassabtn.clicked.connect(self.openCassa)
-
+        self.calendariobtn.clicked.connect(self.openTamponi)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -159,4 +159,12 @@ class Ui_Menu(object):
         self.ui = Ui_Archivio()
         self.ui.setupUi(self.archivio)
         self.archivio.show()
+        self.form.close()
+
+    def openTamponi(self):
+        from GestioneFarmacia.Gui.GestioneTamponi.calendariotamponi import Ui_DialogCalendario
+        self.tampone = QtWidgets.QFrame()
+        self.ui = Ui_DialogCalendario()
+        self.ui.setupUi(self.tampone)
+        self.tampone.show()
         self.form.close()
