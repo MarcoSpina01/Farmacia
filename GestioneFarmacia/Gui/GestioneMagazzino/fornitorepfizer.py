@@ -371,33 +371,44 @@ class Ui_pfizer(object):
 
 
     def chiudiOrdine(self):
+        check = False
+        check2 = False
+        data.downloadMagazzino()
+        data.downloadFornitore()
         for element in self.prodSelezionati:
             if (isinstance(element, Prodotto)):
-               for prodottoM in data.listaProdottiMagazzino:
-                   if (element.codice == prodottoM.codice):
-                       prodottoM.giacenza += self.quantitaprodsb.value()
-                   else:
-                       data.listaProdottiMagazzino.append(element)
+                check2 = True
+                for prodottoM in data.listaProdottiMagazzino:
+                    if (element.codice == prodottoM.codice):
+                        prodottoM.giacenza += self.quantitaprodsb.value()
+                        check = True
+                if (not(check)):
+                    data.listaProdottiMagazzino.append(element)
+                    element.giacenza = self.quantitaprodsb.value()
+                for prodottoF in data.listaProdottiFornitore:
+                    if (element.codice == prodottoF.codice):
+                        if(self.quantitaprodsb.value() == prodottoF.giacenza):
+                            data.listaProdottiFornitore.remove(prodottoF)
+                        else:
+                            prodottoF.giacenza -= self.quantitaprodsb.value()
 
-                   for prodottoF in data.listaProdottiFornitore:
-                       if (element.codice == prodottoF.codice):
-                           if(self.quantitaprodsb.value() == prodottoF.giacenza):
-                               data.listaProdottiFornitore.remove(prodottoF)
-                           else:
-                               prodottoF.giacenza -= self.quantitaprodsb.value()
-
-            if (isinstance(element, Farmaco)):
-               for farmacoM in data.listaFarmaciMagazzino:
-                  if (element.codice == farmacoM.codice):
-                       farmacoM.giacenza += self.quantitaprodsb.value()
-                  else:
-                      data.listaFarmaciMagazzino.append(element)
-               for farmacoF in data.listaFarmaciFornitore:
+            if (not(check2)):
+                check = False
+                for farmacoM in data.listaFarmaciMagazzino:
+                    if (element.codice == farmacoM.codice):
+                        farmacoM.giacenza += self.quantitaprodsb.value()
+                        check = True
+                if(not(check)):
+                    data.listaFarmaciMagazzino.append(element)
+                    element.giacenza = self.quantitaprodsb.value()
+                for farmacoF in data.listaFarmaciFornitore:
                     if (element.codice == farmacoF.codice):
                        if(self.quantitaprodsb.value() == farmacoF.giacenza):
-                           data.listaFarmaciFornitore.remove(farmacoF)
+                            data.listaFarmaciFornitore.remove(farmacoF)
                        else:
                            farmacoF.giacenza -= self.quantitaprodsb.value()
+
+
         data.uploadMagazzino()
         data.uploadFornitore()
 
