@@ -46,6 +46,7 @@ class Ui_DialogCalendario(object):
         self.homebtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "")
+        #ok
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(gestore.returnPth()+"loghi-icone/iconahome.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.homebtn.setIcon(icon)
