@@ -231,20 +231,21 @@ class Ui_Cassa(object):
         for element in data.listaFarmaciMagazzino:
             if param == element.codice:
                 nProdSelezionati = len(self.prodSelezionati)
+                for e in self.prodSelezionati:
+                    print(e.nome)
                 self.prodSelezionati.append(element)
-
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
                     for x in range (nProdSelezionati):
                         if param == self.prodSelezionati[x].codice:
-                            self.prodSelezionati.append(self.prodSelezionati[x])
-                            self.prodSelezionati.pop(x)
+                            elemrimosso = self.prodSelezionati.pop(x)
+                            self.prodSelezionati.insert(x, elemrimosso)
                             # messagebox.showinfo("Imprevisto",
                             #                     "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
                             #                     " a favore dell'inserimento del prodotto appena selezionato")
                             nProdSelezionati -= 1
 
                             self.creaCarrello()
-                            self.modificaCarrello(x, nProdSelezionati)
+                            self.modificaCarrello(x, elemrimosso)
                             return
 
                     self.creaCarrello()
@@ -263,13 +264,13 @@ class Ui_Cassa(object):
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
                     for x in range (nProdSelezionati):
                         if param == self.prodSelezionati[x].codice:
-                            self.prodSelezionati.pop(x-1)
+                            elemrimosso = self.prodSelezionati.pop(x)
                             messagebox.showinfo("Imprevisto",
                                                 "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
                                                 " a favore dell'inserimento del prodotto appena selezionato")
                             nProdSelezionati -= 1
                             self.creaCarrello()
-                            self.modificaCarrello(x, nProdSelezionati)
+                            self.modificaCarrello(x, elemrimosso)
                             return
 
                     self.creaCarrello()
@@ -321,7 +322,7 @@ class Ui_Cassa(object):
             if(colonna == 3):
                 item.setText(_translate("cassa", str(self.prodSelezionati[nProdSelezionati].codice)))
 
-    def modificaCarrello(self, riga, indice):
+    def modificaCarrello(self, riga, elemrimosso):
         _translate = QtCore.QCoreApplication.translate
         for colonna in range(0, 4):
             item = QtWidgets.QTableWidgetItem()
@@ -329,13 +330,13 @@ class Ui_Cassa(object):
             self.tableWidgetcarrello.setItem(riga, colonna, item)
             item = self.tableWidgetcarrello.item(riga, colonna)
             if(colonna == 0):
-                item.setText(_translate("cassa", self.prodSelezionati[indice].nome))
+                item.setText(_translate("cassa", elemrimosso.nome))
             if(colonna == 1):
                 item.setText(_translate("cassa", str(self.quantitaprodsb.value())))
             if(colonna == 2):
-                item.setText(_translate("cassa", str(self.prodSelezionati[indice].prezzo)))
+                item.setText(_translate("cassa", str(elemrimosso.prezzo)))
             if(colonna == 3):
-                item.setText(_translate("cassa", str(self.prodSelezionati[indice].codice)))
+                item.setText(_translate("cassa", str(elemrimosso.codice)))
 
 
 
