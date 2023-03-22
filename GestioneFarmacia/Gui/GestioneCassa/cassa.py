@@ -238,9 +238,9 @@ class Ui_Cassa(object):
                         if param == self.prodSelezionati[x].codice:
                             elemrimosso = self.prodSelezionati[x]
                             self.prodSelezionati.pop()
-                            # messagebox.showinfo("Imprevisto",
-                            #                     "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
-                            #                     " a favore dell'inserimento del prodotto appena selezionato")
+                            messagebox.showinfo("Imprevisto",
+                                                 "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
+                                                 " a favore dell'inserimento del prodotto appena selezionato")
                             nProdSelezionati -= 1
 
                             self.creaCarrello()

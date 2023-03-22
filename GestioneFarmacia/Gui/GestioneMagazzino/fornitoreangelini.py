@@ -158,6 +158,7 @@ class Ui_angelini(object):
         self.ui.setupUi(self.menu)
         self.menu.show()
         self.Frame.close()
+        self.prodSelezionati.clear()
 
     def returnToFornitori(self):
         from GestioneFarmacia.Gui.GestioneMagazzino.sceltafornitore import Ui_Fornitori
@@ -166,6 +167,7 @@ class Ui_angelini(object):
         self.ui.setupUi(self.fornitori)
         self.fornitori.show()
         self.Frame.close()
+        self.prodSelezionati.clear()
 
     def creaListaProdotti(self):
         data.downloadFornitore()
@@ -281,9 +283,9 @@ class Ui_angelini(object):
                         if param == self.prodSelezionati[x].codice:
                             elemrimosso = self.prodSelezionati[x]
                             self.prodSelezionati.pop()
-                            # messagebox.showinfo("Imprevisto",
-                            #                     "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
-                            #                     " a favore dell'inserimento del prodotto appena selezionato")
+                            messagebox.showinfo("Imprevisto",
+                                                "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
+                                                 " a favore dell'inserimento del prodotto appena selezionato")
                             nProdSelezionati -= 1
 
                             self.creaCarrello()

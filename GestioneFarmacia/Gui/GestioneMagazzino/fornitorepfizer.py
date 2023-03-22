@@ -141,7 +141,7 @@ class Ui_pfizer(object):
         self.ricercafornitorebtn.clicked.connect(self.ricercaArticolo)
         self.prodSelezionati.clear()
         self.carrellobtn.clicked.connect(self.selezionaProdotto)
-        # self.acquistabtn.clicked.connect(self.chiudiOrdine)
+        self.acquistabtn.clicked.connect(self.chiudiOrdine)
 
         self.retranslateUi(pfizer)
         QtCore.QMetaObject.connectSlotsByName(pfizer)
@@ -164,6 +164,7 @@ class Ui_pfizer(object):
         self.ui.setupUi(self.menu)
         self.menu.show()
         self.Frame.close()
+        self.prodSelezionati.clear()
 
     def returnToFornitori(self):
         from GestioneFarmacia.Gui.GestioneMagazzino.sceltafornitore import Ui_Fornitori
@@ -172,6 +173,7 @@ class Ui_pfizer(object):
         self.ui.setupUi(self.fornitori)
         self.fornitori.show()
         self.Frame.close()
+        self.prodSelezionati.clear()
 
     def creaListaProdotti(self):
         data.downloadFornitore()
@@ -290,9 +292,9 @@ class Ui_pfizer(object):
                         if param == self.prodSelezionati[x].codice:
                             elemrimosso = self.prodSelezionati[x]
                             self.prodSelezionati.pop()
-                            # messagebox.showinfo("Imprevisto",
-                            #                     "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
-                            #                     " a favore dell'inserimento del prodotto appena selezionato")
+                            messagebox.showinfo("Imprevisto",
+                                                 "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
+                                                 " a favore dell'inserimento del prodotto appena selezionato")
                             nProdSelezionati -= 1
 
                             self.creaCarrello()
@@ -368,36 +370,36 @@ class Ui_pfizer(object):
                 item.setText(_translate("cassa", str(elemrimosso.codice)))
 
 
-    # def chiudiOrdine(self):
-    #     for element in self.prodSelezionati:
-    #         if (isinstance(element, Prodotto)):
-    #            for prodottoM in data.listaProdottiMagazzino:
-    #                if (element.codice == prodottoM.codice):
-    #                    prodottoM.giacenza += self.quantitaprodsb.value()
-    #                else:
-    #                    data.listaProdottiMagazzino.append(element)
-    #
-    #                for prodottoF in data.listaProdottiFornitore:
-    #                    if (element.codice == prodottoF.codice):
-    #                        if(self.quantitaprodsb.value() == prodottoF.giacenza):
-    #                            data.listaProdottiFornitore.remove(prodottoF)
-    #                        else:
-    #                            prodottoF.giacenza -= self.quantitaprodsb.value()
-    #
-    #         if (isinstance(element, Farmaco)):
-    #            for farmacoM in data.listaFarmaciMagazzino:
-    #               if (element.codice == farmacoM.codice):
-    #                    farmacoM.giacenza += self.quantitaprodsb.value()
-    #               else:
-    #                   data.listaFarmaciMagazzino.append(element)
-    #            for farmacoF in data.listaFarmaciFornitore:
-    #                 if (element.codice == farmacoF.codice):
-    #                    if(self.quantitaprodsb.value() == farmacoF.giacenza):
-    #                        data.listaFarmaciFornitore.remove(farmacoF)
-    #                    else:
-    #                        farmacoF.giacenza -= self.quantitaprodsb.value()
-    #     data.uploadMagazzino()
-    #     data.uploadFornitore()
+    def chiudiOrdine(self):
+        for element in self.prodSelezionati:
+            if (isinstance(element, Prodotto)):
+               for prodottoM in data.listaProdottiMagazzino:
+                   if (element.codice == prodottoM.codice):
+                       prodottoM.giacenza += self.quantitaprodsb.value()
+                   else:
+                       data.listaProdottiMagazzino.append(element)
+
+                   for prodottoF in data.listaProdottiFornitore:
+                       if (element.codice == prodottoF.codice):
+                           if(self.quantitaprodsb.value() == prodottoF.giacenza):
+                               data.listaProdottiFornitore.remove(prodottoF)
+                           else:
+                               prodottoF.giacenza -= self.quantitaprodsb.value()
+
+            if (isinstance(element, Farmaco)):
+               for farmacoM in data.listaFarmaciMagazzino:
+                  if (element.codice == farmacoM.codice):
+                       farmacoM.giacenza += self.quantitaprodsb.value()
+                  else:
+                      data.listaFarmaciMagazzino.append(element)
+               for farmacoF in data.listaFarmaciFornitore:
+                    if (element.codice == farmacoF.codice):
+                       if(self.quantitaprodsb.value() == farmacoF.giacenza):
+                           data.listaFarmaciFornitore.remove(farmacoF)
+                       else:
+                           farmacoF.giacenza -= self.quantitaprodsb.value()
+        data.uploadMagazzino()
+        data.uploadFornitore()
 
 
 
