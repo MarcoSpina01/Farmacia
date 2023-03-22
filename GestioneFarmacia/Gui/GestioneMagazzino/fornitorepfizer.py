@@ -412,7 +412,7 @@ class Ui_pfizer(object):
                             data.listaFarmaciFornitore.remove(farmacoF)
                        else:
                            farmacoF.giacenza -= self.quantitaprodsb.value()
-        messagebox.showinfo("Spesa totale","Il totale è " + str(sum(self.totale)) + "€")
+        messagebox.showinfo("Spesa totale","Il totale è " + str(sum(self.totale)) + "€.")
         data.uploadMagazzino()
         data.uploadFornitore()
         data.downloadFornitore()
