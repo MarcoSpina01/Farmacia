@@ -145,6 +145,7 @@ class Ui_Cassa(object):
         self.ui.setupUi(self.menu)
         self.menu.show()
         self.Frame.close()
+        self.prodSelezionati.clear()
 
     def creaListaVendita(self):
         data.downloadMagazzino()
@@ -231,14 +232,12 @@ class Ui_Cassa(object):
         for element in data.listaFarmaciMagazzino:
             if param == element.codice:
                 nProdSelezionati = len(self.prodSelezionati)
-                for e in self.prodSelezionati:
-                    print(e.nome)
                 self.prodSelezionati.append(element)
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
                     for x in range (nProdSelezionati):
                         if param == self.prodSelezionati[x].codice:
-                            elemrimosso = self.prodSelezionati.pop(x)
-                            self.prodSelezionati.insert(x, elemrimosso)
+                            elemrimosso = self.prodSelezionati[x]
+                            self.prodSelezionati.pop()
                             # messagebox.showinfo("Imprevisto",
                             #                     "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
                             #                     " a favore dell'inserimento del prodotto appena selezionato")

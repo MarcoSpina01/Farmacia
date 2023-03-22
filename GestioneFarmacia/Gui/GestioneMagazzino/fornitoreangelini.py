@@ -279,13 +279,15 @@ class Ui_angelini(object):
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
                     for x in range (nProdSelezionati):
                         if param == self.prodSelezionati[x].codice:
-                            self.prodSelezionati.remove(self.prodSelezionati[x])
-                            messagebox.showinfo("Imprevisto",
-                                                "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
-                                                " a favore dell'inserimento del prodotto appena selezionato")
+                            elemrimosso = self.prodSelezionati[x]
+                            self.prodSelezionati.pop()
+                            # messagebox.showinfo("Imprevisto",
+                            #                     "L'articolo è già stato selezionato in precedenza, è stato eliminato dal carrello"
+                            #                     " a favore dell'inserimento del prodotto appena selezionato")
                             nProdSelezionati -= 1
+
                             self.creaCarrello()
-                            self.popolaCarrello(nProdSelezionati)
+                            self.modificaCarrello(x, elemrimosso)
                             return
 
                     self.creaCarrello()
@@ -339,6 +341,22 @@ class Ui_angelini(object):
                 item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].prezzo)))
             if(colonna == 3):
                 item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].codice)))
+
+    def modificaCarrello(self, riga, elemrimosso):
+        _translate = QtCore.QCoreApplication.translate
+        for colonna in range(0, 4):
+            item = QtWidgets.QTableWidgetItem()
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.tableWidgetcarrello.setItem(riga, colonna, item)
+            item = self.tableWidgetcarrello.item(riga, colonna)
+            if(colonna == 0):
+                item.setText(_translate("cassa", elemrimosso.nome))
+            if(colonna == 1):
+                item.setText(_translate("cassa", str(self.quantitaprodsb.value())))
+            if(colonna == 2):
+                item.setText(_translate("cassa", str(elemrimosso.prezzo)))
+            if(colonna == 3):
+                item.setText(_translate("cassa", str(elemrimosso.codice)))
 
 
 
