@@ -12,7 +12,7 @@ class Ui_pfizer(object):
 
     nProdSelezionati = 0
     prodSelezionati = []
-    totale = 0
+    totale = []
 
     def setupUi(self, pfizer):
         self.Frame = pfizer
@@ -353,7 +353,7 @@ class Ui_pfizer(object):
                 item.setText(_translate("pfizer", str(self.prodSelezionati[nProdSelezionati].prezzo)))
             if(colonna == 3):
                 item.setText(_translate("pfizer", str(self.prodSelezionati[nProdSelezionati].codice)))
-        self.totale += self.prodSelezionati[nProdSelezionati].prezzo*self.quantitaprodsb.value()
+        self.totale.append(self.prodSelezionati[nProdSelezionati].prezzo*self.quantitaprodsb.value())
 
     def modificaCarrello(self, riga, elemrimosso):
         _translate = QtCore.QCoreApplication.translate
@@ -370,7 +370,7 @@ class Ui_pfizer(object):
                 item.setText(_translate("cassa", str(elemrimosso.prezzo)))
             if(colonna == 3):
                 item.setText(_translate("cassa", str(elemrimosso.codice)))
-        self.totale += elemrimosso.prezzo*self.quantitaprodsb.value()
+        self.totale[riga] = elemrimosso.prezzo*self.quantitaprodsb.value()
 
 
     def chiudiOrdine(self):
@@ -412,9 +412,11 @@ class Ui_pfizer(object):
                             data.listaFarmaciFornitore.remove(farmacoF)
                        else:
                            farmacoF.giacenza -= self.quantitaprodsb.value()
-
+        messagebox.showinfo("Spesa totale","Il totale è " + str(sum(self.totale)) + "€")
         data.uploadMagazzino()
         data.uploadFornitore()
+        data.downloadFornitore()
+        data.downloadMagazzino()
         self.popolaListaProdotti()
 
 
