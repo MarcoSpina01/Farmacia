@@ -1,14 +1,21 @@
+from datetime import date
+from random import randint
+from tkinter import messagebox
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 from GestioneFarmacia.GestioneSistema.data import data
+from GestioneFarmacia.Gui.GestioneArchivio.Ordine import Ordine
 
 gestore = Gestore()
 
 
 class Ui_angelini(object):
 
+    contatore = 0
     nProdSelezionati = 0
+    totale = []
     prodSelezionati = []
 
     def setupUi(self, angelini):
@@ -345,6 +352,7 @@ class Ui_angelini(object):
                 item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].prezzo)))
             if(colonna == 3):
                 item.setText(_translate("angelini", str(self.prodSelezionati[nProdSelezionati].codice)))
+        self.totale.append(self.prodSelezionati[nProdSelezionati].prezzo * self.quantitaprodsb.value())
 
     def modificaCarrello(self, riga, elemrimosso):
         _translate = QtCore.QCoreApplication.translate
@@ -361,6 +369,7 @@ class Ui_angelini(object):
                 item.setText(_translate("cassa", str(elemrimosso.prezzo)))
             if(colonna == 3):
                 item.setText(_translate("cassa", str(elemrimosso.codice)))
+        self.totale[riga] = elemrimosso.prezzo*self.quantitaprodsb.value()
 
     def chiudiOrdine(self):
         check = False
@@ -400,9 +409,30 @@ class Ui_angelini(object):
                             data.listaFarmaciFornitore.remove(farmacoF)
                        else:
                            farmacoF.giacenza -= self.quantitaprodsb.value()
-
-
+        self.totale = str(sum(self.totale))
+        messagebox.showinfo("Spesa totale", "Il totale è " + self.totale[0:5] + "€" )
+        self.returnToHome()
+        self.aggiornaArchivio()
         data.uploadMagazzino()
         data.uploadFornitore()
         self.popolaListaProdotti()
+
+    def aggiornaArchivio(self):
+        data.downloadArchivioOrdini()
+        if not(self.generaCodice() == 0):
+            today = date.today()
+            ordine = Ordine(self.generaCodice(), "Angelini", self.totale, today)
+            data.archivioOrdini.append(ordine)
+            data.uploadArchivioOrdini()
+        else:
+            self.aggiornaArchivio()
+
+    def generaCodice(self):
+        codice = randint(1,1000000)
+        for element in data.archivioOrdini:
+            if codice == element.codice:
+                return 0
+        return codice
+
+
 

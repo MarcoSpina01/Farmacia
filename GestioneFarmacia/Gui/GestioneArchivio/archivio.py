@@ -1,4 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
 gestore = Gestore()
@@ -126,6 +128,8 @@ class Ui_Archivio(object):
 
 
         self.homebtn.clicked.connect(self.returnToHome)
+        self.creaArchivioOrdini()
+        self.popolaOrdini()
 
 
         self.retranslateUi(Form)
@@ -151,5 +155,46 @@ class Ui_Archivio(object):
         self.ui.setupUi(self.menu)
         self.menu.show()
         self.Frame.close()
+
+    def creaArchivioOrdini(self):
+        data.downloadArchivioOrdini()
+        self.tableWidgetordini.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.tableWidgetordini.setObjectName("tableWidget")
+        self.tableWidgetordini.setColumnCount(4)
+        self.tableWidgetordini.setRowCount(data.nOrdini)
+        for i in range(0, 4):
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidgetordini.setHorizontalHeaderItem(i, item)
+        self.tableWidgetordini.horizontalHeader().setVisible(True)
+        self.tableWidgetordini.horizontalHeader().setDefaultSectionSize(123)
+        self.tableWidgetordini.verticalHeader().setVisible(True)
+        _translate = QtCore.QCoreApplication.translate
+        item = self.tableWidgetordini.horizontalHeaderItem(0)
+        item.setText(_translate("Form", "Codice"))
+        item = self.tableWidgetordini.horizontalHeaderItem(1)
+        item.setText(_translate("Form", "Fornitore"))
+        item = self.tableWidgetordini.horizontalHeaderItem(2)
+        item.setText(_translate("Form", "Totale"))
+        item = self.tableWidgetordini.horizontalHeaderItem(3)
+        item.setText(_translate("Form", "Data"))
+
+    def popolaOrdini(self):
+        _translate = QtCore.QCoreApplication.translate
+        for riga in range(0, data.nOrdini):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetordini.setItem(riga, colonna, item)
+                item = self.tableWidgetordini.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("Form", str(data.archivioOrdini[riga].codice)))
+                if (colonna == 1):
+                    item.setText(_translate("Form", str(data.archivioOrdini[riga].fornitore)))
+                if (colonna == 2):
+                    item.setText(_translate("Form", str(data.archivioOrdini[riga].totale)[0:5] + "€"))
+                if (colonna == 3):
+                    item.setText(_translate("Form", str(data.archivioOrdini[riga].date)))
+
+
 
 
