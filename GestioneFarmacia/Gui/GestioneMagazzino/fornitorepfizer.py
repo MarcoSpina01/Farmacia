@@ -1,3 +1,5 @@
+from datetime import date
+from random import randint
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -5,6 +7,7 @@ from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Farmaco import Farmaco
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
+from GestioneFarmacia.Gui.GestioneArchivio.Ordine import Ordine
 
 gestore = Gestore()
 
@@ -182,7 +185,7 @@ class Ui_pfizer(object):
         self.tableWidgetlist.setObjectName("tableWidget")
         self.tableWidgetlist.setColumnCount(4)
         self.tableWidgetlist.setRowCount(data.nFarmForn + data.nProdForn)
-        for i in range(0, data.nFarmForn + data.nProdForn):
+        for i in range(0, 4):
             item = QtWidgets.QTableWidgetItem()
             self.tableWidgetlist.setHorizontalHeaderItem(i, item)
 
@@ -412,12 +415,30 @@ class Ui_pfizer(object):
                             data.listaFarmaciFornitore.remove(farmacoF)
                        else:
                            farmacoF.giacenza -= self.quantitaprodsb.value()
-        messagebox.showinfo("Spesa totale","Il totale è " + str(sum(self.totale)) + "€.")
-        data.uploadMagazzino()
-        data.uploadFornitore()
-        data.downloadFornitore()
-        data.downloadMagazzino()
-        self.popolaListaProdotti()
+            self.totale = str(sum(self.totale))
+            messagebox.showinfo("Spesa totale", "Il totale è " + self.totale[0:5] + "€")
+            self.returnToHome()
+            self.aggiornaArchivio()
+            data.uploadMagazzino()
+            data.uploadFornitore()
+            self.popolaListaProdotti()
+
+    def aggiornaArchivio(self):
+            data.downloadArchivioOrdini()
+            if not (self.generaCodice() == 0):
+                today = date.today()
+                ordine = Ordine(self.generaCodice(), "Pfizer", self.totale, today)
+                data.archivioOrdini.append(ordine)
+                data.uploadArchivioOrdini()
+            else:
+                self.aggiornaArchivio()
+
+    def generaCodice(self):
+            codice = randint(1, 1000000)
+            for element in data.archivioOrdini:
+                if codice == element.codice:
+                    return 0
+            return codice
 
 
 

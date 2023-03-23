@@ -11,6 +11,8 @@ class data:
     listaProdottiMagazzino = []
     listaProdottiFornitore = []
     listaFarmaciFornitore = []
+    archivioOrdini = []
+    nOrdini = 0
     nProdMagaz = 0
     nFarmMagaz = 0
     nProdForn = 0
@@ -18,6 +20,22 @@ class data:
 
     def __init__(self):
         pass
+
+    @staticmethod
+    def uploadArchivioOrdini():
+        f = open(gestore.returnPth()+"GestioneFarmacia/ordini", "wb")
+        pickle.dump(data.archivioOrdini, f)
+        f.close()
+
+    @staticmethod
+    def downloadArchivioOrdini():
+        f = open(gestore.returnPth() + "GestioneFarmacia/ordini", "rb")
+        ordini = pickle.load(f)
+        f.close()
+        data.archivioOrdini.clear()
+        for i in range(len(ordini)):
+            data.archivioOrdini.append(ordini[i])
+        data.nOrdini = len(data.archivioOrdini)
 
     @staticmethod
     def downloadMagazzino():
