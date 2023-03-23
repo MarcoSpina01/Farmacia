@@ -70,7 +70,10 @@ class Ui_DialogCalendario(object):
 "")
         self.eliminaappbtn.setObjectName("eliminaappbtn")
 
+
         self.homebtn.clicked.connect(self.returnToHome)
+        self.nuovoaappbtn.clicked.connect(self.openRegistrazione)
+
 
         self.retranslateUi(DialogCalendario)
         QtCore.QMetaObject.connectSlotsByName(DialogCalendario)
@@ -99,4 +102,12 @@ class Ui_DialogCalendario(object):
         self.ui = Ui_Menu()
         self.ui.setupUi(self.menu)
         self.menu.show()
+        self.Frame.close()
+
+    def openRegistrazione(self):
+        from GestioneFarmacia.Gui.GestioneTamponi.registrazionecliente import Ui_Form
+        self.registrazione = QtWidgets.QFrame()
+        self.ui = Ui_Form()
+        self.ui.setupUi(self.registrazione)
+        self.registrazione.show()
         self.Frame.close()

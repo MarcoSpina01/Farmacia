@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="no">
+    <file>loghi-icone/iconaregistrazione.PNG</file>
     <file>loghi-icone/iconadollaro.PNG</file>
     <file>loghi-icone/iconacarrello.PNG</file>
     <file>loghi-icone/sfondoangelini.PNG</file>
