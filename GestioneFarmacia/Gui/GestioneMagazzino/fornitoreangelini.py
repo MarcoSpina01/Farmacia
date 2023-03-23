@@ -254,10 +254,10 @@ class Ui_angelini(object):
                     item.setText(_translate("angelini", str(data.listaProdottiFornitore[riga - data.nFarmForn].codice)))
 
     def ricercaArticolo(self):
-        from tkinter import messagebox
         param = self.lineEdit.text()
         if (param == ""):
-            messagebox.showinfo("Errore", "Imposta almeno un carattere prima della ricerca")
+            self.popolaListaProdotti()
+            return
         else:
             prodottiRicercati = []
             for element in data.listaFarmaciFornitore:
@@ -266,13 +266,33 @@ class Ui_angelini(object):
             for element in data.listaProdottiFornitore:
                 if param in element.nome or param in element.codice:
                     prodottiRicercati.append(element)
-            p = ""
-            for x in range(len(prodottiRicercati)):
-                p += str(prodottiRicercati[x].nome +"  "+str(prodottiRicercati[x].giacenza)+"  "+prodottiRicercati[x].codice+"  "+str(prodottiRicercati[x].prezzo)+"€"+"\n")
-            if(p==""):
-                messagebox.showinfo("Errore", "Non è stato trovato alcun farmaco")
-            else:
-                messagebox.showinfo("Articolo/i", p)
+        self.popolaRicerca(prodottiRicercati)
+    def popolaRicerca(self, prodRicercati):
+        self.tableWidgetlist.clear()
+        self.creaListaProdotti()
+        item = self.tableWidgetlist.horizontalHeaderItem(0)
+        _translate = QtCore.QCoreApplication.translate
+        item.setText(_translate("angelini", "Prodotto"))
+        item = self.tableWidgetlist.horizontalHeaderItem(1)
+        item.setText(_translate("angelini", "Quantità"))
+        item = self.tableWidgetlist.horizontalHeaderItem(2)
+        item.setText(_translate("angelini", "Prezzo"))
+        item = self.tableWidgetlist.horizontalHeaderItem(3)
+        item.setText(_translate("angelini", "Codice"))
+        for riga in range(0, len(prodRicercati)):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetlist.setItem(riga, colonna, item)
+                item = self.tableWidgetlist.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("angelini", prodRicercati[riga].nome))
+                if (colonna == 1):
+                    item.setText(_translate("angelini", str(prodRicercati[riga].giacenza)))
+                if (colonna == 2):
+                    item.setText(_translate("angelini", str(prodRicercati[riga].prezzo)))
+                if (colonna == 3):
+                    item.setText(_translate("angelini", str(prodRicercati[riga].codice)))
 
     def selezionaProdotto(self):
         from tkinter import messagebox
@@ -362,13 +382,13 @@ class Ui_angelini(object):
             self.tableWidgetcarrello.setItem(riga, colonna, item)
             item = self.tableWidgetcarrello.item(riga, colonna)
             if(colonna == 0):
-                item.setText(_translate("cassa", elemrimosso.nome))
+                item.setText(_translate("angelini", elemrimosso.nome))
             if(colonna == 1):
-                item.setText(_translate("cassa", str(self.quantitaprodsb.value())))
+                item.setText(_translate("angelini", str(self.quantitaprodsb.value())))
             if(colonna == 2):
-                item.setText(_translate("cassa", str(elemrimosso.prezzo)))
+                item.setText(_translate("angelini", str(elemrimosso.prezzo)))
             if(colonna == 3):
-                item.setText(_translate("cassa", str(elemrimosso.codice)))
+                item.setText(_translate("angelini", str(elemrimosso.codice)))
         self.totale[riga] = elemrimosso.prezzo*self.quantitaprodsb.value()
 
     def chiudiOrdine(self):

@@ -126,7 +126,7 @@ class Ui_Archivio(object):
         self.label_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_2.setObjectName("label_2")
 
-
+        self.ricercaarchivioordinibtn.clicked.connect(self.ricercaOrdiniPerFornitore)
         self.homebtn.clicked.connect(self.returnToHome)
         self.creaArchivioOrdini()
         self.popolaOrdini()
@@ -195,6 +195,36 @@ class Ui_Archivio(object):
                 if (colonna == 3):
                     item.setText(_translate("Form", str(data.archivioOrdini[riga].date)))
 
+    def ricercaOrdiniPerFornitore(self):
+        param = self.ricercaarchivioordini.text()
+        ordiniRicercati = []
+        if (param == ""):
+            self.popolaOrdini()
+            return
+        for element in data.archivioOrdini:
+            if (element.fornitore == param):
+                ordiniRicercati.append(element)
+        self.popolaRicerca(ordiniRicercati)
+
+
+    def popolaRicerca(self, ordiniRicercati):
+        self.tableWidgetordini.clear()
+        self.creaArchivioOrdini()
+        _translate = QtCore.QCoreApplication.translate
+        for riga in range(0, len(ordiniRicercati)):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetordini.setItem(riga, colonna, item)
+                item = self.tableWidgetordini.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("Form", str(ordiniRicercati[riga].codice)))
+                if (colonna == 1):
+                    item.setText(_translate("Form", str(ordiniRicercati[riga].fornitore)))
+                if (colonna == 2):
+                    item.setText(_translate("Form", str(ordiniRicercati[riga].totale)[0:5] + "€"))
+                if (colonna == 3):
+                    item.setText(_translate("Form", str(ordiniRicercati[riga].date)))
 
 
 

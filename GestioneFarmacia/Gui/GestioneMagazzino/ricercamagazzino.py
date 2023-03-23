@@ -110,13 +110,13 @@ class Ui_RicercaMagazzino(object):
             self.tableWidgetmagazzino.setHorizontalHeaderItem(i, item)
         _translate = QtCore.QCoreApplication.translate
         item = self.tableWidgetmagazzino.horizontalHeaderItem(0)
-        item.setText(_translate("angelini", "Prodotto"))
+        item.setText(_translate("magazzino", "Prodotto"))
         item = self.tableWidgetmagazzino.horizontalHeaderItem(1)
-        item.setText(_translate("angelini", "Quantità"))
+        item.setText(_translate("magazzino", "Quantità"))
         item = self.tableWidgetmagazzino.horizontalHeaderItem(2)
-        item.setText(_translate("angelini", "Prezzo"))
+        item.setText(_translate("magazzino", "Prezzo"))
         item = self.tableWidgetmagazzino.horizontalHeaderItem(3)
-        item.setText(_translate("angelini", "Codice"))
+        item.setText(_translate("magazzino", "Codice"))
         self.tableWidgetmagazzino.horizontalHeader().setVisible(True)
         self.tableWidgetmagazzino.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetmagazzino.verticalHeader().setVisible(True)
@@ -131,13 +131,13 @@ class Ui_RicercaMagazzino(object):
                 self.tableWidgetmagazzino.setItem(riga, colonna, item)
                 item = self.tableWidgetmagazzino.item(riga, colonna)
                 if(colonna == 0):
-                    item.setText(_translate("angelini", data.listaFarmaciMagazzino[riga].nome))
+                    item.setText(_translate("magazzino", data.listaFarmaciMagazzino[riga].nome))
                 if(colonna == 1):
-                    item.setText(_translate("angelini", str(data.listaFarmaciMagazzino[riga].giacenza)))
+                    item.setText(_translate("magazzino", str(data.listaFarmaciMagazzino[riga].giacenza)))
                 if(colonna == 2):
-                    item.setText(_translate("angelini", str(data.listaFarmaciMagazzino[riga].prezzo)))
+                    item.setText(_translate("magazzino", str(data.listaFarmaciMagazzino[riga].prezzo)))
                 if(colonna == 3):
-                    item.setText(_translate("angelini", str(data.listaFarmaciMagazzino[riga].codice)))
+                    item.setText(_translate("magazzino", str(data.listaFarmaciMagazzino[riga].codice)))
         for riga in range(data.nFarmMagaz, data.nProdMagaz + data.nFarmMagaz):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
@@ -145,19 +145,19 @@ class Ui_RicercaMagazzino(object):
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
                 item = self.tableWidgetmagazzino.item(riga, colonna)
                 if(colonna == 0):
-                    item.setText(_translate("angelini", data.listaProdottiMagazzino[riga - data.nFarmMagaz].nome))
+                    item.setText(_translate("magazzino", data.listaProdottiMagazzino[riga - data.nFarmMagaz].nome))
                 if(colonna == 1):
-                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].giacenza)))
+                    item.setText(_translate("magazzino", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].giacenza)))
                 if(colonna == 2):
-                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].prezzo)))
+                    item.setText(_translate("magazzino", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].prezzo)))
                 if(colonna == 3):
-                    item.setText(_translate("angelini", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
+                    item.setText(_translate("magazzino", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
 
     def ricercaArticolo(self):
-        from tkinter import messagebox
         param = self.ricercamagazzinotb.text()
         if (param == ""):
-            messagebox.showinfo("Errore", "Imposta almeno un carattere prima della ricerca")
+            self.popolaMagazzino()
+            return
         else:
             prodottiRicercati = []
             for element in data.listaFarmaciMagazzino:
@@ -166,10 +166,31 @@ class Ui_RicercaMagazzino(object):
             for element in data.listaProdottiMagazzino:
                 if param in element.nome or param in element.codice:
                     prodottiRicercati.append(element)
-            p = ""
-            for x in range(len(prodottiRicercati)):
-                p += str(prodottiRicercati[x].nome +"  "+str(prodottiRicercati[x].giacenza)+"  "+prodottiRicercati[x].codice+"  "+str(prodottiRicercati[x].prezzo)+"€"+"\n")
-            if(p==""):
-                messagebox.showinfo("Errore", "Non è stato trovato alcun farmaco")
-            else:
-                messagebox.showinfo("Articolo/i", p)
+        self.popolaRicerca(prodottiRicercati)
+
+    def popolaRicerca(self, prodRicercati):
+        self.tableWidgetmagazzino.clear()
+        self.creaListaProdotti()
+        item = self.tableWidgetmagazzino.horizontalHeaderItem(0)
+        _translate = QtCore.QCoreApplication.translate
+        item.setText(_translate("magazzino", "Prodotto"))
+        item = self.tableWidgetmagazzino.horizontalHeaderItem(1)
+        item.setText(_translate("magazzino", "Quantità"))
+        item = self.tableWidgetmagazzino.horizontalHeaderItem(2)
+        item.setText(_translate("magazzino", "Prezzo"))
+        item = self.tableWidgetmagazzino.horizontalHeaderItem(3)
+        item.setText(_translate("magazzino", "Codice"))
+        for riga in range(0, len(prodRicercati)):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetmagazzino.setItem(riga, colonna, item)
+                item = self.tableWidgetmagazzino.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("magazzino", prodRicercati[riga].nome))
+                if (colonna == 1):
+                    item.setText(_translate("magazzino", str(prodRicercati[riga].giacenza)))
+                if (colonna == 2):
+                    item.setText(_translate("magazzino", str(prodRicercati[riga].prezzo)))
+                if (colonna == 3):
+                    item.setText(_translate("magazzino", str(prodRicercati[riga].codice)))

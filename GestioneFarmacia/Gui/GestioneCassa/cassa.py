@@ -151,9 +151,9 @@ class Ui_Cassa(object):
         data.downloadMagazzino()
         self.tableWidgetlist.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetlist.setObjectName("tableWidget")
-        self.tableWidgetlist.setColumnCount(4)
+        self.tableWidgetlist.setColumnCount(5)
         self.tableWidgetlist.setRowCount(data.nFarmMagaz + data.nProdMagaz)
-        for i in range(0, data.nFarmMagaz + data.nProdMagaz):
+        for i in range(0, 5):
             item = QtWidgets.QTableWidgetItem()
             self.tableWidgetlist.setHorizontalHeaderItem(i, item)
         _translate = QtCore.QCoreApplication.translate
@@ -165,6 +165,8 @@ class Ui_Cassa(object):
         item.setText(_translate("cassa", "Prezzo"))
         item = self.tableWidgetlist.horizontalHeaderItem(3)
         item.setText(_translate("cassa", "Codice"))
+        item = self.tableWidgetlist.horizontalHeaderItem(4)
+        item.setText(_translate("cassa", "FlagRicetta"))
         self.tableWidgetlist.horizontalHeader().setVisible(True)
         self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetlist.verticalHeader().setVisible(True)
@@ -172,7 +174,7 @@ class Ui_Cassa(object):
     def popolaListaVendita(self):
         _translate = QtCore.QCoreApplication.translate
         for riga in range(0, data.nFarmMagaz):
-            for colonna in range(0, 4):
+            for colonna in range(0, 5):
                 item = QtWidgets.QTableWidgetItem()
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
                 self.tableWidgetlist.setItem(riga, colonna, item)
@@ -185,6 +187,12 @@ class Ui_Cassa(object):
                     item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].prezzo)))
                 if(colonna == 3):
                     item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].codice)))
+                if(colonna == 4):
+                    if (((data.listaFarmaciMagazzino[riga].flagRicetta) == False) or (data.listaFarmaciMagazzino[riga].flagRicetta is None)):
+                        item.setText(_translate("cassa", "Dispensabile"))
+                    else:
+                        item.setText(_translate("cassa", "Non dispensabile"))
+
         for riga in range(data.nFarmMagaz, data.nProdMagaz + data.nFarmMagaz):
             for colonna in range(0, 4):
                 item = QtWidgets.QTableWidgetItem()
@@ -201,10 +209,10 @@ class Ui_Cassa(object):
                     item.setText(_translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
 
     def ricercaArticolo(self):
-        from tkinter import messagebox
         param = self.ricercale.text()
         if (param == ""):
-            messagebox.showinfo("Errore", "Imposta almeno un carattere prima della ricerca")
+            self.popolaListaVendita()
+            return
         else:
             prodottiRicercati = []
             for element in data.listaFarmaciMagazzino:
@@ -213,13 +221,34 @@ class Ui_Cassa(object):
             for element in data.listaProdottiMagazzino:
                 if param in element.nome or param in element.codice:
                     prodottiRicercati.append(element)
-            p = ""
-            for x in range(len(prodottiRicercati)):
-                p += str(prodottiRicercati[x].nome +"  "+str(prodottiRicercati[x].giacenza)+"  "+prodottiRicercati[x].codice+"  "+str(prodottiRicercati[x].prezzo)+"€"+"\n")
-            if(p==""):
-                messagebox.showinfo("Errore", "Non è stato trovato alcun farmaco")
-            else:
-                messagebox.showinfo("Articolo/i", p)
+        self.popolaRicerca(prodottiRicercati)
+
+    def popolaRicerca(self, prodRicercati):
+        self.tableWidgetlist.clear()
+        self.creaListaVendita()
+        item = self.tableWidgetlist.horizontalHeaderItem(0)
+        _translate = QtCore.QCoreApplication.translate
+        item.setText(_translate("pfizer", "Prodotto"))
+        item = self.tableWidgetlist.horizontalHeaderItem(1)
+        item.setText(_translate("pfizer", "Quantità"))
+        item = self.tableWidgetlist.horizontalHeaderItem(2)
+        item.setText(_translate("pfizer", "Prezzo"))
+        item = self.tableWidgetlist.horizontalHeaderItem(3)
+        item.setText(_translate("pfizer", "Codice"))
+        for riga in range(0, len(prodRicercati)):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetlist.setItem(riga, colonna, item)
+                item = self.tableWidgetlist.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("pfizer", prodRicercati[riga].nome))
+                if (colonna == 1):
+                    item.setText(_translate("pfizer", str(prodRicercati[riga].giacenza)))
+                if (colonna == 2):
+                    item.setText(_translate("pfizer", str(prodRicercati[riga].prezzo)))
+                if (colonna == 3):
+                    item.setText(_translate("pfizer", str(prodRicercati[riga].codice)))
 
     def selezionaProdotto(self):
         from tkinter import messagebox

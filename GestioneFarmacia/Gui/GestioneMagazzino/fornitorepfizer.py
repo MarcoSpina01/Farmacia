@@ -234,10 +234,10 @@ class Ui_pfizer(object):
                     item.setText(_translate("pfizer", str(data.listaProdottiFornitore[riga - data.nFarmForn].codice)))
 
     def ricercaArticolo(self):
-        from tkinter import messagebox
         param = self.lineEdit.text()
         if (param == ""):
-            messagebox.showinfo("Errore", "Imposta almeno un carattere prima della ricerca")
+            self.popolaListaProdotti()
+            return
         else:
             prodottiRicercati = []
             for element in data.listaFarmaciFornitore:
@@ -246,15 +246,34 @@ class Ui_pfizer(object):
             for element in data.listaProdottiFornitore:
                 if param in element.nome or param in element.codice:
                     prodottiRicercati.append(element)
-            p = ""
-            for x in range(len(prodottiRicercati)):
-                p += str(
-                    prodottiRicercati[x].nome + "  " + str(prodottiRicercati[x].giacenza) + "  " + prodottiRicercati[
-                        x].codice + "  " + str(prodottiRicercati[x].prezzo) + "€" + "\n")
-            if (p == ""):
-                messagebox.showinfo("Errore", "Non è stato trovato alcun farmaco")
-            else:
-                messagebox.showinfo("Articolo/i", p)
+        self.popolaRicerca(prodottiRicercati)
+
+    def popolaRicerca(self, prodRicercati):
+        self.tableWidgetlist.clear()
+        self.creaListaProdotti()
+        item = self.tableWidgetlist.horizontalHeaderItem(0)
+        _translate = QtCore.QCoreApplication.translate
+        item.setText(_translate("pfizer", "Prodotto"))
+        item = self.tableWidgetlist.horizontalHeaderItem(1)
+        item.setText(_translate("pfizer", "Quantità"))
+        item = self.tableWidgetlist.horizontalHeaderItem(2)
+        item.setText(_translate("pfizer", "Prezzo"))
+        item = self.tableWidgetlist.horizontalHeaderItem(3)
+        item.setText(_translate("pfizer", "Codice"))
+        for riga in range(0, len(prodRicercati)):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetlist.setItem(riga, colonna, item)
+                item = self.tableWidgetlist.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("pfizer", prodRicercati[riga].nome))
+                if (colonna == 1):
+                    item.setText(_translate("pfizer", str(prodRicercati[riga].giacenza)))
+                if (colonna == 2):
+                    item.setText(_translate("pfizer", str(prodRicercati[riga].prezzo)))
+                if (colonna == 3):
+                    item.setText(_translate("pfizer", str(prodRicercati[riga].codice)))
 
     def creaCarrello(self):
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
@@ -366,13 +385,13 @@ class Ui_pfizer(object):
             self.tableWidgetcarrello.setItem(riga, colonna, item)
             item = self.tableWidgetcarrello.item(riga, colonna)
             if(colonna == 0):
-                item.setText(_translate("cassa", elemrimosso.nome))
+                item.setText(_translate("pfizer", elemrimosso.nome))
             if(colonna == 1):
-                item.setText(_translate("cassa", str(self.quantitaprodsb.value())))
+                item.setText(_translate("pfizer", str(self.quantitaprodsb.value())))
             if(colonna == 2):
-                item.setText(_translate("cassa", str(elemrimosso.prezzo)))
+                item.setText(_translate("pfizer", str(elemrimosso.prezzo)))
             if(colonna == 3):
-                item.setText(_translate("cassa", str(elemrimosso.codice)))
+                item.setText(_translate("pfizer", str(elemrimosso.codice)))
         self.totale[riga] = elemrimosso.prezzo*self.quantitaprodsb.value()
 
 
