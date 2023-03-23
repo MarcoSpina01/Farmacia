@@ -1,9 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
-from GestioneFarmacia.GestioneTamponi.Cliente import Cliente
 
 gestore = Gestore()
-# cliente = Cliente()
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -122,23 +121,46 @@ class Ui_Form(object):
         font.setWeight(75)
         self.registrazionebtn.setFont(font)
         self.registrazionebtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(gestore.returnPth()+"loghi-icone/iconaregistrazione.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.registrazionebtn.setIcon(icon1)
         self.registrazionebtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "")
-
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(gestore.returnPth()+"loghi-icone/iconaregistrazione.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.registrazionebtn.setIcon(icon1)
         self.registrazionebtn.setIconSize(QtCore.QSize(45, 45))
         self.registrazionebtn.setObjectName("registrazionebtn")
         self.sessocb = QtWidgets.QComboBox(Form)
         self.sessocb.setGeometry(QtCore.QRect(240, 570, 141, 31))
         self.sessocb.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(255, 255, 255, 255));")
         self.sessocb.setObjectName("sessocb")
-        self.sessocb.addItem("...")
-        self.sessocb.addItem("Maschio")
-        self.sessocb.addItem("Femmina")
-        self.sessocb.addItem("Altro")
+        self.sessocb.addItem("")
+        self.sessocb.addItem("")
+        self.sessocb.addItem("")
+        self.sessocb.addItem("")
+        self.label_9 = QtWidgets.QLabel(Form)
+        self.label_9.setGeometry(QtCore.QRect(60, 620, 151, 41))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.label_9.setFont(font)
+        self.label_9.setStyleSheet("border-radius: 10px;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(169, 255, 190, 255));")
+        self.label_9.setObjectName("label_9")
+        self.sessocb_2 = QtWidgets.QComboBox(Form)
+        self.sessocb_2.setGeometry(QtCore.QRect(240, 630, 141, 31))
+        self.sessocb_2.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(255, 255, 255, 255));")
+        self.sessocb_2.setObjectName("sessocb_2")
+        self.sessocb_2.addItem("")
+        self.sessocb_2.addItem("")
+        self.sessocb_2.addItem("")
+        self.datalabel = QtWidgets.QLabel(Form)
+        self.datalabel.setGeometry(QtCore.QRect(450, 130, 181, 41))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.datalabel.setFont(font)
+        self.datalabel.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(156, 255, 181, 255));")
+        self.datalabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.datalabel.setObjectName("datalabel")
+
 
         self.pushButton.clicked.connect(self.returnToCalendario)
 
@@ -157,12 +179,16 @@ class Ui_Form(object):
         self.label_6.setText(_translate("Form", "Codice Fiscale"))
         self.label_7.setText(_translate("Form", "Sesso"))
         self.label_8.setText(_translate("Form", "Email"))
-        self.registrazionebtn.setText(_translate("Form", "Registrati"))
+        self.registrazionebtn.setText(_translate("Form", " Registrati"))
         self.sessocb.setItemText(0, _translate("Form", "..."))
         self.sessocb.setItemText(1, _translate("Form", "Maschio"))
         self.sessocb.setItemText(2, _translate("Form", "Femmina"))
         self.sessocb.setItemText(3, _translate("Form", "Altro"))
-
+        self.label_9.setText(_translate("Form", "Tipo di Tampone"))
+        self.sessocb_2.setItemText(0, _translate("Form", "..."))
+        self.sessocb_2.setItemText(1, _translate("Form", "Molecolare"))
+        self.sessocb_2.setItemText(2, _translate("Form", "Rapido"))
+        self.datalabel.setText(_translate("Form", "TextLabel"))
 
     def returnToCalendario(self):
         from GestioneFarmacia.Gui.GestioneTamponi.calendariotamponi import Ui_DialogCalendario
@@ -171,6 +197,3 @@ class Ui_Form(object):
         self.ui.setupUi(self.calendario)
         self.calendario.show()
         self.Frame.close()
-
-
-
