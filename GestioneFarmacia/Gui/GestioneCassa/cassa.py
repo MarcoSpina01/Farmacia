@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneSistema.data import data
-
+from GestioneFarmacia.GestioneVendite.Farmaco import Farmaco
 
 gestore = Gestore()
 
@@ -262,8 +262,13 @@ class Ui_Cassa(object):
             if param == element.codice:
                 nProdSelezionati = len(self.prodSelezionati)
                 self.prodSelezionati.append(element)
+                for x in range (len(self.prodSelezionati)):
+                    if isinstance(self.prodSelezionati[x], Farmaco):
+                        if (self.prodSelezionati[x].flagRicetta):
+                            print("x")
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
                     for x in range (nProdSelezionati):
+
                         if param == self.prodSelezionati[x].codice:
                             elemrimosso = self.prodSelezionati[x]
                             self.prodSelezionati.pop()
