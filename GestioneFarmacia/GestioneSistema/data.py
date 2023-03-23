@@ -6,7 +6,7 @@ from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 gestore=Gestore()
 
 class data:
-
+    listaAppuntamenti = []
     listaFarmaciMagazzino = []
     listaProdottiMagazzino = []
     listaProdottiFornitore = []
@@ -165,4 +165,13 @@ class data:
                 print(str(data.listaProdottiFornitore[i].scadenza) + " ")
             print(str(data.listaProdottiFornitore[i].giacenza) + " ")
 
+
+    @staticmethod
+    def downloadAppuntamenti():
+        f = open(gestore.returnPth()+"GestioneFarmacia/appuntamenti.pickle", "rb")
+        appuntamenti = pickle.load(f)
+        f.close()
+        data.listaAppuntamenti.clear()
+        for i in range(len(appuntamenti)):
+            data.listaAppuntamenti.append(appuntamenti[i])
 

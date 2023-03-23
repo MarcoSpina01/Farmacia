@@ -1,7 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
+from GestioneFarmacia.GestioneTamponi.Cliente import Cliente
 
 gestore = Gestore()
+# cliente = Cliente()
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -127,9 +129,6 @@ class Ui_Form(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "")
 
-        self.pushButton.clicked.connect(self.returnToCalendario)
-
-
         self.registrazionebtn.setIconSize(QtCore.QSize(45, 45))
         self.registrazionebtn.setObjectName("registrazionebtn")
         self.sessocb = QtWidgets.QComboBox(Form)
@@ -140,6 +139,9 @@ class Ui_Form(object):
         self.sessocb.addItem("Maschio")
         self.sessocb.addItem("Femmina")
         self.sessocb.addItem("Altro")
+
+        self.pushButton.clicked.connect(self.returnToCalendario)
+
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -169,3 +171,6 @@ class Ui_Form(object):
         self.ui.setupUi(self.calendario)
         self.calendario.show()
         self.Frame.close()
+
+
+
