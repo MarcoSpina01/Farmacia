@@ -2,6 +2,7 @@ import pickle
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Farmaco import Farmaco
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
+from GestioneFarmacia.GestioneMagazzino.Ordine import Ordine
 
 gestore=Gestore()
 
@@ -12,6 +13,8 @@ class data:
     listaProdottiFornitore = []
     listaFarmaciFornitore = []
     archivioOrdini = []
+    archivioVendite = []
+    nVendite = 0
     nOrdini = 0
     nProdMagaz = 0
     nFarmMagaz = 0
@@ -20,6 +23,22 @@ class data:
 
     def __init__(self):
         pass
+
+    @staticmethod
+    def uploadArchivioVendite():
+        f = open(gestore.returnPth() + "GestioneFarmacia/vendite", "wb")
+        pickle.dump(data.archivioVendite, f)
+        f.close()
+
+    @staticmethod
+    def downloadArchivioVendite():
+        f = open(gestore.returnPth() + "GestioneFarmacia/vendite", "rb")
+        vendite = pickle.load(f)
+        f.close()
+        data.archivioVendite.clear()
+        for i in range(len(vendite)):
+            data.archivioVendite.append(vendite[i])
+        data.nVendite = len(data.archivioVendite)
 
     @staticmethod
     def uploadArchivioOrdini():

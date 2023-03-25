@@ -9,6 +9,7 @@ class Prodotto():
         self.dosaggio = dosaggio
         self.scadenza = scadenza
         self.giacenza = giacenza
+        self.quantita = 0
 
 
     def getCodice(self):

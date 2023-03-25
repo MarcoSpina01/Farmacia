@@ -4,9 +4,8 @@ from tkinter import messagebox
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
-from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
 from GestioneFarmacia.GestioneSistema.data import data
-from GestioneFarmacia.Gui.GestioneArchivio.Ordine import Ordine
+from GestioneFarmacia.GestioneMagazzino.Ordine import Ordine
 
 gestore = Gestore()
 
@@ -142,6 +141,7 @@ class Ui_angelini(object):
 
         self.ricercafornitorebtn.clicked.connect(self.ricercaArticolo)
         self.prodSelezionati.clear()
+        self.totale.clear()
         self.carrellobtn.clicked.connect(self.selezionaProdotto)
         self.acquistabtn.clicked.connect(self.chiudiOrdine)
 
@@ -308,6 +308,7 @@ class Ui_angelini(object):
                 self.prodSelezionati.append(element)
 
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    self.prodSelezionati[nProdSelezionati].quantita = self.quantitaprodsb.value()
                     for x in range (nProdSelezionati):
                         if param == self.prodSelezionati[x].codice:
                             elemrimosso = self.prodSelezionati[x]
@@ -335,6 +336,7 @@ class Ui_angelini(object):
                 self.prodSelezionati.append(element)
 
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    self.prodSelezionati[nProdSelezionati].quantita = self.quantitaprodsb.value()
                     for x in range (nProdSelezionati):
                         if param == self.prodSelezionati[x].codice:
                             self.prodSelezionati.remove(self.prodSelezionati[x])
@@ -392,6 +394,9 @@ class Ui_angelini(object):
         self.totale[riga] = elemrimosso.prezzo*self.quantitaprodsb.value()
 
     def chiudiOrdine(self):
+        if not self.prodSelezionati:
+            messagebox.showinfo("Errore", "Inserisci almeno un prodotto nel carrello")
+            return
         check = False
         check2 = False
         data.downloadMagazzino()
@@ -399,49 +404,49 @@ class Ui_angelini(object):
         for element in self.prodSelezionati:
             for prodotto in data.listaProdottiFornitore:
                 if (element.codice == prodotto.codice):
+                    if (element.quantita == prodotto.giacenza):
+                        data.listaFarmaciFornitore.remove(prodotto)
+                    else:
+                        prodotto.giacenza -= element.quantita
                     check2 = True
                     for prodottoM in data.listaProdottiMagazzino:
                         if (element.codice == prodottoM.codice):
-                            prodottoM.giacenza += self.quantitaprodsb.value()
+                            prodottoM.giacenza += element.quantita
                             check = True
                     if (not(check)):
                         data.listaProdottiMagazzino.append(element)
-                        element.giacenza = self.quantitaprodsb.value()
-                    for prodottoF in data.listaProdottiFornitore:
-                        if (element.codice == prodottoF.codice):
-                            if(self.quantitaprodsb.value() == prodottoF.giacenza):
-                                data.listaFarmaciFornitore.remove(prodottoF)
-                            else:
-                                prodottoF.giacenza -= self.quantitaprodsb.value()
+                        data.listaProdottiMagazzino[len(data.listaProdottiMagazzino) - 1].giacenza = element.quantita
 
-            if(not(check2)):
+            if not check2:
                 check = False
                 for farmacoM in data.listaFarmaciMagazzino:
-                    if (element.codice == farmacoM.codice):
-                        farmacoM.giacenza += self.quantitaprodsb.value()
+                    if element.codice == farmacoM.codice:
+                        farmacoM.giacenza += element.quantita
                         check = True
-                if(not(check)):
+                if not check:
                     data.listaFarmaciMagazzino.append(element)
-                    element.giacenza = self.quantitaprodsb.value()
+                    data.listaFarmaciMagazzino[len(data.listaFarmaciMagazzino) - 1].giacenza = element.quantita
                 for farmacoF in data.listaFarmaciFornitore:
-                    if (element.codice == farmacoF.codice):
-                       if(self.quantitaprodsb.value() == farmacoF.giacenza):
+                    if element.codice == farmacoF.codice:
+                        if element.quantita == farmacoF.giacenza:
                             data.listaFarmaciFornitore.remove(farmacoF)
-                       else:
-                           farmacoF.giacenza -= self.quantitaprodsb.value()
-        self.totale = str(sum(self.totale))
-        messagebox.showinfo("Spesa totale", "Il totale è " + self.totale[0:5] + "€" )
+                        else:
+                            farmacoF.giacenza -= element.quantita
+        tmp = str(sum(self.totale))
+        messagebox.showinfo("Spesa totale", "Il totale è " + tmp[0:5] + "€" )
         self.returnToHome()
-        self.aggiornaArchivio()
+        self.aggiornaArchivio(tmp)
         data.uploadMagazzino()
         data.uploadFornitore()
+        data.downloadMagazzino()
+        data.downloadFornitore()
         self.popolaListaProdotti()
 
-    def aggiornaArchivio(self):
+    def aggiornaArchivio(self, tmp):
         data.downloadArchivioOrdini()
         if not(self.generaCodice() == 0):
             today = date.today()
-            ordine = Ordine(self.generaCodice(), "Angelini", self.totale, today)
+            ordine = Ordine(self.generaCodice(), "Angelini", tmp, today)
             data.archivioOrdini.append(ordine)
             data.uploadArchivioOrdini()
         else:

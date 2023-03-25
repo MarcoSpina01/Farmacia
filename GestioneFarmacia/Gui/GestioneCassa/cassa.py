@@ -1,12 +1,20 @@
+from datetime import date
+from random import randint
+from tkinter import messagebox
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneVendite.Farmaco import Farmaco
+from GestioneFarmacia.GestioneVendite.Vendita import Vendita
 
 gestore = Gestore()
 
 class Ui_Cassa(object):
+
     prodSelezionati = []
+    totale = []
+
     def setupUi(self, Cassa):
         self.Frame = Cassa
         Cassa.setObjectName("Cassa")
@@ -113,12 +121,15 @@ class Ui_Cassa(object):
         self.label_3.raise_()
 
 
+        self.prodSelezionati.clear
+        self.totale.clear()
         self.creaListaVendita()
         self.popolaListaVendita()
 
         self.ricercabtn.clicked.connect(self.ricercaArticolo)
 
         self.carrellobtn.clicked.connect(self.selezionaProdotto)
+        self.acquistabtn.clicked.connect(self.chiudiVendita)
 
 
         self.homebtn.clicked.connect(self.returnToHome)
@@ -262,11 +273,12 @@ class Ui_Cassa(object):
             if param == element.codice:
                 nProdSelezionati = len(self.prodSelezionati)
                 self.prodSelezionati.append(element)
-                for x in range (len(self.prodSelezionati)):
-                    if isinstance(self.prodSelezionati[x], Farmaco):
-                        if (self.prodSelezionati[x].flagRicetta):
-                            print("x")
+                # for x in range (len(self.prodSelezionati)):
+                #     if isinstance(self.prodSelezionati[x], Farmaco):
+                #         if (self.prodSelezionati[x].flagRicetta):
+                #             print("x")
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    self.prodSelezionati[nProdSelezionati].quantita = self.quantitaprodsb.value()
                     for x in range (nProdSelezionati):
 
                         if param == self.prodSelezionati[x].codice:
@@ -295,6 +307,7 @@ class Ui_Cassa(object):
                 self.prodSelezionati.append(element)
 
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
+                    self.prodSelezionati[nProdSelezionati].quantita = self.quantitaprodsb.value()
                     for x in range (nProdSelezionati):
                         if param == self.prodSelezionati[x].codice:
                             elemrimosso = self.prodSelezionati.pop(x)
@@ -354,6 +367,7 @@ class Ui_Cassa(object):
                 item.setText(_translate("cassa", str(self.prodSelezionati[nProdSelezionati].prezzo)))
             if(colonna == 3):
                 item.setText(_translate("cassa", str(self.prodSelezionati[nProdSelezionati].codice)))
+        self.totale.append(self.prodSelezionati[nProdSelezionati].prezzo * self.quantitaprodsb.value())
 
     def modificaCarrello(self, riga, elemrimosso):
         _translate = QtCore.QCoreApplication.translate
@@ -370,6 +384,55 @@ class Ui_Cassa(object):
                 item.setText(_translate("cassa", str(elemrimosso.prezzo)))
             if(colonna == 3):
                 item.setText(_translate("cassa", str(elemrimosso.codice)))
+        self.totale[riga] = elemrimosso.prezzo*self.quantitaprodsb.value()
+
+    def chiudiVendita(self):
+        if not self.prodSelezionati:
+            messagebox.showinfo("Errore", "Inserisci almeno un prodotto nel carrello")
+            return
+        check2 = False
+        data.downloadMagazzino()
+        for element in self.prodSelezionati:
+            for prodotto in data.listaProdottiMagazzino:
+                if (element.codice == prodotto.codice):
+                    if (element.quantita == prodotto.giacenza):
+                        data.listaFarmaciMagazzino.remove(prodotto)
+                    else:
+                        prodotto.giacenza -= element.quantita
+                    check2 = True
+
+            if not check2:
+                for farmaco in data.listaFarmaciMagazzino:
+                    if element.codice == farmaco.codice:
+                        if element.quantita == farmaco.giacenza:
+                            data.listaFarmaciMagazzino.remove(farmaco)
+                        else:
+                            farmaco.giacenza -= element.quantita
+        tmp = str(sum(self.totale))
+        messagebox.showinfo("Spesa totale", "Il totale è " + tmp[0:5] + "€" )
+        self.returnToHome()
+        self.aggiornaArchivio(tmp)
+        data.uploadMagazzino()
+        data.downloadMagazzino()
+        self.popolaListaVendita()
+
+    def aggiornaArchivio(self, tmp):
+        data.downloadArchivioVendite()
+        if not(self.generaCodice() == 0):
+            today = date.today()
+            vendita = Vendita(self.generaCodice(), tmp, today)
+            data.archivioVendite.append(vendita)
+            data.uploadArchivioVendite()
+        else:
+            self.aggiornaArchivio()
+
+    def generaCodice(self):
+        codice = randint(1,1000000)
+        for element in data.archivioVendite:
+            if codice == element.codice:
+                return 0
+        return codice
+
 
 
 

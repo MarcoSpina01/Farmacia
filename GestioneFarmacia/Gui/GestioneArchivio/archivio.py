@@ -128,6 +128,8 @@ class Ui_Archivio(object):
 
         self.ricercaarchivioordinibtn.clicked.connect(self.ricercaOrdiniPerFornitore)
         self.homebtn.clicked.connect(self.returnToHome)
+        self.creaArchivioVendite()
+        self.popolaVendite()
         self.creaArchivioOrdini()
         self.popolaOrdini()
 
@@ -225,6 +227,70 @@ class Ui_Archivio(object):
                     item.setText(_translate("Form", str(ordiniRicercati[riga].totale)[0:5] + "€"))
                 if (colonna == 3):
                     item.setText(_translate("Form", str(ordiniRicercati[riga].date)))
+
+    def creaArchivioVendite(self):
+        data.downloadArchivioVendite()
+        self.tableWidgetvendite.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.tableWidgetvendite.setObjectName("tableWidget")
+        self.tableWidgetvendite.setColumnCount(4)
+        self.tableWidgetvendite.setRowCount(data.nVendite)
+        for i in range(0, 4):
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidgetvendite.setHorizontalHeaderItem(i, item)
+        self.tableWidgetvendite.horizontalHeader().setVisible(True)
+        self.tableWidgetvendite.horizontalHeader().setDefaultSectionSize(123)
+        self.tableWidgetvendite.verticalHeader().setVisible(True)
+        _translate = QtCore.QCoreApplication.translate
+        item = self.tableWidgetvendite.horizontalHeaderItem(0)
+        item.setText(_translate("Form", "Codice"))
+        item = self.tableWidgetvendite.horizontalHeaderItem(1)
+        item.setText(_translate("Form", "Totale"))
+        item = self.tableWidgetvendite.horizontalHeaderItem(2)
+        item.setText(_translate("Form", "Data"))
+
+    def popolaVendite(self):
+        _translate = QtCore.QCoreApplication.translate
+        for riga in range(0, data.nVendite):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetvendite.setItem(riga, colonna, item)
+                item = self.tableWidgetvendite.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("Form", str(data.archivioVendite[riga].codice)))
+                if (colonna == 1):
+                    item.setText(_translate("Form", str(data.archivioVendite[riga].totale)[0:5] + "€"))
+                if (colonna == 2):
+                    item.setText(_translate("Form", str(data.archivioVendite[riga].date)))
+
+    def ricercaVendite(self):
+        param = self.ricercaarchiviovendite.text()
+        venditeRicercate = []
+        if (param == ""):
+            self.popolaVendite()
+            return
+        for element in data.archivioVendite:
+            if (element.fornitore == param):
+                venditeRicercate.append(element)
+        self.popolaRicerca(venditeRicercate)
+
+
+    def popolaRicercaVendite(self, venditeRicercate):
+        self.tableWidgetvendite.clear()
+        self.creaArchivioVendite()
+        _translate = QtCore.QCoreApplication.translate
+        for riga in range(0, len(venditeRicercate)):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetvendite.setItem(riga, colonna, item)
+                item = self.tableWidgetvendite.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("Form", str(venditeRicercate[riga].codice)))
+                if (colonna == 1):
+                    item.setText(_translate("Form", str(venditeRicercate[riga].totale)[0:5] + "€"))
+                if (colonna == 2):
+                    item.setText(_translate("Form", str(venditeRicercate[riga].date)))
 
 
 
