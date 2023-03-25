@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QLineEdit
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
+# istanza della classe gestore per aquisire il path assoluto
 gestore = Gestore()
 class Ui_Login(object):
     def setupUi(self, Login):
@@ -86,8 +87,11 @@ class Ui_Login(object):
         self.ErrorMessage.setObjectName("ErrorMessage")
         self.Password.setEchoMode(QtWidgets.QLineEdit.Password)
 
+        # bottone associato alla validazione di username e password
         self.pushButton.clicked.connect(self.autenticazione)
+        # bottone associato all'apertura della gui di assistenza
         self.Assistenzabtn.clicked.connect(self.openAssistenza)
+        # bottone associato al click della checkbox per la visualizzazione della password
         self.visualizzapwbtn.clicked.connect(self.gestionePassword)
 
         self.retranslateUi(Login)
@@ -104,6 +108,8 @@ class Ui_Login(object):
         self.label_2.setText(_translate("Login", "Username"))
         self.label_3.setText(_translate("Login", "Password"))
 
+    # metodo che permette di ottenere e controllare username e password dalle lineedit
+    # in caso di inserimento corretto delle credenziali verrà aperto il menu principale
     def autenticazione(self):
         username = self.Username.text()
         password = self.Password.text()
@@ -115,6 +121,7 @@ class Ui_Login(object):
         else:
             self.ErrorMessage.setText("USERNAME O PASSWORD ERRATI")
 
+    # metodo per l'apertura dell'assistenza
     def openAssistenza(self):
         from GestioneFarmacia.Gui.GestioneLogin.assistenza import Ui_Assistenza
         self.Assistenza = QtWidgets.QFrame()
@@ -123,12 +130,14 @@ class Ui_Login(object):
         self.Assistenza.show()
         self.Frame.close()
 
+    # metodo che controlla la checkbox, se è selezionata fa vedere la password, in caso contario la nasconde
     def gestionePassword(self):
         if (self.visualizzapwbtn.isChecked()):
             self.Password.setEchoMode(QLineEdit.EchoMode.Normal)
         else:
             self.Password.setEchoMode(QtWidgets.QLineEdit.Password)
 
+    # metodo per l'apertura del menu
     def openMenu(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
         self.Menu = QtWidgets.QFrame()

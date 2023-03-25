@@ -98,6 +98,19 @@ class Ui_Cassa(object):
         self.Cassa_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Cassa_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Cassa_2.setObjectName("Cassa_2")
+
+        # self.codice = QtWidgets.QLineEdit(Cassa)
+        # self.codice.setEnabled(False)
+        # self.codice.setGeometry(QtCore.QRect(700, 700, 113, 22))
+        # font = QtGui.QFont()
+        # font.setPointSize(8)
+        # self.codice.setFont(font)
+        # self.codice.setObjectName("codice")
+        #
+        # self.labelcod = QtWidgets.QLabel(Cassa)
+        # self.labelcod.setGeometry(QtCore.QRect(210, 160, 131, 16))
+        # self.labelcod.setObjectName("labelcod")
+
         self.Cassa_2.raise_()
         self.label_4.raise_()
         self.tableWidgetcarrello.raise_()
@@ -137,6 +150,7 @@ class Ui_Cassa(object):
         self.label.setText(_translate("Cassa", "Inserisci codice e quantità da comprare"))
         self.acquistabtn.setText(_translate("Cassa", "  Acquista"))
         self.label_3.setText(_translate("Cassa", "Carrello:"))
+        # self.labelcod.setText(_translate("Form", "Inserisci codice ricetta"))
 
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
@@ -189,9 +203,9 @@ class Ui_Cassa(object):
                     item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].codice)))
                 if(colonna == 4):
                     if (((data.listaFarmaciMagazzino[riga].flagRicetta) == False) or (data.listaFarmaciMagazzino[riga].flagRicetta is None)):
-                        item.setText(_translate("cassa", "Dispensabile"))
-                    else:
                         item.setText(_translate("cassa", "Non dispensabile"))
+                    else:
+                        item.setText(_translate("cassa", "Indispensabile"))
 
         for riga in range(data.nFarmMagaz, data.nProdMagaz + data.nFarmMagaz):
             for colonna in range(0, 4):
@@ -262,10 +276,13 @@ class Ui_Cassa(object):
             if param == element.codice:
                 nProdSelezionati = len(self.prodSelezionati)
                 self.prodSelezionati.append(element)
-                for x in range (len(self.prodSelezionati)):
-                    if isinstance(self.prodSelezionati[x], Farmaco):
-                        if (self.prodSelezionati[x].flagRicetta):
-                            print("x")
+                # for x in range (len(self.prodSelezionati)):
+                #     if isinstance(self.prodSelezionati[x], Farmaco):
+                #         if (self.prodSelezionati[x].flagRicetta):
+                #             print("ciao")
+
+
+
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
                     for x in range (nProdSelezionati):
 
@@ -370,8 +387,6 @@ class Ui_Cassa(object):
                 item.setText(_translate("cassa", str(elemrimosso.prezzo)))
             if(colonna == 3):
                 item.setText(_translate("cassa", str(elemrimosso.codice)))
-
-
 
 
 

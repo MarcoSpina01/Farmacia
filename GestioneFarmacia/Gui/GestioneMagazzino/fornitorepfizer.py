@@ -5,9 +5,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
-from GestioneFarmacia.GestioneVendite.Farmaco import Farmaco
-from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
-from GestioneFarmacia.Gui.GestioneArchivio.Ordine import Ordine
+from GestioneFarmacia.GestioneMagazzino.Ordine import Ordine
 
 gestore = Gestore()
 

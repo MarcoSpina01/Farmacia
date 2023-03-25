@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
+# istanza della classe gestore per aquisire il path assoluto
 gestore = Gestore()
 
 class Ui_Assistenza(object):
@@ -47,6 +48,7 @@ class Ui_Assistenza(object):
         self.frame_2.setObjectName("frame_2")
         self.frame_2.raise_()
         self.frame.raise_()
+        # evento click del bottone di ritorno al login
         self.tornaloginbtn.clicked.connect(self.returnLogin)
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -59,6 +61,7 @@ class Ui_Assistenza(object):
         self.label_3.setText(_translate("Form", "farmaciacasereccia@gmail.com"))
         self.tornaloginbtn.setText(_translate("Form", "Torna al Login"))
 
+# metodo di ritorno alla gui del login
     def returnLogin(self):
         from GestioneFarmacia.Gui.GestioneLogin.login import Ui_Login
         self.login = QtWidgets.QFrame()
