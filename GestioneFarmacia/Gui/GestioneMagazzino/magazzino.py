@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
+# istanza della classe gestore per aquisire il path assoluto
 gestore = Gestore()
 
 class Ui_Magazzino(object):
@@ -72,12 +73,14 @@ class Ui_Magazzino(object):
         self.EffettuaOrdinebtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.Visualizzamagazzinobtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 
+        # metodo che ti permette di fare il logout
         self.Logoutbtn.clicked.connect(self.returnToLogin)
+        # metodo che ti permette di tornare alla home
         self.homebtn.clicked.connect(self.returnToHome)
+        # metodo che ti permette di visualizzare tutti gli articoli in magazzino
         self.Visualizzamagazzinobtn.clicked.connect(self.openVisualizzaMagazzino)
+        # metodo che ti permette di aprire la selezione di un fornitore per fare un ordine di articoli
         self.EffettuaOrdinebtn.clicked.connect(self.openSceltaFornitore)
-
-
 
         self.retranslateUi(Magazzino)
         QtCore.QMetaObject.connectSlotsByName(Magazzino)
@@ -91,6 +94,7 @@ class Ui_Magazzino(object):
         self.Logoutbtn.setText(_translate("Magazzino", "Logout"))
         self.label.setText(_translate("Magazzino", "Magazzino"))
 
+    # metodo che ti permette di tornare alla schermata di login
     def returnToLogin(self):
         from GestioneFarmacia.Gui.GestioneLogin.login import Ui_Login
         self.login = QtWidgets.QFrame()
@@ -99,6 +103,7 @@ class Ui_Magazzino(object):
         self.login.show()
         self.Frame.close()
 
+    # metodo che ti permette di tornare alla home
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
         self.menu = QtWidgets.QFrame()
@@ -107,6 +112,7 @@ class Ui_Magazzino(object):
         self.menu.show()
         self.Frame.close()
 
+    # metodo che ti permette di visualizzare il magazzino
     def openVisualizzaMagazzino(self):
         from GestioneFarmacia.Gui.GestioneMagazzino.ricercamagazzino import Ui_RicercaMagazzino
         self.visualizzaMagazzino = QtWidgets.QFrame()
@@ -115,6 +121,7 @@ class Ui_Magazzino(object):
         self.visualizzaMagazzino.show()
         self.Frame.close()
 
+    # metodo che ti permette di aprire la schermata di scelta del fornitore
     def openSceltaFornitore(self):
         from GestioneFarmacia.Gui.GestioneMagazzino.sceltafornitore import Ui_Fornitori
         self.scegliFornitore = QtWidgets.QFrame()

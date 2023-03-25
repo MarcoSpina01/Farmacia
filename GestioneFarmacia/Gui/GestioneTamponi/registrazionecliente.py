@@ -1,8 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
+from GestioneFarmacia.GestioneTamponi.ClassiTamponi import Cliente, Tampone, Appuntamento
+import random
 
 gestore = Gestore()
-
+cliente = Cliente()
+tampone = Tampone()
+appuntamento = Appuntamento()
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -188,7 +192,7 @@ class Ui_Form(object):
         self.sessocb_2.setItemText(0, _translate("Form", "..."))
         self.sessocb_2.setItemText(1, _translate("Form", "Molecolare"))
         self.sessocb_2.setItemText(2, _translate("Form", "Rapido"))
-        self.datalabel.setText(_translate("Form", "TextLabel"))
+        self.datalabel.setText(_translate("Form", ""))
 
     def returnToCalendario(self):
         from GestioneFarmacia.Gui.GestioneTamponi.calendariotamponi import Ui_DialogCalendario
@@ -197,3 +201,26 @@ class Ui_Form(object):
         self.ui.setupUi(self.calendario)
         self.calendario.show()
         self.Frame.close()
+
+    def prendiDatiCliente(self):
+        self.cliente.nome = self.lineEdit.text()
+        self.cliente.cognome = self.cognomele.text()
+        self.cliente.eta = self.etale.text()
+        self.cliente.indirizzo = self.indirizzole.text()
+        self.cliente.email = self.emaille.text()
+        self.cliente.cf = self.cvle.text()
+        self.cliente.sesso = self.sessocb.currentText()
+
+    def prendiTampone(self):
+        self.tampone.tipo = self.sessocb_2.currentText()
+        self.tampone.prezzo = 10
+        a = random.randint(1, 2)
+        if a == 1:
+            self.tampone.esito = False
+        else:
+            self.tampone.esito = True
+
+    def associaAppuntamento(self):
+        self.appuntamento.cliente = self.cliente
+        self.appuntamento.tampone = self.tampone
+

@@ -114,7 +114,7 @@ class Ui_DialogCalendario(object):
         self.AppuntamentiTable.setRowCount(0)                       #fa partire da vuota la table
         data.downloadAppuntamenti()
         row = 0
-        self.AppuntamentiTable.setRowCount(len(data.listaAppuntamenti))           #setto la quangtità di righe della table come uguale alla lunghezza della lista di appuntamenti
+        self.AppuntamentiTable.setRowCount(len(data.listaAppuntamenti))           #setto la quantità di righe della table come uguale alla lunghezza della lista di appuntamenti
         for appuntamento in data.listaAppuntamenti:
              if appuntamento.get_data().strftime("%y-%m-%d") == self.getgiorno():
                 self.AppuntamentiTable.setItem(row, 0, QTableWidgetItem(str(appuntamento.get_idapp()))) #nella colonna id appuntamneto metto l'id dell'appuntamento i esimo
@@ -131,8 +131,6 @@ class Ui_DialogCalendario(object):
                   self.AppuntamentiTable.setItem(row, 4, QTableWidgetItem("POSITIVO"))
                 row = row+1
 
-
-
     def getgiorno(self):  #prende la data selezionata sul calendario e la trasformo in una data Python convertita in stringa per usarla nei confronti
         giorno = self.calendario.selectedDate().toPyDate().strftime("%y-%m-%d")
         return giorno
@@ -144,4 +142,6 @@ class Ui_DialogCalendario(object):
         self.ui = Ui_Form()
         self.ui.setupUi(self.registrazione)
         self.registrazione.show()
+        self.Frame.close()
+
 

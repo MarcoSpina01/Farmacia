@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
+# istanza della classe gestore per aquisire il path assoluto
 gestore = Gestore()
 
 class Ui_Menu(object):
@@ -110,10 +111,15 @@ class Ui_Menu(object):
         self.calendariobtn.raise_()
         self.label.raise_()
         self.logoutbtn.raise_()
+        # bottone che permette il logout e il ritorno alla schermata di login
         self.logoutbtn.clicked.connect(self.returnToLogin)
+        # bottone che permette l'apertura del magazzino
         self.magazzinobtn.clicked.connect(self.openMagazzino)
+        # bottone che permette l'apertura degli archivi
         self.archiviobtn.clicked.connect(self.openArchivio)
+        # bottone che permette l'apertura della cassa
         self.cassabtn.clicked.connect(self.openCassa)
+        # bottone che permette l'apertura della schermata tamponi
         self.calendariobtn.clicked.connect(self.openTamponi)
 
         self.retranslateUi(Form)
@@ -129,6 +135,7 @@ class Ui_Menu(object):
         self.label.setText(_translate("Form", "Funzionalità"))
         self.logoutbtn.setText(_translate("Form", "  Logout"))
 
+    # metodo che permette di tornare al login
     def returnToLogin(self):
         from GestioneFarmacia.Gui.GestioneLogin.login import Ui_Login
         self.login = QtWidgets.QFrame()
@@ -137,6 +144,7 @@ class Ui_Menu(object):
         self.login.show()
         self.form.close()
 
+    # metodo che permette di aprire il magazzino
     def openMagazzino(self):
         from GestioneFarmacia.Gui.GestioneMagazzino.magazzino import Ui_Magazzino
         self.magazzino = QtWidgets.QFrame()
@@ -145,6 +153,7 @@ class Ui_Menu(object):
         self.magazzino.show()
         self.form.close()
 
+    # metodo che permette di aprire la cassa
     def openCassa(self):
         from GestioneFarmacia.Gui.GestioneCassa.cassa import Ui_Cassa
         self.cassa = QtWidgets.QFrame()
@@ -153,6 +162,7 @@ class Ui_Menu(object):
         self.cassa.show()
         self.form.close()
 
+    # metodo che permette di aprire l'archivio
     def openArchivio(self):
         from GestioneFarmacia.Gui.GestioneArchivio.archivio import Ui_Archivio
         self.archivio = QtWidgets.QFrame()
@@ -161,6 +171,7 @@ class Ui_Menu(object):
         self.archivio.show()
         self.form.close()
 
+    # metodo che permette di aprire la schermata tamponi con relativi appuntamenti
     def openTamponi(self):
         from GestioneFarmacia.Gui.GestioneTamponi.calendariotamponi import Ui_DialogCalendario
         self.tampone = QtWidgets.QFrame()

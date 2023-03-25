@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
+# istanza della classe gestore per aquisire il path assoluto
 gestore = Gestore()
 
 class Ui_Fornitori(object):
@@ -66,11 +67,13 @@ class Ui_Fornitori(object):
         self.Angelinirbtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.Pfizerrbtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 
+        # evento che permette di fare un ordine al fornitore angelini
         self.Angelinirbtn.clicked.connect(self.openFornitoreAngelini)
+        # evento che permette di fare un ordine al fornitore pfizer
         self.Pfizerrbtn.clicked.connect(self.openFornitorePfizer)
-
-
+        # evento che permette di tornare alla home
         self.homebtn.clicked.connect(self.returnToHome)
+        # evento che permette di tornare al magazzino
         self.pushButton.clicked.connect(self.returnToMagazzino)
 
         self.retranslateUi(Fornitori)
@@ -84,6 +87,7 @@ class Ui_Fornitori(object):
         self.Pfizerrbtn.setText(_translate("Fornitori", "Pfizer"))
         self.Angelinirbtn.setText(_translate("Fornitori", "Angelini"))
 
+    # metodo che ti permette di tornare alla home
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
         self.menu = QtWidgets.QFrame()
@@ -92,6 +96,7 @@ class Ui_Fornitori(object):
         self.menu.show()
         self.Frame.close()
 
+    # metodo che ti permette di tornare al magazzino
     def returnToMagazzino(self):
         from GestioneFarmacia.Gui.GestioneMagazzino.magazzino import Ui_Magazzino
         self.magazzino = QtWidgets.QFrame()
@@ -100,6 +105,7 @@ class Ui_Fornitori(object):
         self.magazzino.show()
         self.Frame.close()
 
+    # metodo che ti permette di aprire la schermata di ordine da angelini
     def openFornitoreAngelini(self):
         from GestioneFarmacia.Gui.GestioneMagazzino.fornitoreangelini import Ui_angelini
         self.angelini = QtWidgets.QFrame()
@@ -108,6 +114,7 @@ class Ui_Fornitori(object):
         self.angelini.show()
         self.Frame.close()
 
+    # metodo che ti permette di aprire la schermata di ordine da pfizer
     def openFornitorePfizer(self):
         from GestioneFarmacia.Gui.GestioneMagazzino.fornitorepfizer import Ui_pfizer
         self.pfizer = QtWidgets.QFrame()
