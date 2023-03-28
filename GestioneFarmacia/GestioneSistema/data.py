@@ -1,4 +1,6 @@
 import pickle
+from datetime import datetime
+
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneVendite.Farmaco import Farmaco
 from GestioneFarmacia.GestioneVendite.Prodotto import Prodotto
@@ -23,6 +25,8 @@ class data:
 
     def __init__(self):
         pass
+
+    today = datetime.now()
 
     @staticmethod
     def uploadArchivioVendite():
@@ -98,6 +102,11 @@ class data:
     @staticmethod
     def uploadProdottiMagazzino():
         f = open(gestore.returnPth()+"GestioneFarmacia/prodottiMagazzino", "wb")
+        pickle.dump(data.listaProdottiMagazzino, f)
+
+    @staticmethod
+    def uploadAppuntamenti():
+        f = open(gestore.returnPth()+"GestioneFarmacia/appuntamenti.pickle", "wb")
         pickle.dump(data.listaProdottiMagazzino, f)
 
     @staticmethod

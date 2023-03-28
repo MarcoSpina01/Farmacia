@@ -1,16 +1,19 @@
+import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
-from GestioneFarmacia.GestioneTamponi.ClassiTamponi import Cliente, Tampone, Appuntamento
-import random
 
 gestore = Gestore()
-cliente = Cliente()
-tampone = Tampone()
-appuntamento = Appuntamento()
 
 class Ui_Form(object):
     def setupUi(self, Form):
         self.Frame = Form
+        self.tamponetipo = ['', "Molecolare", "Rapido"]
+        today = datetime.date.today()
+        year = today.year
+        self.giorni = []
+        self.years = [str(year), str(year + 1)]
+        for i in range(1, 32, 1):
+            self.giorni.append(str(i))
         Form.setObjectName("Form")
         Form.resize(832, 729)
         Form.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(85, 255, 127, 255), stop:1 rgba(255, 255, 255, 255));")
@@ -117,30 +120,30 @@ class Ui_Form(object):
         self.pushButton.setIcon(icon)
         self.pushButton.setIconSize(QtCore.QSize(40, 40))
         self.pushButton.setObjectName("pushButton")
-        self.registrazionebtn = QtWidgets.QPushButton(Form)
-        self.registrazionebtn.setGeometry(QtCore.QRect(480, 620, 151, 51))
+        self.registrazione = QtWidgets.QPushButton(Form)
+        self.registrazione.setGeometry(QtCore.QRect(480, 620, 151, 51))
         font = QtGui.QFont()
         font.setPointSize(9)
         font.setBold(True)
         font.setWeight(75)
-        self.registrazionebtn.setFont(font)
-        self.registrazionebtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.registrazionebtn.setStyleSheet("border-radius: 10px;\n"
+        self.registrazione.setFont(font)
+        self.registrazione.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.registrazione.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(gestore.returnPth()+"loghi-icone/iconaregistrazione.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.registrazionebtn.setIcon(icon1)
-        self.registrazionebtn.setIconSize(QtCore.QSize(45, 45))
-        self.registrazionebtn.setObjectName("registrazionebtn")
-        self.sessocb = QtWidgets.QComboBox(Form)
-        self.sessocb.setGeometry(QtCore.QRect(240, 570, 141, 31))
-        self.sessocb.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(255, 255, 255, 255));")
-        self.sessocb.setObjectName("sessocb")
-        self.sessocb.addItem("")
-        self.sessocb.addItem("")
-        self.sessocb.addItem("")
-        self.sessocb.addItem("")
+        self.registrazione.setIcon(icon1)
+        self.registrazione.setIconSize(QtCore.QSize(45, 45))
+        self.registrazione.setObjectName("registrazione")
+        self.sessoCombo = QtWidgets.QComboBox(Form)
+        self.sessoCombo.setGeometry(QtCore.QRect(240, 570, 141, 31))
+        self.sessoCombo.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(255, 255, 255, 255));")
+        self.sessoCombo.setObjectName("sessoCombo")
+        self.sessoCombo.addItem("")
+        self.sessoCombo.addItem("")
+        self.sessoCombo.addItem("")
+        self.sessoCombo.addItem("")
         self.label_9 = QtWidgets.QLabel(Form)
         self.label_9.setGeometry(QtCore.QRect(60, 620, 151, 41))
         font = QtGui.QFont()
@@ -149,25 +152,57 @@ class Ui_Form(object):
         self.label_9.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(169, 255, 190, 255));")
         self.label_9.setObjectName("label_9")
-        self.sessocb_2 = QtWidgets.QComboBox(Form)
-        self.sessocb_2.setGeometry(QtCore.QRect(240, 630, 141, 31))
-        self.sessocb_2.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(255, 255, 255, 255));")
-        self.sessocb_2.setObjectName("sessocb_2")
-        self.sessocb_2.addItem("")
-        self.sessocb_2.addItem("")
-        self.sessocb_2.addItem("")
-        self.datalabel = QtWidgets.QLabel(Form)
-        self.datalabel.setGeometry(QtCore.QRect(450, 130, 181, 41))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.datalabel.setFont(font)
-        self.datalabel.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(156, 255, 181, 255));")
-        self.datalabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.datalabel.setObjectName("datalabel")
-
+        self.tamponeCombo = QtWidgets.QComboBox(Form)
+        self.tamponeCombo.addItems(self.tamponetipo)
+        self.tamponeCombo.setGeometry(QtCore.QRect(240, 630, 141, 31))
+        self.tamponeCombo.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(255, 255, 255, 255));")
+        self.tamponeCombo.setObjectName("tamponeCombo")
+        self.tamponeCombo.addItem("")
+        self.tamponeCombo.addItem("")
+        self.tamponeCombo.addItem("")
+        self.label_10 = QtWidgets.QLabel(Form)
+        self.label_10.setGeometry(QtCore.QRect(730, 220, 71, 41))
+        self.label_10.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(197, 255, 211, 255));")
+        self.label_10.setObjectName("label_10")
+        self.label_11 = QtWidgets.QLabel(Form)
+        self.label_11.setGeometry(QtCore.QRect(600, 220, 71, 41))
+        self.label_11.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(183, 255, 201, 255));")
+        self.label_11.setObjectName("label_11")
+        self.meseCombo = QtWidgets.QComboBox(Form)
+        self.meseCombo.activated.connect(self.popolaCombo)
+        self.meseCombo.setGeometry(QtCore.QRect(550, 260, 141, 31))
+        self.meseCombo.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(255, 255, 255, 255));")
+        self.meseCombo.setObjectName("meseCombo")
+        self.meseCombo.addItem("")
+        self.meseCombo.addItem("")
+        self.meseCombo.addItem("")
+        self.meseCombo.addItem("")
+        self.meseCombo.addItem("")
+        self.meseCombo.addItem("")
+        self.meseCombo.addItem("")
+        self.meseCombo.addItem("")
+        self.meseCombo.addItem("")
+        self.meseCombo.addItem("")
+        self.meseCombo.addItem("")
+        self.meseCombo.addItem("")
+        self.giornoCombo = QtWidgets.QComboBox(Form)
+        self.giornoCombo.setGeometry(QtCore.QRect(720, 260, 91, 31))
+        self.giornoCombo.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(255, 255, 255, 255));")
+        self.giornoCombo.setObjectName("giornoCombo")
+        self.annoCombo = QtWidgets.QComboBox(Form)
+        self.annoCombo.addItems(self.years)
+        self.annoCombo.setGeometry(QtCore.QRect(430, 260, 91, 31))
+        self.annoCombo.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(255, 255, 255, 255));")
+        self.annoCombo.setObjectName("annoCombo")
+        self.label_12 = QtWidgets.QLabel(Form)
+        self.label_12.setGeometry(QtCore.QRect(450, 220, 71, 41))
+        self.label_12.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(162, 255, 185, 255));")
+        self.label_12.setObjectName("label_12")
 
         self.pushButton.clicked.connect(self.returnToCalendario)
-
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -183,44 +218,107 @@ class Ui_Form(object):
         self.label_6.setText(_translate("Form", "Codice Fiscale"))
         self.label_7.setText(_translate("Form", "Sesso"))
         self.label_8.setText(_translate("Form", "Email"))
-        self.registrazionebtn.setText(_translate("Form", " Registrati"))
-        self.sessocb.setItemText(0, _translate("Form", "..."))
-        self.sessocb.setItemText(1, _translate("Form", "Maschio"))
-        self.sessocb.setItemText(2, _translate("Form", "Femmina"))
-        self.sessocb.setItemText(3, _translate("Form", "Altro"))
+        self.registrazione.setText(_translate("Form", " Registrati"))
+        self.sessoCombo.setItemText(0, _translate("Form", " "))
+        self.sessoCombo.setItemText(1, _translate("Form", "Maschio"))
+        self.sessoCombo.setItemText(2, _translate("Form", "Femmina"))
+        self.sessoCombo.setItemText(3, _translate("Form", "Altro"))
         self.label_9.setText(_translate("Form", "Tipo di Tampone"))
-        self.sessocb_2.setItemText(0, _translate("Form", "..."))
-        self.sessocb_2.setItemText(1, _translate("Form", "Molecolare"))
-        self.sessocb_2.setItemText(2, _translate("Form", "Rapido"))
-        self.datalabel.setText(_translate("Form", ""))
+        self.tamponeCombo.setItemText(0, _translate("Form", " "))
+        self.tamponeCombo.setItemText(1, _translate("Form", "Molecolare"))
+        self.tamponeCombo.setItemText(2, _translate("Form", "Rapido"))
+        self.label_10.setText(_translate("Form", "Giorno"))
+        self.label_11.setText(_translate("Form", "Mese"))
+        self.meseCombo.setItemText(0, _translate("Form", "01"))
+        self.meseCombo.setItemText(1, _translate("Form", "02"))
+        self.meseCombo.setItemText(2, _translate("Form", "03"))
+        self.meseCombo.setItemText(3, _translate("Form", "04"))
+        self.meseCombo.setItemText(4, _translate("Form", "05"))
+        self.meseCombo.setItemText(5, _translate("Form", "06"))
+        self.meseCombo.setItemText(6, _translate("Form", "07"))
+        self.meseCombo.setItemText(7, _translate("Form", "08"))
+        self.meseCombo.setItemText(8, _translate("Form", "09"))
+        self.meseCombo.setItemText(9, _translate("Form", "10"))
+        self.meseCombo.setItemText(10, _translate("Form", "11"))
+        self.meseCombo.setItemText(11, _translate("Form", "12"))
+        self.label_12.setText(_translate("Form", "Anno"))
 
     def returnToCalendario(self):
-        from GestioneFarmacia.Gui.GestioneTamponi.calendariotamponi import Ui_DialogCalendario
+        from GestioneFarmacia.Gui.GestioneTamponi.calendario import Ui_DialogCalendario
         self.calendario = QtWidgets.QFrame()
         self.ui = Ui_DialogCalendario()
         self.ui.setupUi(self.calendario)
         self.calendario.show()
         self.Frame.close()
 
-    def prendiDatiCliente(self):
-        self.cliente.nome = self.lineEdit.text()
-        self.cliente.cognome = self.cognomele.text()
-        self.cliente.eta = self.etale.text()
-        self.cliente.indirizzo = self.indirizzole.text()
-        self.cliente.email = self.emaille.text()
-        self.cliente.cf = self.cvle.text()
-        self.cliente.sesso = self.sessocb.currentText()
+    def svutaForm(self):
+        self.lineEdit.clear()
+        self.cognomele.clear()
+        self.cvle.clear()
+        self.giornoCombo.clear()
+        self.etale.clear()
+        self.emaille.clear()
+        self.indirizzole.clear()
 
-    def prendiTampone(self):
-        self.tampone.tipo = self.sessocb_2.currentText()
-        self.tampone.prezzo = 10
-        a = random.randint(1, 2)
-        if a == 1:
-            self.tampone.esito = False
-        else:
-            self.tampone.esito = True
+    def popolaCombo(self):
+        self.giornoCombo.clear()
+        temp = []
+        if self.meseCombo.currentText() == "01":
+           for i in range(0, 31, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
 
-    def associaAppuntamento(self):
-        self.appuntamento.cliente = self.cliente
-        self.appuntamento.tampone = self.tampone
+        elif self.meseCombo.currentText() == "02":
+           for i in range(0, 27, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
 
+        elif self.meseCombo.currentText() == "03":
+           for i in range(0, 31, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
+
+        elif self.meseCombo.currentText() == "04":
+           for i in range(0, 30, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
+
+        elif self.meseCombo.currentText() == "05":
+           for i in range(0, 31, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
+
+        elif self.meseCombo.currentText() == "06":
+           for i in range(0, 30, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
+
+        elif self.meseCombo.currentText() == "07":
+           for i in range(0, 31, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
+
+        elif self.meseCombo.currentText() == "08":
+           for i in range(0, 31, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
+
+        elif self.meseCombo.currentText() == "09":
+           for i in range(0, 30, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
+
+        elif self.meseCombo.currentText() == "10":
+           for i in range(0, 31, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
+
+        elif self.meseCombo.currentText() == "11":
+           for i in range(0, 30, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
+
+        elif self.meseCombo.currentText() == "12":
+           for i in range(0, 31, 1):
+                temp.append(self.giorni[i])
+           self.giornoCombo.addItems(temp)
