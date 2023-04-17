@@ -93,6 +93,14 @@ class Ui_DialogCalendario(object):
         self.homebtn.setIconSize(QtCore.QSize(40, 40))
         self.homebtn.setObjectName("homebtn")
 
+
+        self.statistichebtn = QtWidgets.QPushButton(DialogCalendario)
+        self.statistichebtn.setGeometry(QtCore.QRect(710, 640, 171, 41))
+        self.statistichebtn.setStyleSheet("border-radius: 10px;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"")
+        self.statistichebtn.setObjectName("statistichebtn")
+
         self.form.registrazione.clicked.connect(self.passaDati)
         # self.form.registrazionebtn.clicked.connect(self.passaDati)
         self.homebtn.clicked.connect(self.returnToHome)
@@ -106,6 +114,7 @@ class Ui_DialogCalendario(object):
         _translate = QtCore.QCoreApplication.translate
         DialogCalendario.setWindowTitle(_translate("DialogCalendario", "Dialog"))
         self.label.setText(_translate("DialogCalendario", "GESTIONE DEGLI APPUNTAMENTI"))
+        self.statistichebtn.setText(_translate("DialogCalendario", "Visualizza statistiche esiti"))
         self.nuovoappbtn.setText(_translate("DialogCalendario", "Nuovo Appuntamento"))
         item = self.AppuntamentiTable.horizontalHeaderItem(0)
         item.setText(_translate("DialogCalendario", "Codice"))
