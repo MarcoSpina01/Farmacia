@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="10934dc4-f9e2-4b8f-aa83-6b77a839590f" name="Changes" comment="Update" />
+    <list id="c5396118-0a55-43e5-9fa4-9f0182c6b496" name="Changes by Michelangelo" comment="Changes by Michelangelo" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="994c8c55-f2d4-4f01-b5f1-5a8d0f8d4c89" />
+        <option name="url" value="https://github.com/MarcoSpina01/Farmacia.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2JuYVttDqsDLd62axsFpKT0PvIy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Program Files/Farmacia&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.idesettings.debugger.python&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\crowh\PycharmProjects\Farmacia\GestioneFarmacia" />
+      <recent name="C:\Users\crowh\PycharmProjects\Farmacia\GestioneFarmacia\GestioneMagazzino" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Program Files\Farmacia\GestioneFarmacia\GestioneMagazzino" />
+      <recent name="C:\Program Files\Farmacia\GestioneFarmacia\GestioneSistema" />
+      <recent name="C:\Users\crowh\PycharmProjects\Farmacia\GestioneFarmacia" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Farmacia" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GestioneFarmacia/GestioneMagazzino" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Program Files\Farmacia\GestioneFarmacia\GestioneSistema\data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Farmacia" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GestioneFarmacia" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GestioneFarmacia/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.data" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="10934dc4-f9e2-4b8f-aa83-6b77a839590f" name="Changes" comment="" />
+      <created>1672929461616</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1672929461616</updated>
+      <workItem from="1672929463435" duration="1113000" />
+      <workItem from="1672931383007" duration="1050000" />
+      <workItem from="1672932443845" duration="2985000" />
+      <workItem from="1672998500702" duration="7775000" />
+      <workItem from="1673648497954" duration="503000" />
+      <workItem from="1677319598191" duration="92000" />
+      <workItem from="1677322020721" duration="5388000" />
+      <workItem from="1677580931768" duration="27000" />
+      <workItem from="1678354161101" duration="7615000" />
+      <workItem from="1678377699648" duration="3775000" />
+      <workItem from="1678869359348" duration="5935000" />
+      <workItem from="1678955254841" duration="395000" />
+      <workItem from="1678955752234" duration="37000" />
+      <workItem from="1678955803337" duration="262000" />
+      <workItem from="1678956169699" duration="9242000" />
+      <workItem from="1678981783824" duration="4183000" />
+      <workItem from="1679072427457" duration="2141000" />
+      <workItem from="1679131786110" duration="3545000" />
+      <workItem from="1679135377739" duration="4844000" />
+      <workItem from="1679428522155" duration="2930000" />
+      <workItem from="1679474076167" duration="2939000" />
+      <workItem from="1679477362120" duration="3621000" />
+      <workItem from="1679486159169" duration="232000" />
+      <workItem from="1679500501840" duration="7514000" />
+      <workItem from="1679561677797" duration="7506000" />
+      <workItem from="1679578092120" duration="86000" />
+      <workItem from="1679582905265" duration="9963000" />
+      <workItem from="1679736515890" duration="10321000" />
+      <workItem from="1682781035411" duration="93000" />
+    </task>
+    <task id="LOCAL-00001" summary="Update prodotto">
+      <created>1672998637384</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1672998637384</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Update magazzino">
+      <created>1673000707653</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1673000707653</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update magazzino">
+      <created>1673003569599</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1673003569599</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update fornitore">
+      <created>1677577747233</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1677577747233</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Update fornitore">
+      <created>1677577855347</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1677577855347</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update widgetlist">
+      <created>1678361841275</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1678361841275</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Update widgetlist e scrittura su file">
+      <created>1678383883066</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1678383883066</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Update file pickle">
+      <created>1678875220059</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1678875220059</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Update">
+      <created>1678875329049</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1678875329049</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Update">
+      <created>1678956454301</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1678956454301</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update">
+      <created>1678957471104</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1678957471104</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update ciotto">
+      <created>1678964437825</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1678964437825</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Update">
+      <created>1678982325390</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1678982325390</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Update">
+      <created>1678985847595</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1678985847595</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Update">
+      <created>1679074263032</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1679074263032</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Update">
+      <created>1679074576155</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1679074576155</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Update">
+      <created>1679133378648</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1679133378648</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Update">
+      <created>1679135345799</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1679135345799</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Changes by Michelangelo">
+      <created>1679135350458</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1679135350458</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Update">
+      <created>1679140532867</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1679140532867</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Update">
+      <created>1679474406964</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1679474406964</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Update">
+      <created>1679476027448</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1679476027448</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Update">
+      <created>1679476544174</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1679476544174</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Update">
+      <created>1679482233631</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1679482233631</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Update">
+      <created>1679503948669</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1679503948669</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Update">
+      <created>1679507971332</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1679507971332</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Update">
+      <created>1679508025338</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1679508025338</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Update">
+      <created>1679570350629</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1679570350629</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Update">
+      <created>1679590170523</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1679590170523</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update prodotto" />
+    <MESSAGE value="Update magazzino" />
+    <MESSAGE value="Update fornitore" />
+    <MESSAGE value="Update widgetlist" />
+    <MESSAGE value="Update widgetlist e scrittura su file" />
+    <MESSAGE value="Update file pickle" />
+    <MESSAGE value="Update ciotto" />
+    <MESSAGE value="Changes by Michelangelo" />
+    <MESSAGE value="Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Farmacia$main.coverage" NAME="main Coverage Results" MODIFIED="1682781040243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia" />
+    <SUITE FILE_PATH="coverage/Farmacia$fornitoreangelini.coverage" NAME="fornitoreangelini Coverage Results" MODIFIED="1677322557346" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneMagazzino" />
+    <SUITE FILE_PATH="coverage/Farmacia$ricercamagazzino.coverage" NAME="ricercamagazzino Coverage Results" MODIFIED="1673648846094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneMagazzino" />
+    <SUITE FILE_PATH="coverage/Farmacia$GestoreMagazzino.coverage" NAME="GestoreMagazzino Coverage Results" MODIFIED="1678875222351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/GestioneMagazzino" />
+    <SUITE FILE_PATH="coverage/Farmacia$data.coverage" NAME="data Coverage Results" MODIFIED="1678984510462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/GestioneMagazzino" />
+    <SUITE FILE_PATH="coverage/Farmacia$assistenza.coverage" NAME="assistenza Coverage Results" MODIFIED="1672932682241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneLogin" />
+  </component>
+</project>
