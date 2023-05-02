@@ -79,7 +79,7 @@ class Appuntamento:
         self.tampone = tampone
 
     def set_isconcluso(self):
-        self.isconclusa = True
+        self.isconcluso = True
 
     def get_esito(self):
         return self.esito

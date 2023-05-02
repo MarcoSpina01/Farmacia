@@ -173,7 +173,7 @@ class Ui_Menu(object):
 
     # metodo che permette di aprire la schermata tamponi con relativi appuntamenti
     def openTamponi(self):
-        from GestioneFarmacia.Gui.GestioneTamponi.calendariotamponi import Ui_DialogCalendario
+        from GestioneFarmacia.Gui.GestioneTamponi.calendario import Ui_DialogCalendario
         self.tampone = QtWidgets.QFrame()
         self.ui = Ui_DialogCalendario()
         self.ui.setupUi(self.tampone)
