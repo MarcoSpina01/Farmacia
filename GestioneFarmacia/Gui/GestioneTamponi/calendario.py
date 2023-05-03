@@ -6,7 +6,7 @@ from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneTamponi.Appuntamento import Appuntamento
 from GestioneFarmacia.GestioneTamponi.ClassiTamponi import Tampone, Cliente
-from GestioneFarmacia.Gui.GestioneTamponi.registrazione import *
+# from GestioneFarmacia.Gui.GestioneTamponi.registrazione import Ui_Registrazione
 
 gestore = Gestore()
 # dato = data()
@@ -17,9 +17,8 @@ class Ui_DialogCalendario(object):
         self.Frame = DialogCalendario
         self.ricerca = ['', "Non Concluso", "Concluso"]
         self.registrazione = QtWidgets.QFrame()
-        self.form = Ui_Form()
-        #self.form.registrazionebtn.clicked.connect(self.passaDati)
-        self.form.setupUi(self.registrazione)
+        # self.form = Ui_Registrazione()
+        # self.form.setupUi(self.registrazione)
 
         DialogCalendario.setObjectName("DialogCalendario")
         DialogCalendario.resize(1185, 800)
@@ -99,8 +98,8 @@ class Ui_DialogCalendario(object):
 "")
         self.statistichebtn.setObjectName("statistichebtn")
 
-        self.form.registrazione.clicked.connect(self.passaDati)
-        # self.form.registrazionebtn.clicked.connect(self.passaDati)
+        # self.form.registrazione.clicked.connect(self.passaDati)
+
         self.homebtn.clicked.connect(self.returnToHome)
         self.nuovoappbtn.clicked.connect(self.openRegistrazione)
         self.eliminaappbtn.clicked.connect(self.eliminaAppuntamento)
@@ -131,12 +130,11 @@ class Ui_DialogCalendario(object):
         self.homebtn.setText(_translate("DialogCalendario", "Home"))
 
     def openRegistrazione(self):
-        from GestioneFarmacia.Gui.GestioneTamponi.registrazione import Ui_Form
+        from GestioneFarmacia.Gui.GestioneTamponi.registrazione import Ui_Registrazione
         self.registrazione = QtWidgets.QFrame()
-        self.ui = Ui_Form()
+        self.ui = Ui_Registrazione()
         self.ui.setupUi(self.registrazione)
         self.registrazione.show()
-
 
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu

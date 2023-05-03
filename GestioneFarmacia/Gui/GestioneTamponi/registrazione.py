@@ -1,13 +1,17 @@
 import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
+from GestioneFarmacia.Gui.GestioneTamponi.calendario import Ui_DialogCalendario
 
 gestore = Gestore()
 
-class Ui_Form(object):
+class Ui_Registrazione(object):
     def setupUi(self, Form):
         self.Frame = Form
         self.tamponetipo = ['', "Molecolare", "Rapido"]
+        self.registrazione = QtWidgets.QFrame()
+        self.form = Ui_DialogCalendario()
+        self.form.setupUi(self.registrazione)
         today = datetime.date.today()
         year = today.year
         self.giorni = []
@@ -202,6 +206,9 @@ class Ui_Form(object):
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:1 rgba(162, 255, 185, 255));")
         self.label_12.setObjectName("label_12")
 
+
+        self.registrazione.clicked.connect(self.form.passaDati)
+
         self.pushButton.clicked.connect(self.returnToCalendario)
 
         self.retranslateUi(Form)
@@ -244,11 +251,6 @@ class Ui_Form(object):
         self.label_12.setText(_translate("Form", "Anno"))
 
     def returnToCalendario(self):
-        from GestioneFarmacia.Gui.GestioneTamponi.calendario import Ui_DialogCalendario
-        self.calendario = QtWidgets.QFrame()
-        self.ui = Ui_DialogCalendario()
-        self.ui.setupUi(self.calendario)
-        self.calendario.show()
         self.Frame.close()
 
     def svutaForm(self):
