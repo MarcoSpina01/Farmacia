@@ -14,6 +14,8 @@ class data:
     listaProdottiMagazzino = []
     listaProdottiFornitore = []
     listaFarmaciFornitore = []
+    listaClienti = []
+    listaEsiti = []
     archivioOrdini = []
     archivioVendite = []
     nVendite = 0
@@ -107,7 +109,7 @@ class data:
     @staticmethod
     def uploadAppuntamenti():
         f = open(gestore.returnPth()+"GestioneFarmacia/appuntamenti.pickle", "wb")
-        pickle.dump(data.listaProdottiMagazzino, f)
+        pickle.dump(data.listaAppuntamenti, f)
 
     @staticmethod
     def downloadFarmaciMagazzino():
@@ -203,3 +205,45 @@ class data:
         for i in range(len(appuntamenti)):
             data.listaAppuntamenti.append(appuntamenti[i])
 
+
+    @staticmethod
+    def downloadClienti():
+        data.downloadAppuntamenti()
+        temp = []
+        for app in data.listaAppuntamenti:
+            temp.append(app.get_cliente())
+        f = open(gestore.returnPth()+"GestioneFarmacia/archivioclienti.pickle", "wb")
+        pickle.dump(temp, f)
+        f.close()
+        f = open(gestore.returnPth()+"GestioneFarmacia/archivioclienti.pickle", "rb")
+        clienti = pickle.load(f)
+        f.close()
+        data.listaClienti.clear()
+        for i in range(len(clienti)):
+            data.listaClienti.append(clienti[i])
+
+    @staticmethod
+    def downloadEsiti():
+        data.downloadAppuntamenti()
+        temp = []
+        for app in data.listaAppuntamenti:
+            if app.get_stato() == True:
+                temp.append(app)
+        f = open('archivioesiti.pickle', 'wb')
+        pickle.dump(temp, f)
+        f.close()
+        f = open('archivioesiti.pickle', 'rb')
+        esiti = pickle.load(f)
+        f.close()
+        data.listaEsiti.clear()
+        for i in range(len(esiti)):
+            data.listaEsiti.append(esiti[i])
+
+    @staticmethod
+    def uploadEsiti():
+        f = open('archivioesiti.pickle', 'wb')
+        pickle.dump(data.listaEsiti, f)
+    @staticmethod
+    def uploadClienti():
+        f = open(gestore.returnPth()+"GestioneFarmacia/archivioclienti.pickle", "wb")
+        pickle.dump(data.listaClienti, f)

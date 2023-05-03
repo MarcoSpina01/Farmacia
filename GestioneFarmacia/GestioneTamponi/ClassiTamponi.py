@@ -67,12 +67,12 @@ class Tampone():
 
 
 class Appuntamento:
-    #counter = 0
+    counter = 0
 
     def __init__(self, cliente: Cliente, tampone: Tampone, data: datetime):
         self.cliente = cliente
-        #self.id_app = Appuntamento.counter
-       # Appuntamento.counter += 1
+        self.id_app = Appuntamento.counter
+        Appuntamento.counter += 1
         self.esito = False
         self.data = data
         self.isconcluso = False

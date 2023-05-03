@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QTableWidgetItem
 
 from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
@@ -11,6 +12,8 @@ class Ui_Archivio(object):
         Form.setObjectName("Form")
         Form.resize(827, 495)
         Form.setStyleSheet("")
+        columns = ['Nome', 'Cognome', 'Cf', 'Email', 'Sesso', 'Indirizzo']
+        columnsesiti = ['Codice', 'CF', 'Data', 'Stato', 'Esito']
         self.Archivio = QtWidgets.QFrame(Form)
         self.Archivio.setGeometry(QtCore.QRect(0, -10, 831, 531))
         self.Archivio.setStyleSheet("background-image: url("+gestore.returnPth()+"loghi-icone/schermataarchivio.PNG);")
@@ -53,7 +56,8 @@ class Ui_Archivio(object):
         self.tableWidgetclienti.setGeometry(QtCore.QRect(10, 40, 391, 161))
         self.tableWidgetclienti.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.tableWidgetclienti.setObjectName("tableWidgetclienti")
-        self.tableWidgetclienti.setColumnCount(0)
+        self.tableWidgetclienti.setColumnCount(len(columns))
+        self.tableWidgetclienti.setHorizontalHeaderLabels(columns)
         self.tableWidgetclienti.setRowCount(0)
         self.ricercaarchivioclientibtn = QtWidgets.QPushButton(Form)
         self.ricercaarchivioclientibtn.setGeometry(QtCore.QRect(210, 210, 91, 41))
@@ -104,7 +108,8 @@ class Ui_Archivio(object):
         self.tableWidgetesiti.setGeometry(QtCore.QRect(410, 280, 391, 161))
         self.tableWidgetesiti.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.tableWidgetesiti.setObjectName("tableWidgetesiti")
-        self.tableWidgetesiti.setColumnCount(0)
+        self.tableWidgetesiti.setColumnCount(len(columnsesiti))
+        self.tableWidgetesiti.setHorizontalHeaderLabels(columnsesiti)
         self.tableWidgetesiti.setRowCount(0)
         self.ricercaarchiviovendite = QtWidgets.QLineEdit(Form)
         self.ricercaarchiviovendite.setGeometry(QtCore.QRect(10, 460, 191, 21))
@@ -132,6 +137,8 @@ class Ui_Archivio(object):
         self.popolaVendite()
         self.creaArchivioOrdini()
         self.popolaOrdini()
+        self.popolaClienti()
+        self.popolaEsiti()
 
 
         self.retranslateUi(Form)
@@ -294,3 +301,31 @@ class Ui_Archivio(object):
 
 
 
+    def popolaClienti(self):
+        self.tableWidgetclienti.setRowCount(0)  # fa partire da vuota la table
+        data.downloadClienti()
+        row = 0
+        self.tableWidgetclienti.setRowCount(len(data.listaClienti))
+        for cliente in data.listaClienti:
+            self.tableWidgetclienti.setItem(row, 0, QTableWidgetItem(cliente.get_nome()))  # nella colonna id appuntamneto metto l'id dell'appuntamento i esimo
+            self.tableWidgetclienti.setItem(row, 1, QTableWidgetItem(cliente.get_cognome()))  # nella colonna cf metto il cf dell'appuntamento i esimo
+            self.tableWidgetclienti.setItem(row, 2, QTableWidgetItem(cliente.get_cf()))
+            self.tableWidgetclienti.setItem(row, 3, QTableWidgetItem(cliente.get_email()))
+            self.tableWidgetclienti.setItem(row, 4, QTableWidgetItem(cliente.get_sesso()))
+            self.tableWidgetclienti.setItem(row, 5, QTableWidgetItem(cliente.get_indirizzo()))
+            row = row + 1
+
+    def popolaEsiti(self):
+        data.downloadEsiti()
+        row = 0
+        self.tableWidgetesiti.setRowCount(len(data.listaEsiti))
+        for appuntamento in data.listaEsiti:
+                self.tableWidgetesiti.setItem(row, 0, QTableWidgetItem(str(appuntamento.get_idapp())))  # nella colonna id appuntamneto metto l'id dell'appuntamento i esimo
+                self.tableWidgetesiti.setItem(row, 1, QTableWidgetItem( appuntamento.get_cff()))  # nella colonna cf metto il cf dell'appuntamento i esimo
+                self.tableWidgetesiti.setItem(row, 2, QTableWidgetItem(appuntamento.get_data().strftime("%y-%m-%d")))
+                self.tableWidgetesiti.setItem(row, 3, QTableWidgetItem("Concluso"))
+                if appuntamento.get_tampone().get_esito() == False:
+                    self.tableWidgetesiti.setItem(row, 4, QTableWidgetItem("NEGATIVO"))
+                else:
+                    self.tableWidgetesiti.setItem(row, 4, QTableWidgetItem("POSITIVO"))
+                row = row + 1
