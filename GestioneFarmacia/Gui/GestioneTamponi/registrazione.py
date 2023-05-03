@@ -297,7 +297,7 @@ class Ui_Registrazione(object):
                 messagebox.showinfo("Avviso", "Appuntamento aggiunto!")
                 self.returnToCalendario()
             else:
-                messagebox.showinfo("Error", "La data inserita deve essere uguale o sucessiva a quella odierna")
+                messagebox.showinfo("Error", "La data inserita deve essere sucessiva a quella odierna")
                 return
         else:
             messagebox.showinfo("Error", "Riempi tutti i campi")

@@ -261,11 +261,11 @@ class Ui_DialogCalendario(object):
                         index = data.listaAppuntamenti.index(a)
                         data.listaAppuntamenti.pop(index)
                         data.uploadAppuntamenti()
-                        messagebox.showinfo(self, "Avviso", "Appuntamento eliminato")
+                        messagebox.showinfo( "Avviso", "Appuntamento eliminato")
                         return
 
                     else:
-                        messagebox.showinfo(self, "Avviso", "Appuntamento già concluso, non si può eliminare!")
+                        messagebox.showinfo("Avviso", "Appuntamento già concluso, non si può eliminare!")
                         return
 
 
