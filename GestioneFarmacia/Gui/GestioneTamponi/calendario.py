@@ -153,7 +153,11 @@ class Ui_DialogCalendario(object):
         data.downloadAppuntamenti()
         row = 0
         self.AppuntamentiTable.setRowCount(len(data.listaAppuntamenti))           #setto la quangtità di righe della table come uguale alla lunghezza della lista di appuntamenti
+        i: int = 0
         for appuntamento in data.listaAppuntamenti:
+
+             i+=1
+             print(i)
              if appuntamento.get_data().strftime("%y-%m-%d") == self.getgiorno():
                 self.AppuntamentiTable.setItem(row, 0, QTableWidgetItem(str(appuntamento.get_idapp()))) #nella colonna id appuntamneto metto l'id dell'appuntamento i esimo
                 self.AppuntamentiTable.setItem(row, 1, QTableWidgetItem(appuntamento.get_cff()))  #nella colonna cf metto il cf dell'appuntamento i esimo

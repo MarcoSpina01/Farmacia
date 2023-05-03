@@ -1,17 +1,20 @@
 import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
+
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
+from GestioneFarmacia.GestioneTamponi.ClassiTamponi import Tampone, Cliente, Appuntamento
 from GestioneFarmacia.Gui.GestioneTamponi.calendario import Ui_DialogCalendario
+from GestioneFarmacia.GestioneSistema.data import data
 
 gestore = Gestore()
-
+#ata = data()
 class Ui_Registrazione(object):
     def setupUi(self, Form):
         self.Frame = Form
         self.tamponetipo = ['', "Molecolare", "Rapido"]
         self.registrazione = QtWidgets.QFrame()
-        self.form = Ui_DialogCalendario()
-        self.form.setupUi(self.registrazione)
+
         today = datetime.date.today()
         year = today.year
         self.giorni = []
@@ -207,7 +210,7 @@ class Ui_Registrazione(object):
         self.label_12.setObjectName("label_12")
 
 
-        self.registrazione.clicked.connect(self.form.passaDati)
+        self.registrazione.clicked.connect(self.passaDati)
 
         self.pushButton.clicked.connect(self.returnToCalendario)
 
@@ -261,6 +264,44 @@ class Ui_Registrazione(object):
         self.etale.clear()
         self.emaille.clear()
         self.indirizzole.clear()
+
+    def passaDati(self):
+        from tkinter import messagebox
+        print("t7gy "+self.sessoCombo.currentText())
+        if self.lineEdit.text() != '' and self.cognomele.text() != '' and self.cvle.text() != '' and \
+        self.giornoCombo.currentText() != '' and self.tamponeCombo.currentText() != ' ' and self.etale.text() != ''\
+        and self.emaille.text() != '' and self.sessoCombo.currentText() != ' ' and self.indirizzole.text() != '':
+            today = datetime.datetime.now()
+            a = int(self.annoCombo.currentText())
+            m = int(self.meseCombo.currentText())
+            g = int(self.giornoCombo.currentText())
+            giornoo = datetime.datetime(a, m, g)
+            if giornoo >= today:
+                data.downloadAppuntamenti()
+                nome = self.lineEdit.text()
+                cognome = self.cognomele.text()
+                cf = self.cvle.text()
+                eta = self.etale.text()
+                mail = self.emaille.text()
+                indirizzo = self.indirizzole.text()
+                sesso = self.sessoCombo.currentText()
+
+                tipo = self.tamponeCombo.currentText()
+                tampone = Tampone(tipo)
+                cliente = Cliente(nome, cognome, cf, eta, mail, sesso, indirizzo)
+                newid = data.listaAppuntamenti[len(data.listaAppuntamenti)-1].get_idapp()+1
+                appuntamento = Appuntamento(cliente, tampone, giornoo)
+                appuntamento.set_idapp(newid)
+                data.listaAppuntamenti.append(appuntamento)
+                data.uploadAppuntamenti()
+                messagebox.showinfo("Avviso", "Appuntamento aggiunto!")
+                self.returnToCalendario()
+            else:
+                messagebox.showinfo("Error", "La data inserita deve essere uguale o sucessiva a quella odierna")
+                return
+        else:
+            messagebox.showinfo("Error", "Riempi tutti i campi")
+            return
 
     def popolaCombo(self):
         self.giornoCombo.clear()
