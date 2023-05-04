@@ -113,8 +113,8 @@ class Ui_Login(object):
     def autenticazione(self):
         username = self.Username.text()
         password = self.Password.text()
-        if (username == "ciao"):
-            if (password == "ciao"):
+        if (username == "FarmaciaCasereccia"):
+            if (password == "password"):
                 self.openMenu()
             else:
                 self.ErrorMessage.setText("PASSWORD ERRATA")

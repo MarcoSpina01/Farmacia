@@ -206,42 +206,7 @@ class Ui_DialogCalendario(object):
                     self.AppuntamentiTable.setItem(row, 4, QTableWidgetItem("POSITIVO"))
                 row = row+1
 
-    def passaDati(self):
-        from tkinter import messagebox
-        if self.form.lineEdit.text() != '' and self.form.cognomeLe.text() != '' and self.form.cfLe.text() != '' and \
-        self.form.giornoCombo.currentText() != '' and self.form.tamponeCombo.currentText() != '' and self.form.etale.text() != ''\
-        and self.form.emaille.text() != '' and self.form.sessoCombo.currentText() != '' and self.form.indirizzole.text() != '':
-            today = datetime.datetime.now()
-            a = int(self.form.annoCombo.currentText())
-            m = int(self.form.meseCombo.currentText())
-            g = int(self.form.giornoCombo.currentText())
-            data = datetime.datetime(a, m, g)
-            if data >= today:
-                data.downloadAppuntamenti()
-                nome = self.form.lineEdit.text()
-                cognome = self.form.cognomeLe.text()
-                cf = self.form.cfLe.text()
-                eta = self.form.etale.text()
-                mail = self.form.emaille.text()
-                indirizzo = self.form.indirizzole.text()
-                sesso = self.form.sessoCombo.currentText()
 
-                tipo = self.form.tamponeCombo.currentText()
-                tampone = Tampone(tipo)
-                cliente = Cliente(nome, cognome, cf, eta, mail, sesso, indirizzo)
-                newid = data.listaAppuntamenti[len(data.listaAppuntamenti)-1].get_idapp()+1
-                appuntamento = Appuntamento(cliente, tampone, data)
-                appuntamento.set_idapp(newid)
-                data.listaAppuntamenti.append(appuntamento)
-                data.uploadAppuntamenti()
-                QMessageBox.about(self, "Avviso", "Appuntamento aggiunto!")
-                self.form.close()
-            else:
-                messagebox.showinfo(self, "Error", "La data inserita deve essere uguale o sucessiva a quella odierna")
-                return
-        else:
-            messagebox.showinfo(self, "Error", "Riempi tutti i campi")
-            return
     def eliminaAppuntamento(self):
         from tkinter import messagebox
         cod = self.AppuntamentiTable.item(self.AppuntamentiTable.currentRow(), 0)
