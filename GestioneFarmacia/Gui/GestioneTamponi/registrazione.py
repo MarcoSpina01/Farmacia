@@ -267,7 +267,6 @@ class Ui_Registrazione(object):
 
     def passaDati(self):
         from tkinter import messagebox
-        print("t7gy "+self.sessoCombo.currentText())
         if self.lineEdit.text() != '' and self.cognomele.text() != '' and self.cvle.text() != '' and \
         self.giornoCombo.currentText() != '' and self.tamponeCombo.currentText() != ' ' and self.etale.text() != ''\
         and self.emaille.text() != '' and self.sessoCombo.currentText() != ' ' and self.indirizzole.text() != '':
