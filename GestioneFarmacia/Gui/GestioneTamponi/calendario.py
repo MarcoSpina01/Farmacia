@@ -2,12 +2,11 @@ from datetime import datetime
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox
-
 from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneTamponi.Appuntamento import Appuntamento
 from GestioneFarmacia.GestioneTamponi.ClassiTamponi import Tampone, Cliente
-from GestioneFarmacia.Gui.GestioneTamponi.registrazione import *
+# from GestioneFarmacia.Gui.GestioneTamponi.registrazione import Ui_Registrazione
 
 gestore = Gestore()
 # dato = data()
@@ -17,11 +16,9 @@ class Ui_DialogCalendario(object):
     def setupUi(self, DialogCalendario):
         self.Frame = DialogCalendario
         self.ricerca = ['', "Non Concluso", "Concluso"]
-
         self.registrazione = QtWidgets.QFrame()
-
-        self.form = Ui_Form()
-        self.form.setupUi(self.registrazione)
+        # self.form = Ui_Registrazione()
+        # self.form.setupUi(self.registrazione)
 
         DialogCalendario.setObjectName("DialogCalendario")
         DialogCalendario.resize(1185, 800)
@@ -101,10 +98,11 @@ class Ui_DialogCalendario(object):
 "")
         self.statistichebtn.setObjectName("statistichebtn")
 
-        self.form.registrazione.clicked.connect(self.passaDati)
-        # self.form.registrazionebtn.clicked.connect(self.passaDati)
+        # self.form.registrazione.clicked.connect(self.passaDati)
+
         self.homebtn.clicked.connect(self.returnToHome)
         self.nuovoappbtn.clicked.connect(self.openRegistrazione)
+        self.eliminaappbtn.clicked.connect(self.eliminaAppuntamento)
 
 
         self.retranslateUi(DialogCalendario)
@@ -132,12 +130,11 @@ class Ui_DialogCalendario(object):
         self.homebtn.setText(_translate("DialogCalendario", "Home"))
 
     def openRegistrazione(self):
-        from GestioneFarmacia.Gui.GestioneTamponi.registrazione import Ui_Form
+        from GestioneFarmacia.Gui.GestioneTamponi.registrazione import Ui_Registrazione
         self.registrazione = QtWidgets.QFrame()
-        self.ui = Ui_Form()
+        self.ui = Ui_Registrazione()
         self.ui.setupUi(self.registrazione)
         self.registrazione.show()
-        self.Frame.close()
 
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
@@ -156,7 +153,11 @@ class Ui_DialogCalendario(object):
         data.downloadAppuntamenti()
         row = 0
         self.AppuntamentiTable.setRowCount(len(data.listaAppuntamenti))           #setto la quangtità di righe della table come uguale alla lunghezza della lista di appuntamenti
+        i: int = 0
         for appuntamento in data.listaAppuntamenti:
+
+             i+=1
+             print(i)
              if appuntamento.get_data().strftime("%y-%m-%d") == self.getgiorno():
                 self.AppuntamentiTable.setItem(row, 0, QTableWidgetItem(str(appuntamento.get_idapp()))) #nella colonna id appuntamneto metto l'id dell'appuntamento i esimo
                 self.AppuntamentiTable.setItem(row, 1, QTableWidgetItem(appuntamento.get_cff()))  #nella colonna cf metto il cf dell'appuntamento i esimo
@@ -177,6 +178,8 @@ class Ui_DialogCalendario(object):
             self.visualizzaNonConclusi()
         elif self.ricercaappCombo.currentText() == "Concluso":
             self.visualizzaConclusi()
+        elif self.ricercaappCombo.currentText() == '':
+            self.AppuntamentiTable.setRowCount(0)
 
     def visualizzaNonConclusi(self):
         self.AppuntamentiTable.setRowCount(0)
@@ -210,6 +213,7 @@ class Ui_DialogCalendario(object):
                 row = row+1
 
     def passaDati(self):
+        from tkinter import messagebox
         if self.form.lineEdit.text() != '' and self.form.cognomeLe.text() != '' and self.form.cfLe.text() != '' and \
         self.form.giornoCombo.currentText() != '' and self.form.tamponeCombo.currentText() != '' and self.form.etale.text() != ''\
         and self.form.emaille.text() != '' and self.form.sessoCombo.currentText() != '' and self.form.indirizzole.text() != '':
@@ -239,42 +243,41 @@ class Ui_DialogCalendario(object):
                 QMessageBox.about(self, "Avviso", "Appuntamento aggiunto!")
                 self.form.close()
             else:
-                QMessageBox.about(self, "Error", "La data inserita deve essere uguale o sucessiva a quella odierna")
+                messagebox.showinfo(self, "Error", "La data inserita deve essere uguale o sucessiva a quella odierna")
+                return
         else:
-            QMessageBox.about(self, "Error", "Riempi tutti i campi")
+            messagebox.showinfo(self, "Error", "Riempi tutti i campi")
+            return
+    def eliminaAppuntamento(self):
+        from tkinter import messagebox
+        cod = self.AppuntamentiTable.item(self.AppuntamentiTable.currentRow(), 0)
+        if cod is not None:
+            data.downloadAppuntamenti()
+            co = self.AppuntamentiTable.item(self.AppuntamentiTable.currentRow(), 0).text()
+            for a in data.listaAppuntamenti:
 
-    # def chiudiAppuntamentof(self):
-    #     import random
-    #     y = self.AppuntamentiTable.item(self.AppuntamentiTable.currentRow(), 0)
-    #     if y is not None:
-    #         data.downloadAppuntamenti()
-    #         y = self.AppuntamentiTable.item(self.AppuntamentiTable.currentRow(), 0).text()
-    #         for a in data.listaAppuntamenti:
-    #             if a.get_idapp() == int(y):
-    #                 a.set_isconcluso()
-    #                 #self.showdate.setText(str(a.get_stato()))
-    #                 if random.randint(0,1) == 1:
-    #                     #self.showdate.setText(str(a.get_tampone().get_esito()))
-    #                     a.get_tampone().set_esito()
-    #                     QMessageBox.about(self, "Avviso", "Tampone effettuato!")
-    #                     data.uploadAppuntamenti()
-    #                     return
-    #                 else:
-    #                     #self.showdate.setText(str(a.get_tampone().get_esito()))
-    #                     QMessageBox.about(self, "Avviso", "Tampone effettuato!")
-    #                     data.uploadAppuntamenti()
-    #                     return
-    #
-    #     else:
-    #         messagebox.showinfo(self, "Error", "Seleziona una riga non vuota")
+                if a.get_idapp() == int(co):
+                    if a.get_stato() == False:
+                        index = data.listaAppuntamenti.index(a)
+                        data.listaAppuntamenti.pop(index)
+                        data.uploadAppuntamenti()
+                        messagebox.showinfo( "Avviso", "Appuntamento eliminato")
+                        return
+
+                    else:
+                        messagebox.showinfo("Avviso", "Appuntamento già concluso, non si può eliminare!")
+                        return
+
 
     def chiudiAppuntamento(self):
+        import random
+        from _datetime import datetime
         from tkinter import messagebox
         import random
         y = self.AppuntamentiTable.item(self.AppuntamentiTable.currentRow(), 0)
         if y is not None:
             d = self.AppuntamentiTable.item(self.AppuntamentiTable.currentRow(), 2).text()
-            dataapp = datetime.datetime.strptime(d, '%y-%m-%d')
+            dataapp = datetime.strptime(d, '%y-%m-%d')
             if data.today >= dataapp:
                 data.downloadAppuntamenti()
                 y = self.AppuntamentiTable.item(self.AppuntamentiTable.currentRow(), 0).text()
@@ -299,3 +302,4 @@ class Ui_DialogCalendario(object):
                 return
         else:
             messagebox.showinfo("Error", "Seleziona una riga non vuota")
+            return
