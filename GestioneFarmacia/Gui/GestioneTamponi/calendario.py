@@ -6,10 +6,8 @@ from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneTamponi.Appuntamento import Appuntamento
 from GestioneFarmacia.GestioneTamponi.ClassiTamponi import Tampone, Cliente
-# from GestioneFarmacia.Gui.GestioneTamponi.registrazione import Ui_Registrazione
 
 gestore = Gestore()
-# dato = data()
 
 class Ui_DialogCalendario(object):
 
@@ -17,8 +15,7 @@ class Ui_DialogCalendario(object):
         self.Frame = DialogCalendario
         self.ricerca = ['', "Non Concluso", "Concluso"]
         self.registrazione = QtWidgets.QFrame()
-        # self.form = Ui_Registrazione()
-        # self.form.setupUi(self.registrazione)
+
 
         DialogCalendario.setObjectName("DialogCalendario")
         DialogCalendario.resize(1185, 800)
@@ -153,11 +150,8 @@ class Ui_DialogCalendario(object):
         data.downloadAppuntamenti()
         row = 0
         self.AppuntamentiTable.setRowCount(len(data.listaAppuntamenti))           #setto la quangtità di righe della table come uguale alla lunghezza della lista di appuntamenti
-        i: int = 0
         for appuntamento in data.listaAppuntamenti:
 
-             i+=1
-             print(i)
              if appuntamento.get_data().strftime("%y-%m-%d") == self.getgiorno():
                 self.AppuntamentiTable.setItem(row, 0, QTableWidgetItem(str(appuntamento.get_idapp()))) #nella colonna id appuntamneto metto l'id dell'appuntamento i esimo
                 self.AppuntamentiTable.setItem(row, 1, QTableWidgetItem(appuntamento.get_cff()))  #nella colonna cf metto il cf dell'appuntamento i esimo
@@ -212,42 +206,7 @@ class Ui_DialogCalendario(object):
                     self.AppuntamentiTable.setItem(row, 4, QTableWidgetItem("POSITIVO"))
                 row = row+1
 
-    def passaDati(self):
-        from tkinter import messagebox
-        if self.form.lineEdit.text() != '' and self.form.cognomeLe.text() != '' and self.form.cfLe.text() != '' and \
-        self.form.giornoCombo.currentText() != '' and self.form.tamponeCombo.currentText() != '' and self.form.etale.text() != ''\
-        and self.form.emaille.text() != '' and self.form.sessoCombo.currentText() != '' and self.form.indirizzole.text() != '':
-            today = datetime.datetime.now()
-            a = int(self.form.annoCombo.currentText())
-            m = int(self.form.meseCombo.currentText())
-            g = int(self.form.giornoCombo.currentText())
-            data = datetime.datetime(a, m, g)
-            if data >= today:
-                data.downloadAppuntamenti()
-                nome = self.form.lineEdit.text()
-                cognome = self.form.cognomeLe.text()
-                cf = self.form.cfLe.text()
-                eta = self.form.etale.text()
-                mail = self.form.emaille.text()
-                indirizzo = self.form.indirizzole.text()
-                sesso = self.form.sessoCombo.currentText()
 
-                tipo = self.form.tamponeCombo.currentText()
-                tampone = Tampone(tipo)
-                cliente = Cliente(nome, cognome, cf, eta, mail, sesso, indirizzo)
-                newid = data.listaAppuntamenti[len(data.listaAppuntamenti)-1].get_idapp()+1
-                appuntamento = Appuntamento(cliente, tampone, data)
-                appuntamento.set_idapp(newid)
-                data.listaAppuntamenti.append(appuntamento)
-                data.uploadAppuntamenti()
-                QMessageBox.about(self, "Avviso", "Appuntamento aggiunto!")
-                self.form.close()
-            else:
-                messagebox.showinfo(self, "Error", "La data inserita deve essere uguale o sucessiva a quella odierna")
-                return
-        else:
-            messagebox.showinfo(self, "Error", "Riempi tutti i campi")
-            return
     def eliminaAppuntamento(self):
         from tkinter import messagebox
         cod = self.AppuntamentiTable.item(self.AppuntamentiTable.currentRow(), 0)

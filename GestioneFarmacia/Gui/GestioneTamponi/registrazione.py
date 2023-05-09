@@ -8,7 +8,6 @@ from GestioneFarmacia.Gui.GestioneTamponi.calendario import Ui_DialogCalendario
 from GestioneFarmacia.GestioneSistema.data import data
 
 gestore = Gestore()
-#ata = data()
 class Ui_Registrazione(object):
     def setupUi(self, Form):
         self.Frame = Form
@@ -267,15 +266,14 @@ class Ui_Registrazione(object):
 
     def passaDati(self):
         from tkinter import messagebox
-        print("t7gy "+self.sessoCombo.currentText())
         if self.lineEdit.text() != '' and self.cognomele.text() != '' and self.cvle.text() != '' and \
         self.giornoCombo.currentText() != '' and self.tamponeCombo.currentText() != ' ' and self.etale.text() != ''\
         and self.emaille.text() != '' and self.sessoCombo.currentText() != ' ' and self.indirizzole.text() != '':
-            today = datetime.datetime.now()
+            today = datetime.date.today()
             a = int(self.annoCombo.currentText())
             m = int(self.meseCombo.currentText())
             g = int(self.giornoCombo.currentText())
-            giornoo = datetime.datetime(a, m, g)
+            giornoo = datetime.date(a, m, g)
             if giornoo >= today:
                 data.downloadAppuntamenti()
                 nome = self.lineEdit.text()
@@ -297,7 +295,7 @@ class Ui_Registrazione(object):
                 messagebox.showinfo("Avviso", "Appuntamento aggiunto!")
                 self.returnToCalendario()
             else:
-                messagebox.showinfo("Error", "La data inserita deve essere sucessiva a quella odierna")
+                messagebox.showinfo("Error", "La data inserita deve essere sucessiva o uguale a quella odierna")
                 return
         else:
             messagebox.showinfo("Error", "Riempi tutti i campi")
