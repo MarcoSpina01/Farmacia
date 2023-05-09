@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10934dc4-f9e2-4b8f-aa83-6b77a839590f" name="Changes" comment="Update" />
+    <list default="true" id="10934dc4-f9e2-4b8f-aa83-6b77a839590f" name="Changes" comment="Update">
+      <change beforePath="$PROJECT_DIR$/.idea/Farmacia.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Farmacia.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneCassa/cassa.py" beforeDir="false" afterPath="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneCassa/cassa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestioneFarmacia/Pytest/test_Vari.py" beforeDir="false" afterPath="$PROJECT_DIR$/GestioneFarmacia/Pytest/test_Vari.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestioneFarmacia/archivioclienti.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/GestioneFarmacia/archivioclienti.pickle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestioneFarmacia/archivioesiti.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/GestioneFarmacia/archivioesiti.pickle" afterDir="false" />
+    </list>
     <list id="c5396118-0a55-43e5-9fa4-9f0182c6b496" name="Changes by Michelangelo" comment="Changes by Michelangelo" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +44,6 @@
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">
@@ -170,6 +177,9 @@
       <workItem from="1679582905265" duration="9963000" />
       <workItem from="1679736515890" duration="10321000" />
       <workItem from="1682781035411" duration="93000" />
+      <workItem from="1683020513403" duration="4310000" />
+      <workItem from="1683192919035" duration="7821000" />
+      <workItem from="1683623604386" duration="3001000" />
     </task>
     <task id="LOCAL-00001" summary="Update prodotto">
       <created>1672998637384</created>
@@ -374,7 +384,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679590170523</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Update">
+      <created>1683020699407</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1683020699407</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -431,7 +448,8 @@
     <option name="LAST_COMMIT_MESSAGE" value="Update" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Farmacia$main.coverage" NAME="main Coverage Results" MODIFIED="1682781040243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia" />
+    <SUITE FILE_PATH="coverage/Farmacia$.coverage" NAME=" Coverage Results" MODIFIED="1683625693191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Pytest" />
+    <SUITE FILE_PATH="coverage/Farmacia$main.coverage" NAME="main Coverage Results" MODIFIED="1683626625684" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia" />
     <SUITE FILE_PATH="coverage/Farmacia$fornitoreangelini.coverage" NAME="fornitoreangelini Coverage Results" MODIFIED="1677322557346" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneMagazzino" />
     <SUITE FILE_PATH="coverage/Farmacia$ricercamagazzino.coverage" NAME="ricercamagazzino Coverage Results" MODIFIED="1673648846094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneMagazzino" />
     <SUITE FILE_PATH="coverage/Farmacia$GestoreMagazzino.coverage" NAME="GestoreMagazzino Coverage Results" MODIFIED="1678875222351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/GestioneMagazzino" />

@@ -158,6 +158,9 @@ class Ui_Cassa(object):
         self.Frame.close()
         self.prodSelezionati.clear()
 
+    # Il metodo crea una tabella con numero di colonne fissate in base al numero di attributi di un prodotto
+    # da voler mostrare e con numero di righe variabile in base al numero di prodotti differenti presenti
+    # in magazzino
     def creaListaVendita(self):
         data.downloadMagazzino()
         self.tableWidgetlist.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
@@ -182,6 +185,8 @@ class Ui_Cassa(object):
         self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetlist.verticalHeader().setVisible(True)
 
+    # Il metodo consente di riempire la tabella creata precedentemente attraverso due cicli di lettura sui due liste
+    # contenti rispettivamente farmaci e prodotti semplici presenti in magazzino
     def popolaListaVendita(self):
         _translate = QtCore.QCoreApplication.translate
         for riga in range(0, data.nFarmMagaz):
@@ -190,19 +195,21 @@ class Ui_Cassa(object):
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item = self.tableWidgetlist.item(riga, colonna)
-                if(colonna == 0):
-                    item.setText(_translate("cassa", data.listaFarmaciMagazzino[riga].nome))
-                if(colonna == 1):
-                    item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].giacenza)))
-                if(colonna == 2):
-                    item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].prezzo)))
-                if(colonna == 3):
-                    item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].codice)))
-                if(colonna == 4):
-                    if (((data.listaFarmaciMagazzino[riga].flagRicetta) == False) or (data.listaFarmaciMagazzino[riga].flagRicetta is None)):
-                        item.setText(_translate("cassa", "Dispensabile"))
-                    else:
-                        item.setText(_translate("cassa", "Non dispensabile"))
+                match colonna:
+                    case 0:
+                        item.setText(_translate("cassa", data.listaFarmaciMagazzino[riga].nome))
+                    case 1:
+                        item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].giacenza)))
+                    case 2:
+                        item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].prezzo)))
+                    case 3:
+                        item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].codice)))
+                    case 4:
+                        match data.listaFarmaciMagazzino[riga].flagRicetta:
+                            case False, None:
+                                item.setText(_translate("cassa", "Dispensabile"))
+                            case _:
+                                item.setText(_translate("cassa", "Non dispensabile"))
 
         for riga in range(data.nFarmMagaz, data.nProdMagaz + data.nFarmMagaz):
             for colonna in range(0, 4):
@@ -210,15 +217,21 @@ class Ui_Cassa(object):
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
                 item = self.tableWidgetlist.item(riga, colonna)
-                if(colonna == 0):
-                    item.setText(_translate("cassa", data.listaProdottiMagazzino[riga - data.nFarmMagaz].nome))
-                if(colonna == 1):
-                    item.setText(_translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].giacenza)))
-                if(colonna == 2):
-                    item.setText(_translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].prezzo)))
-                if(colonna == 3):
-                    item.setText(_translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
+                match colonna:
+                    case 0:
+                        item.setText(_translate("cassa", data.listaProdottiMagazzino[riga - data.nFarmMagaz].nome))
+                    case 1:
+                        item.setText(
+                            _translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].giacenza)))
+                    case 2:
+                        item.setText(
+                            _translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].prezzo)))
+                    case 3:
+                        item.setText(
+                            _translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
 
+    # Il seguente metodo inizializza una nuova lista contenente tutti i prodotti o farmaci il cui nome o codice
+    # contenga i caratteri che l'utente inserisce
     def ricercaArticolo(self):
         param = self.ricercale.text()
         if (param == ""):
@@ -234,33 +247,46 @@ class Ui_Cassa(object):
                     prodottiRicercati.append(element)
         self.popolaRicerca(prodottiRicercati)
 
+    # Il seguente metodo svuota la tabella dei prodotti presenti in magazzino per poi ricrearla utilizzando
+    # la lista di prodotti che rispondono ai criteri della ricerca
     def popolaRicerca(self, prodRicercati):
         self.tableWidgetlist.clear()
         self.creaListaVendita()
         item = self.tableWidgetlist.horizontalHeaderItem(0)
         _translate = QtCore.QCoreApplication.translate
-        item.setText(_translate("pfizer", "Prodotto"))
+        item.setText(_translate("cassa", "Prodotto"))
         item = self.tableWidgetlist.horizontalHeaderItem(1)
-        item.setText(_translate("pfizer", "Quantità"))
+        item.setText(_translate("cassa", "Quantità"))
         item = self.tableWidgetlist.horizontalHeaderItem(2)
-        item.setText(_translate("pfizer", "Prezzo"))
+        item.setText(_translate("cassa", "Prezzo"))
         item = self.tableWidgetlist.horizontalHeaderItem(3)
-        item.setText(_translate("pfizer", "Codice"))
+        item.setText(_translate("cassa", "Codice"))
+        item = self.tableWidgetlist.horizontalHeaderItem(4)
+        item.setText(_translate("cassa", "FlagRicetta"))
         for riga in range(0, len(prodRicercati)):
-            for colonna in range(0, 4):
+            for colonna in range(0, 5):
                 item = QtWidgets.QTableWidgetItem()
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item = self.tableWidgetlist.item(riga, colonna)
                 if (colonna == 0):
-                    item.setText(_translate("pfizer", prodRicercati[riga].nome))
+                    item.setText(_translate("cassa", prodRicercati[riga].nome))
                 if (colonna == 1):
-                    item.setText(_translate("pfizer", str(prodRicercati[riga].giacenza)))
+                    item.setText(_translate("cassa", str(prodRicercati[riga].giacenza)))
                 if (colonna == 2):
-                    item.setText(_translate("pfizer", str(prodRicercati[riga].prezzo)))
+                    item.setText(_translate("cassa", str(prodRicercati[riga].prezzo)))
                 if (colonna == 3):
-                    item.setText(_translate("pfizer", str(prodRicercati[riga].codice)))
+                    item.setText(_translate("cassa", str(prodRicercati[riga].codice)))
+                if (colonna == 4):
+                    if (isinstance(prodRicercati[riga], Farmaco)):
+                        if (((prodRicercati[riga].flagRicetta) == False) or (prodRicercati[riga].flagRicetta is None)):
+                            item.setText(_translate("cassa", "Dispensabile"))
+                        else:
+                            item.setText(_translate("cassa", "Non dispensabile"))
 
+
+    # Il seguente metodo gestisce la selezione di un prodotto dal magazzino e la sua aggiunta al carrello, la modifica
+    # della quantità di selezione e quindi l'eventuale rimozione
     def selezionaProdotto(self):
         from tkinter import messagebox
         param = self.codicele.text()
@@ -273,10 +299,6 @@ class Ui_Cassa(object):
             if param == element.codice:
                 nProdSelezionati = len(self.prodSelezionati)
                 self.prodSelezionati.append(element)
-                # for x in range (len(self.prodSelezionati)):
-                #     if isinstance(self.prodSelezionati[x], Farmaco):
-                #         if (self.prodSelezionati[x].flagRicetta):
-                #             print("x")
                 if self.quantitaprodsb.value() <= self.prodSelezionati[nProdSelezionati].giacenza:
                     self.prodSelezionati[nProdSelezionati].quantita = self.quantitaprodsb.value()
                     for x in range (nProdSelezionati):
@@ -330,6 +352,7 @@ class Ui_Cassa(object):
         messagebox.showinfo("Errore","Inserisci il codice corretto")
         return
 
+    # Il seguente metodo crea una tabella per i prodotti da acquistare
     def creaCarrello(self):
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetcarrello.setObjectName("tableWidget")
@@ -352,6 +375,7 @@ class Ui_Cassa(object):
         self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
 
+    # Il seguente metodo gestisce il riempimento della tabella creata precedentemente relativa al carrello
     def popolaCarrello(self, nProdSelezionati):
         _translate = QtCore.QCoreApplication.translate
         for colonna in range(0, 4):
@@ -369,6 +393,8 @@ class Ui_Cassa(object):
                 item.setText(_translate("cassa", str(self.prodSelezionati[nProdSelezionati].codice)))
         self.totale.append(self.prodSelezionati[nProdSelezionati].prezzo * self.quantitaprodsb.value())
 
+    # Il seguente metodo in particolare gestisce l'eliminazione di un prodotto e quindi
+    # la conseguente variazione del carrello
     def modificaCarrello(self, riga, elemrimosso):
         _translate = QtCore.QCoreApplication.translate
         for colonna in range(0, 4):
@@ -386,6 +412,8 @@ class Ui_Cassa(object):
                 item.setText(_translate("cassa", str(elemrimosso.codice)))
         self.totale[riga] = elemrimosso.prezzo*self.quantitaprodsb.value()
 
+    # Il seguente metodo aggiorna dopo la conferma della vendita tutte le liste di dati e i file pickle
+    # che le contengono, salvando il resoconto della vendita nell'archivio
     def chiudiVendita(self):
         if not self.prodSelezionati:
             messagebox.showinfo("Errore", "Inserisci almeno un prodotto nel carrello")
