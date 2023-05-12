@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
-from GestioneFarmacia.Gui.GraphDialog import GraphDialog
+from GestioneFarmacia.Gui.GestioneTamponi.GraphDialog import GraphDialog
 from GestioneFarmacia.GestioneSistema.data import data
 # istanza della classe gestore per aquisire il path assoluto
 gestore = Gestore()
@@ -27,6 +27,6 @@ class Statistiche():
         figure, ax = plt.subplots(figsize=(6, 6), dpi=200)
         plt.subplots_adjust(hspace=0)
         ax.pie(sizes, labels=labels,  autopct='%1.1f%%')
-        plt.savefig("loghi-icone/esitiplot.png")
+        plt.savefig(gestore.returnPth()+ "loghi-icone/esitiplot.png")
         self.g = GraphDialog()
-        self.g.setGraph("loghi-icone/esitiplot.png")
+        self.g.setGraph(gestore.returnPth()+ "loghi-icone/esitiplot.png")
