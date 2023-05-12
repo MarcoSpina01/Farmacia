@@ -62,15 +62,14 @@ class Ui_RicercaMagazzino(object):
         self.ricercamagazzinotb.raise_()
         self.tableWidgetmagazzino.raise_()
 
+        #Metodi di creazione e popolazione della widget list dei prodotti in magazzino
         self.creaListaProdotti()
         self.popolaMagazzino()
 
+        #Metodi legati al click dei bottoni
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToMagazzino)
-
-
         self.Ricercaarticolobtn.clicked.connect(self.ricercaArticolo)
-
 
 
         self.retranslateUi(Form)
@@ -83,6 +82,7 @@ class Ui_RicercaMagazzino(object):
         self.Ricercaarticolobtn.setText(_translate("Form", "  Ricerca"))
         self.homebtn.setText(_translate("Form", "Home"))
 
+    #Metodo associato al bottone returnToHome che permette di tornare alla schermata di home
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
         self.menu = QtWidgets.QFrame()
@@ -91,6 +91,7 @@ class Ui_RicercaMagazzino(object):
         self.menu.show()
         self.Frame.close()
 
+    #Metodo associato al bottone che permette di tornare alla schermata magazzino
     def returnToMagazzino(self):
         from GestioneFarmacia.Gui.GestioneMagazzino.magazzino import Ui_Magazzino
         self.magazzino = QtWidgets.QFrame()
@@ -99,6 +100,7 @@ class Ui_RicercaMagazzino(object):
         self.magazzino.show()
         self.Frame.close()
 
+    #Metodo che permette di popolare la widget list con la lista dei prodotti in magazzino
     def creaListaProdotti(self):
         data.downloadMagazzino()
         self.tableWidgetmagazzino.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
@@ -121,7 +123,7 @@ class Ui_RicercaMagazzino(object):
         self.tableWidgetmagazzino.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetmagazzino.verticalHeader().setVisible(True)
 
-
+    #Metodo che permette di popolare la lista dei prodotti nel magazzino leggendo dal file pickle
     def popolaMagazzino(self):
         _translate = QtCore.QCoreApplication.translate
         for riga in range(0, data.nFarmMagaz):
@@ -153,6 +155,7 @@ class Ui_RicercaMagazzino(object):
                 if(colonna == 3):
                     item.setText(_translate("magazzino", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
 
+    #Metodo di ricerca di un articolo nella lista dei prodotti in magazzino
     def ricercaArticolo(self):
         param = self.ricercamagazzinotb.text()
         if (param == ""):
@@ -168,6 +171,7 @@ class Ui_RicercaMagazzino(object):
                     prodottiRicercati.append(element)
         self.popolaRicerca(prodottiRicercati)
 
+    #Metodo che restituisce nella widget list i prodotti ricercati
     def popolaRicerca(self, prodRicercati):
         self.tableWidgetmagazzino.clear()
         self.creaListaProdotti()

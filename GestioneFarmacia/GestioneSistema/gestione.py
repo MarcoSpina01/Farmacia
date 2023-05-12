@@ -2,6 +2,7 @@ from os.path import abspath
 
 class Gestore:
 
+#questa classe di supporto permette di ottenere il path assoluto del file corrente
     def returnPth(self):
         abp = abspath("")
         split = [abp.split("\\")]

@@ -301,6 +301,8 @@ class Ui_Registrazione(object):
             messagebox.showinfo("Error", "Riempi tutti i campi")
             return
 
+    #Metodo che permette di popolare le combobox della scelta della data
+    #Il numero di giorni disponibili alla scelta varia dinamicamente in base al mese selezionato
     def popolaCombo(self):
         self.giornoCombo.clear()
         temp = []

@@ -1,6 +1,7 @@
 
 class Appuntamento:
 
+    # classe di modellazione
     def _init_(self, data, cliente, tampone, ora):
         self.data = data
         self.cliente = cliente

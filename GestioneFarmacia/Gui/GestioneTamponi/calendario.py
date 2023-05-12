@@ -206,7 +206,6 @@ class Ui_DialogCalendario(object):
                     self.AppuntamentiTable.setItem(row, 4, QTableWidgetItem("POSITIVO"))
                 row = row+1
 
-
     def eliminaAppuntamento(self):
         from tkinter import messagebox
         cod = self.AppuntamentiTable.item(self.AppuntamentiTable.currentRow(), 0)
@@ -226,7 +225,6 @@ class Ui_DialogCalendario(object):
                     else:
                         messagebox.showinfo("Avviso", "Appuntamento già concluso, non si può eliminare!")
                         return
-
 
     def chiudiAppuntamento(self):
         import random

@@ -5,11 +5,11 @@ from unittest import TestCase
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 
 gestore = Gestore()
-
+#Classe di sviluppo di Py test
 class TestVari(TestCase):
 
-
-
+    #Metodo che testa il path assoluto del file corrente
+    #path utilizzato per prendere le risorse grafiche quali immagini, loghi e sfondi
     def test_Path(self):
 
         abp = abspath("")
@@ -25,8 +25,6 @@ class TestVari(TestCase):
 
         stringa = gestore.returnPth()
         assert stringa == finPth
-
-
 
 
     # Test utilizzato per capire se le date

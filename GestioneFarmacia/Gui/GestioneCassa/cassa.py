@@ -8,10 +8,11 @@ from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneVendite.Farmaco import Farmaco
 from GestioneFarmacia.GestioneVendite.Vendita import Vendita
 
+# istanza della classe gestore per aquisire il path assoluto
 gestore = Gestore()
 
 class Ui_Cassa(object):
-
+    #Array di supporto funzionali al codice
     prodSelezionati = []
     totale = []
 
@@ -126,14 +127,11 @@ class Ui_Cassa(object):
         self.creaListaVendita()
         self.popolaListaVendita()
 
+        #eventi di click collegati a bottoni della schermata
         self.ricercabtn.clicked.connect(self.ricercaArticolo)
-
         self.carrellobtn.clicked.connect(self.selezionaProdotto)
         self.acquistabtn.clicked.connect(self.chiudiVendita)
-
-
         self.homebtn.clicked.connect(self.returnToHome)
-
 
         self.retranslateUi(Cassa)
         QtCore.QMetaObject.connectSlotsByName(Cassa)
@@ -149,6 +147,7 @@ class Ui_Cassa(object):
         self.acquistabtn.setText(_translate("Cassa", "  Acquista"))
         self.label_3.setText(_translate("Cassa", "Carrello:"))
 
+    #Metodo associato al bottone returnToHome che permette di tornare alla schermata di home
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
         self.menu = QtWidgets.QFrame()
