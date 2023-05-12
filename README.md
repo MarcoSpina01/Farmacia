@@ -38,6 +38,10 @@ Per installare installare il progetto su PyCharm:
   <img  src="https://github.com/MarcoSpina01/Farmacia/blob/main/immagini_readme/immagini_readme/login.png">
 </p>
 
+**CREDENZIALI:** <br>
+*nome utente:* username <br>
+*password:* password
+
 La schermata di `Login` consente all'Amministratore di accedere al menù. In caso di problematiche è garantita la possibilità di contattare l'assistenza.
 ## Gestione Farmacia - FUNZIONALITA'
 <p align="center">
