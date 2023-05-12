@@ -1,7 +1,7 @@
 # *GESTIONE FARMACIA*
 
 
-[![N|Solid](https://www.boomerangcard.it/it/uploads/esercente/54/logo.png)]
+![N|Solid](https://www.boomerangcard.it/it/uploads/esercente/54/logo.png)
 
 
 Il progetto si propone di modellare un sistema informatico per la gestione di una farmacia.
@@ -17,7 +17,7 @@ Il sistema garantirà all’Amministratore l’accesso a funzionalità che conse
 
 Il software è stato sviluppato in Python con l'ausilio di PyCharm. 
 
-[![Build Status](https://i.stack.imgur.com/wJqaA.png)]
+![Build Status](https://i.stack.imgur.com/wJqaA.png)
 
 
 Per installare installare il progetto su PyCharm:
@@ -34,12 +34,24 @@ Per installare installare il progetto su PyCharm:
 
 # Features
 ## Gestione Farmacia -  LOGIN
-[![Build Status](inserire link foto login)]
-La schermata di Login consente all'Amministratore di accedere al menù. In caso di problematiche è garantita la possibilità di contattare l'assistenza.
+<p align="center">
+  <img  src="https://github.com/MarcoSpina01/Farmacia/blob/main/immagini_readme/immagini_readme/login.png">
+</p>
+
+La schermata di `Login` consente all'Amministratore di accedere al menù. In caso di problematiche è garantita la possibilità di contattare l'assistenza.
 ## Gestione Farmacia - FUNZIONALITA'
-In seguito al login si accede al menu delle funzionalità attraverso il quale è possibile selezionare a quale schermata accedere e quali operazioni effettuare. 
+<p align="center">
+  <img  src="https://github.com/MarcoSpina01/Farmacia/blob/main/immagini_readme/immagini_readme/funzionalita.png">
+</p>
+
+In seguito al login si accede al `menu delle funzionalità` attraverso il quale è possibile selezionare a quale schermata accedere e quali operazioni effettuare. 
 ## Gestione Farmacia - TAMPONI
-La Gestione Tamponi consente di:
+<p align="center">
+  <img  src="https://github.com/MarcoSpina01/Farmacia/blob/main/immagini_readme/immagini_readme/calendario.png">
+  <img  src="https://github.com/MarcoSpina01/Farmacia/blob/main/immagini_readme/immagini_readme/moduloregistrazione.png">
+</p>
+
+La `Gestione Tamponi` consente di:
 - **Visualizzare gli appuntamenti:** cliccando sulla data dell'appuntamento sul calendario nella tabella compariranno le relative informazioni. In alternativa è possibile filtrare tramite *Ricerca per* ottenendo o solo gli appuntamenti *conclusi* (ossia con esito) o solo quelli *non conclusi* (ossia senza esito).
 - **Aggiungere un nuovo appuntamento:** cliccando *Nuovo Appuntamento* si aprirà un modulo da compilare attraverso il quale, dopo aver premuto *Registrati*, l'appuntamento verrà creato e aggiunto al calendari. Per visualizzare la nuova aggiunta sarà necessario cliccare sulla data del calendario o filtrare per "Non coclusi".
 - **Chiudere l'appuntamento**: cliccando *Chiudi appuntamento* il sistema inserirà l'esito e concluderà l'appuntamento. Per visualizzare il nuovo stato sarà necessario ricliccare sulla data del calendario o filtrare per "Conclusi".
@@ -47,19 +59,38 @@ La Gestione Tamponi consente di:
 - **Visualizzare statische:** premendo il bottone *visualizza statistiche esiti* è possibile vedere la percentuale di tamponi positivi e negativi
 
 ## Gestione Farmacia - MENU MAGAZZINO
-Il menu Magazzino consente di:
+<p align="center">
+  <img  src="https://github.com/MarcoSpina01/Farmacia/blob/main/immagini_readme/immagini_readme/magazzino.png">
+ </p>
+
+Il `menu Magazzino` consente di:
 - **Visualizzare il magazzino:** cliccando *Visualizza magazzino* si accede al magazzino.
 - **Effettuare Ordine:** cliccando *Effettua ordine* si accede al menu della scelta fornitori.
 
 ### Gestione Farmacia - MENU MAGAZZINO - VISUALIZZA MAGAZZINO
-La Gestione Magazzino consente di:
+<p align="center">
+  <img  src="https://github.com/MarcoSpina01/Farmacia/blob/main/immagini_readme/immagini_readme/visualizzamagazzino.png">
+ </p>
+
+
+La `Gestione Magazzino` consente di:
 - **Ricercare un prodotto:** scrivendo nella barra di ricerca sarà possibile cercare prodotti.
 
 ### Gestione Farmacia - MENU MAGAZZINO - SELEZIONE FORNITORI 
-Il menu di selezione fornitori consente di selezionare il fornitore per l'ordine.
+<p align="center">
+  <img  src="https://github.com/MarcoSpina01/Farmacia/blob/main/immagini_readme/immagini_readme/fornitori.png">
+ </p>
+
+
+Il `menu di selezione fornitori` consente di selezionare il fornitore per l'ordine.
 
 ### Gestione Farmacia - MENU MAGAZZINO - EFFETTUA ORDINE
-La sezione Effettua Ordine consente di:
+<p align="center">
+  <img  src="https://github.com/MarcoSpina01/Farmacia/blob/main/immagini_readme/immagini_readme/pfizer.png">
+ </p>
+
+
+La sezione `Effettua Ordine` consente di:
 - **Visualizzare la lista dei prodotti**
 - **Ricercare prodotti**
 - **Definire la quantità di ciascun prodotto dato il suo codice**
@@ -67,7 +98,12 @@ La sezione Effettua Ordine consente di:
 - **Acquistare i prodotti** 
 
 ### Gestione Farmacia - CASSA 
-La sezione Cassa consente di:
+<p align="center">
+  <img  src="https://github.com/MarcoSpina01/Farmacia/blob/main/immagini_readme/immagini_readme/cassa.png">
+ </p>
+
+
+La sezione `Cassa` consente di:
 - **Visualizzare la lista dei prodotti**
 - **Ricercare prodotti**
 - **Definire la quantità di ciascun prodotto dato il suo codice**
@@ -75,12 +111,17 @@ La sezione Cassa consente di:
 - **Acquistare i prodotti** 
 
 ## Gestione Farmacia - ARCHIVI
-La Gestione Archivi consente di:
+<p align="center">
+  <img  src="https://github.com/MarcoSpina01/Farmacia/blob/main/immagini_readme/immagini_readme/archivi.png">
+ </p>
+
+
+La `Gestione Archivi` consente di:
 - **Visualizzare Archivi:** è possibile visualizzare i clienti, gli esiti dei tamponi, gli ordini effettuati e le vendite effettuate.
 - **Ricercare:** scrivendo nella barra di ricerca corrispondente all'archivio di interesse sarà possibile effettuare la ricerca .
 
 # Autori
 
 - Marco Spina - [@MarcoSpina01](https://github.com/MarcoSpina01)
-- Michelangelo Marconi - [@](https://github.com/...)
+- Michelangelo Marconi - [@MikiMarconi](https://github.com/MikiMarconi)
 - Ezekias Wasingya Mastaki - [@Ezekias01](https://github.com/Ezekias01)
