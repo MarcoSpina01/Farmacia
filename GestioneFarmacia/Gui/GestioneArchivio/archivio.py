@@ -81,13 +81,13 @@ class Ui_Archivio(object):
         self.ricercaarchivioordini = QtWidgets.QLineEdit(Form)
         self.ricercaarchivioordini.setGeometry(QtCore.QRect(410, 220, 191, 21))
         self.ricercaarchivioordini.setObjectName("ricercaarchivioordini")
-        self.Ricercaarticolobtn_2 = QtWidgets.QPushButton(Form)
-        self.Ricercaarticolobtn_2.setGeometry(QtCore.QRect(610, 450, 91, 41))
-        self.Ricercaarticolobtn_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Ricercaarticolobtn_2.setStyleSheet("border-radius: 10px;\n"
+        self.Ricercaappuntamentobtn = QtWidgets.QPushButton(Form)
+        self.Ricercaappuntamentobtn.setGeometry(QtCore.QRect(610, 450, 91, 41))
+        self.Ricercaappuntamentobtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.Ricercaappuntamentobtn.setStyleSheet("border-radius: 10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));")
-        self.Ricercaarticolobtn_2.setIcon(icon1)
-        self.Ricercaarticolobtn_2.setObjectName("Ricercaarticolobtn_2")
+        self.Ricercaappuntamentobtn.setIcon(icon1)
+        self.Ricercaappuntamentobtn.setObjectName("Ricercaappuntamentobtn")
         self.ricercaarchiviovenditebtn = QtWidgets.QPushButton(Form)
         self.ricercaarchiviovenditebtn.setGeometry(QtCore.QRect(210, 450, 91, 41))
         self.ricercaarchiviovenditebtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -101,9 +101,9 @@ class Ui_Archivio(object):
         self.tableWidgetvendite.setObjectName("tableWidgetvendite")
         self.tableWidgetvendite.setColumnCount(0)
         self.tableWidgetvendite.setRowCount(0)
-        self.ricercamagazzinotb_2 = QtWidgets.QLineEdit(Form)
-        self.ricercamagazzinotb_2.setGeometry(QtCore.QRect(410, 460, 191, 21))
-        self.ricercamagazzinotb_2.setObjectName("ricercamagazzinotb_2")
+        self.ricercaappuntamento = QtWidgets.QLineEdit(Form)
+        self.ricercaappuntamento.setGeometry(QtCore.QRect(410, 460, 191, 21))
+        self.ricercaappuntamento.setObjectName("ricercaappuntamento")
         self.tableWidgetesiti = QtWidgets.QTableWidget(Form)
         self.tableWidgetesiti.setGeometry(QtCore.QRect(410, 280, 391, 161))
         self.tableWidgetesiti.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -132,12 +132,17 @@ class Ui_Archivio(object):
         self.label_2.setObjectName("label_2")
 
         self.ricercaarchivioordinibtn.clicked.connect(self.ricercaOrdiniPerFornitore)
+        self.ricercaarchiviovenditebtn.clicked.connect(self.ricercaVendite)
+        self.ricercaarchivioclientibtn.clicked.connect(self.ricercaClienti)
+        self.Ricercaappuntamentobtn.clicked.connect(self.ricercaEsiti)
         self.homebtn.clicked.connect(self.returnToHome)
         self.creaArchivioVendite()
         self.popolaVendite()
         self.creaArchivioOrdini()
         self.popolaOrdini()
+        self.creaArchivioClienti()
         self.popolaClienti()
+        self.creaArchivioEsiti()
         self.popolaEsiti()
 
 
@@ -152,7 +157,7 @@ class Ui_Archivio(object):
         self.label.setText(_translate("Form", "Archivio vendite"))
         self.ricercaarchivioclientibtn.setText(_translate("Form", "  Ricerca"))
         self.ricercaarchivioordinibtn.setText(_translate("Form", "  Ricerca"))
-        self.Ricercaarticolobtn_2.setText(_translate("Form", "  Ricerca"))
+        self.Ricercaappuntamentobtn.setText(_translate("Form", "  Ricerca"))
         self.ricercaarchiviovenditebtn.setText(_translate("Form", "  Ricerca"))
         self.label_4.setText(_translate("Form", "Archivio clienti"))
         self.label_2.setText(_translate("Form", "Archivio ordini"))
@@ -277,9 +282,9 @@ class Ui_Archivio(object):
             self.popolaVendite()
             return
         for element in data.archivioVendite:
-            if (element.fornitore == param):
+            if (param in str(element.date)):
                 venditeRicercate.append(element)
-        self.popolaRicerca(venditeRicercate)
+        self.popolaRicercaVendite(venditeRicercate)
 
 
     def popolaRicercaVendite(self, venditeRicercate):
@@ -299,33 +304,170 @@ class Ui_Archivio(object):
                 if (colonna == 2):
                     item.setText(_translate("Form", str(venditeRicercate[riga].date)))
 
+    def creaArchivioClienti(self):
+        data.downloadClienti()
+        self.tableWidgetclienti.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.tableWidgetclienti.setObjectName("tableWidget")
+        self.tableWidgetclienti.setColumnCount(7)
+        self.tableWidgetclienti.setRowCount(len(data.listaClienti))
+        for i in range(0, 7):
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidgetclienti.setHorizontalHeaderItem(i, item)
+        self.tableWidgetclienti.horizontalHeader().setVisible(True)
+        self.tableWidgetclienti.horizontalHeader().setDefaultSectionSize(123)
+        self.tableWidgetclienti.verticalHeader().setVisible(True)
+        _translate = QtCore.QCoreApplication.translate
+        item = self.tableWidgetclienti.horizontalHeaderItem(0)
+        item.setText(_translate("Form", "Nome"))
+        item = self.tableWidgetclienti.horizontalHeaderItem(1)
+        item.setText(_translate("Form", "Cognome"))
+        item = self.tableWidgetclienti.horizontalHeaderItem(2)
+        item.setText(_translate("Form", "CF"))
+        item = self.tableWidgetclienti.horizontalHeaderItem(3)
+        item.setText(_translate("Form", "Eta"))
+        item = self.tableWidgetclienti.horizontalHeaderItem(4)
+        item.setText(_translate("Form", "Email"))
+        item = self.tableWidgetclienti.horizontalHeaderItem(5)
+        item.setText(_translate("Form", "Sesso"))
+        item = self.tableWidgetclienti.horizontalHeaderItem(6)
+        item.setText(_translate("Form", "Indirizzo"))
 
+    def ricercaClienti(self):
+        param = self.ricercaarchivioclienti.text()
+        clientiRicercati = []
+        if (param == ""):
+            self.popolaClienti()
+            return
+        for element in data.listaClienti:
+            if (param in element.nome or param in element.cognome):
+                clientiRicercati.append(element)
+        self.popolaRicercaClienti(clientiRicercati)
 
     def popolaClienti(self):
-        self.tableWidgetclienti.setRowCount(0)  # fa partire da vuota la table
-        data.downloadClienti()
-        row = 0
-        self.tableWidgetclienti.setRowCount(len(data.listaClienti))
-        for cliente in data.listaClienti:
-            self.tableWidgetclienti.setItem(row, 0, QTableWidgetItem(cliente.get_nome()))  # nella colonna id appuntamneto metto l'id dell'appuntamento i esimo
-            self.tableWidgetclienti.setItem(row, 1, QTableWidgetItem(cliente.get_cognome()))  # nella colonna cf metto il cf dell'appuntamento i esimo
-            self.tableWidgetclienti.setItem(row, 2, QTableWidgetItem(cliente.get_cf()))
-            self.tableWidgetclienti.setItem(row, 3, QTableWidgetItem(cliente.get_email()))
-            self.tableWidgetclienti.setItem(row, 4, QTableWidgetItem(cliente.get_sesso()))
-            self.tableWidgetclienti.setItem(row, 5, QTableWidgetItem(cliente.get_indirizzo()))
-            row = row + 1
+        _translate = QtCore.QCoreApplication.translate
+        for riga in range(0, len(data.listaClienti)):
+            for colonna in range(0, 7):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetclienti.setItem(riga, colonna, item)
+                item = self.tableWidgetclienti.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("Form", str(data.listaClienti[riga].nome)))
+                if (colonna == 1):
+                    item.setText(_translate("Form", str(data.listaClienti[riga].cognome)))
+                if (colonna == 2):
+                    item.setText(_translate("Form", str(data.listaClienti[riga].cf)))
+                if (colonna == 3):
+                    item.setText(_translate("Form", str(data.listaClienti[riga].eta)))
+                if (colonna == 4):
+                    item.setText(_translate("Form", str(data.listaClienti[riga].email)))
+                if (colonna == 5):
+                    item.setText(_translate("Form", str(data.listaClienti[riga].sesso)))
+                if (colonna == 6):
+                    item.setText(_translate("Form", str(data.listaClienti[riga].indirizzo)))
+
+    def popolaRicercaClienti(self, clientiRicercati):
+        self.tableWidgetclienti.clear()
+        self.creaArchivioClienti()
+        _translate = QtCore.QCoreApplication.translate
+        for riga in range(0, len(clientiRicercati)):
+            for colonna in range(0, 7):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetclienti.setItem(riga, colonna, item)
+                item = self.tableWidgetclienti.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("Form", str(clientiRicercati[riga].nome)))
+                if (colonna == 1):
+                    item.setText(_translate("Form", str(clientiRicercati[riga].cognome)))
+                if (colonna == 2):
+                    item.setText(_translate("Form", str(clientiRicercati[riga].cf)))
+                if (colonna == 3):
+                    item.setText(_translate("Form", str(clientiRicercati[riga].eta)))
+                if (colonna == 4):
+                    item.setText(_translate("Form", str(clientiRicercati[riga].email)))
+                if (colonna == 5):
+                    item.setText(_translate("Form", str(clientiRicercati[riga].sesso)))
+                if (colonna == 6):
+                    item.setText(_translate("Form", str(clientiRicercati[riga].indirizzo)))
+
+    def creaArchivioEsiti(self):
+        data.downloadAppuntamenti()
+        data.downloadEsiti()
+        self.tableWidgetesiti.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.tableWidgetesiti.setObjectName("tableWidget")
+        self.tableWidgetesiti.setColumnCount(4)
+        self.tableWidgetesiti.setRowCount(len(data.listaClienti))
+        for i in range(0, 4):
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidgetesiti.setHorizontalHeaderItem(i, item)
+        self.tableWidgetesiti.horizontalHeader().setVisible(True)
+        self.tableWidgetesiti.horizontalHeader().setDefaultSectionSize(123)
+        self.tableWidgetesiti.verticalHeader().setVisible(True)
+        _translate = QtCore.QCoreApplication.translate
+        item = self.tableWidgetesiti.horizontalHeaderItem(0)
+        item.setText(_translate("Form", "Id"))
+        item = self.tableWidgetesiti.horizontalHeaderItem(1)
+        item.setText(_translate("Form", "CF"))
+        item = self.tableWidgetesiti.horizontalHeaderItem(2)
+        item.setText(_translate("Form", "Data"))
+        item = self.tableWidgetesiti.horizontalHeaderItem(3)
+        item.setText(_translate("Form", "Esito"))
 
     def popolaEsiti(self):
-        data.downloadEsiti()
-        row = 0
-        self.tableWidgetesiti.setRowCount(len(data.listaEsiti))
-        for appuntamento in data.listaEsiti:
-                self.tableWidgetesiti.setItem(row, 0, QTableWidgetItem(str(appuntamento.get_idapp())))  # nella colonna id appuntamneto metto l'id dell'appuntamento i esimo
-                self.tableWidgetesiti.setItem(row, 1, QTableWidgetItem( appuntamento.get_cff()))  # nella colonna cf metto il cf dell'appuntamento i esimo
-                self.tableWidgetesiti.setItem(row, 2, QTableWidgetItem(appuntamento.get_data().strftime("%y-%m-%d")))
-                self.tableWidgetesiti.setItem(row, 3, QTableWidgetItem("Concluso"))
-                if appuntamento.get_tampone().get_esito() == False:
-                    self.tableWidgetesiti.setItem(row, 4, QTableWidgetItem("NEGATIVO"))
-                else:
-                    self.tableWidgetesiti.setItem(row, 4, QTableWidgetItem("POSITIVO"))
-                row = row + 1
+        _translate = QtCore.QCoreApplication.translate
+        for riga in range(0, len(data.listaEsiti)):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetesiti.setItem(riga, colonna, item)
+                item = self.tableWidgetesiti.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("Form", str(data.listaEsiti[riga].id_app)))
+                if (colonna == 1):
+                    item.setText(_translate("Form", str(data.listaEsiti[riga].cliente.cf)))
+                if (colonna == 2):
+                    item.setText(_translate("Form", str(data.listaEsiti[riga].data)))
+                if (colonna == 3):
+                    if data.listaEsiti[riga].esito:
+                        item.setText(_translate("Form", "Positivo"))
+                    else:
+                        item.setText(_translate("Form", "Negativo"))
+
+    def ricercaEsiti(self):
+        param = self.ricercaappuntamento.text()
+        esitiRicercati = []
+        if (param == ""):
+            self.popolaEsiti()
+            return
+        for element in data.listaEsiti:
+            if (param in element.cliente.cf):
+                esitiRicercati.append(element)
+        self.popolaRicercaEsiti(esitiRicercati)
+
+    def popolaRicercaEsiti(self, esitiRicercati):
+        self.tableWidgetesiti.clear()
+        self.creaArchivioEsiti()
+        _translate = QtCore.QCoreApplication.translate
+        for riga in range(0, len(esitiRicercati)):
+            for colonna in range(0, 4):
+                item = QtWidgets.QTableWidgetItem()
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetesiti.setItem(riga, colonna, item)
+                item = self.tableWidgetesiti.item(riga, colonna)
+                if (colonna == 0):
+                    item.setText(_translate("Form", str(esitiRicercati[riga].id_app)))
+                if (colonna == 1):
+                    item.setText(_translate("Form", str(esitiRicercati[riga].cliente.cf)))
+                if (colonna == 2):
+                    item.setText(_translate("Form", str(esitiRicercati[riga].data)))
+                if (colonna == 3):
+                    if esitiRicercati[riga].esito:
+                        item.setText(_translate("Form", "Positivo"))
+                    else:
+                        item.setText(_translate("Form", "Negativo"))
+
+
+
+
+
