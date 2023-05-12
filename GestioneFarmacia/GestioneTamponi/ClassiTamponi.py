@@ -1,5 +1,7 @@
 import datetime
 
+
+# file che comprende le classi di modellazione cliente, tampone e appuntamento, funzionali alla creazione del file pickle
 class Cliente:
 
     def __init__(self, nome, cognome, cf, eta, email, sesso, indirizzo):

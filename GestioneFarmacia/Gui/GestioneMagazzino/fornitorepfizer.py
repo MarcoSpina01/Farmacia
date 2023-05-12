@@ -133,19 +133,21 @@ class Ui_pfizer(object):
         self.tableWidgetcarrello.raise_()
         self.acquistabtn.raise_()
 
-
+        #Metodi di creazione e popolazione della widget list dei prodotti del fornitore
         self.creaListaProdotti()
         self.popolaListaProdotti()
 
+        #Associazione di metodi ad eventi di click
         self.homebtn.clicked.connect(self.returnToHome)
         self.pushButton.clicked.connect(self.returnToFornitori)
-
-
-        self.ricercafornitorebtn.clicked.connect(self.ricercaArticolo)
-        self.prodSelezionati.clear()
-        self.totale.clear()
         self.carrellobtn.clicked.connect(self.selezionaProdotto)
         self.acquistabtn.clicked.connect(self.chiudiOrdine)
+        self.ricercafornitorebtn.clicked.connect(self.ricercaArticolo)
+
+        #Pulizia degli array
+        self.prodSelezionati.clear()
+        self.totale.clear()
+
 
         self.retranslateUi(pfizer)
         QtCore.QMetaObject.connectSlotsByName(pfizer)
@@ -161,6 +163,7 @@ class Ui_pfizer(object):
         self.homebtn.setText(_translate("pfizer", "Home"))
         self.acquistabtn.setText(_translate("pfizer", "  Acquista"))
 
+    #Metodo associato al bottone returnToHome che permette di tornare alla schermata di home
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
         self.menu = QtWidgets.QFrame()
@@ -170,6 +173,7 @@ class Ui_pfizer(object):
         self.Frame.close()
         self.prodSelezionati.clear()
 
+    #Metodo associato al bottone che permette di tornare alla schermata di scelta fornitore
     def returnToFornitori(self):
         from GestioneFarmacia.Gui.GestioneMagazzino.sceltafornitore import Ui_Fornitori
         self.fornitori = QtWidgets.QFrame()
@@ -179,6 +183,7 @@ class Ui_pfizer(object):
         self.Frame.close()
         self.prodSelezionati.clear()
 
+    #Metodo che permette di popolare la widget list con la lista dei prodotti e farmaci del fornitore
     def creaListaProdotti(self):
         data.downloadFornitore()
         self.tableWidgetlist.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
@@ -193,8 +198,8 @@ class Ui_pfizer(object):
         self.tableWidgetlist.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetlist.verticalHeader().setVisible(True)
 
+    #Metodo che permette di popolare la lista dei prodotti del fornitore leggendo dal file pickle
     def popolaListaProdotti(self):
-
         item = self.tableWidgetlist.horizontalHeaderItem(0)
         _translate = QtCore.QCoreApplication.translate
         item.setText(_translate("pfizer", "Prodotto"))
@@ -233,6 +238,7 @@ class Ui_pfizer(object):
                 if (colonna == 3):
                     item.setText(_translate("pfizer", str(data.listaProdottiFornitore[riga - data.nFarmForn].codice)))
 
+    #Metodo di ricerca di un articolo nella lista dei prodotti fornitore
     def ricercaArticolo(self):
         param = self.lineEdit.text()
         if (param == ""):
@@ -248,6 +254,7 @@ class Ui_pfizer(object):
                     prodottiRicercati.append(element)
         self.popolaRicerca(prodottiRicercati)
 
+    #Metodo che restituisce nella widget list i prodotti ricercati
     def popolaRicerca(self, prodRicercati):
         self.tableWidgetlist.clear()
         self.creaListaProdotti()
@@ -275,6 +282,8 @@ class Ui_pfizer(object):
                 if (colonna == 3):
                     item.setText(_translate("pfizer", str(prodRicercati[riga].codice)))
 
+    #Metodo di creazione della lista di prodotti nel carrello
+    #Permette di creare la widgetlist dei prodotti selezionati dalla lista articoli del fornitore
     def creaCarrello(self):
         self.tableWidgetcarrello.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidgetcarrello.setObjectName("tableWidget")
@@ -297,6 +306,7 @@ class Ui_pfizer(object):
         self.tableWidgetcarrello.horizontalHeader().setDefaultSectionSize(158)
         self.tableWidgetcarrello.verticalHeader().setVisible(True)
 
+    #Metodo che permette di selezionare un prodotto nella lista fornitore controllandone il codice e la giacienza
     def selezionaProdotto(self):
         from tkinter import messagebox
         param = self.codicele.text()
@@ -362,6 +372,7 @@ class Ui_pfizer(object):
         messagebox.showinfo("Errore","Inserisci il codice corretto")
         return
 
+    #Metodo che popola il carrello con i prodotti selezionati
     def popolaCarrello(self, nProdSelezionati):
         _translate = QtCore.QCoreApplication.translate
         for colonna in range(0, 4):
@@ -379,6 +390,7 @@ class Ui_pfizer(object):
                 item.setText(_translate("pfizer", str(self.prodSelezionati[nProdSelezionati].codice)))
         self.totale.append(self.prodSelezionati[nProdSelezionati].prezzo*self.quantitaprodsb.value())
 
+    #Metodo che permette la modifica della lista di prodotti nel carrello rimuovendone quelli mal selezionati
     def modificaCarrello(self, riga, elemrimosso):
         _translate = QtCore.QCoreApplication.translate
         for colonna in range(0, 4):
@@ -396,6 +408,7 @@ class Ui_pfizer(object):
                 item.setText(_translate("pfizer", str(elemrimosso.codice)))
         self.totale[riga] = elemrimosso.prezzo*self.quantitaprodsb.value()
 
+    #Metodo associato ad un bottone che permette di chiudere l'ordine di prodotti e farmaci dalla lista fornitori
     def chiudiOrdine(self):
         if not self.prodSelezionati:
             messagebox.showinfo("Errore", "Inserisci almeno un prodotto nel carrello")
@@ -446,6 +459,7 @@ class Ui_pfizer(object):
             data.downloadFornitore()
             self.popolaListaProdotti()
 
+    #Metodo che aggiorna l'archivio una volta chiuso l'ordine
     def aggiornaArchivio(self, tmp):
             data.downloadArchivioOrdini()
             if not (self.generaCodice() == 0):
@@ -456,6 +470,7 @@ class Ui_pfizer(object):
             else:
                 self.aggiornaArchivio()
 
+    #Metodo che genera il codice dell'ordine concluso
     def generaCodice(self):
             codice = randint(1, 1000000)
             for element in data.archivioOrdini:
