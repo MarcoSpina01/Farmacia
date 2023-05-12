@@ -448,7 +448,7 @@ class Ui_Archivio(object):
             self.popolaEsiti()
             return
         for element in data.listaEsiti:
-            if (param in element.cliente.cf):
+            if (param in element.cliente.cf or param in str(element.data)):
                 esitiRicercati.append(element)
         self.popolaRicercaEsiti(esitiRicercati)
 

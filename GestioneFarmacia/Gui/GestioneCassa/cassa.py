@@ -194,21 +194,19 @@ class Ui_Cassa(object):
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item = self.tableWidgetlist.item(riga, colonna)
-                match colonna:
-                    case 0:
-                        item.setText(_translate("cassa", data.listaFarmaciMagazzino[riga].nome))
-                    case 1:
-                        item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].giacenza)))
-                    case 2:
-                        item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].prezzo)))
-                    case 3:
-                        item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].codice)))
-                    case 4:
-                        match data.listaFarmaciMagazzino[riga].flagRicetta:
-                            case False, None:
-                                item.setText(_translate("cassa", "Dispensabile"))
-                            case _:
-                                item.setText(_translate("cassa", "Non dispensabile"))
+                if colonna == 0:
+                    item.setText(_translate("cassa", data.listaFarmaciMagazzino[riga].nome))
+                if colonna == 1:
+                    item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].giacenza)))
+                if colonna == 2:
+                    item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].prezzo)))
+                if colonna == 3:
+                    item.setText(_translate("cassa", str(data.listaFarmaciMagazzino[riga].codice)))
+                if colonna == 4:
+                    if not data.listaFarmaciMagazzino[riga].flagRicetta or data.listaFarmaciMagazzino[riga].flagRicetta is None:
+                        item.setText(_translate("cassa", "Dispensabile"))
+                    else:
+                        item.setText(_translate("cassa", "Non dispensabile"))
 
         for riga in range(data.nFarmMagaz, data.nProdMagaz + data.nFarmMagaz):
             for colonna in range(0, 4):
@@ -216,18 +214,14 @@ class Ui_Cassa(object):
                 self.tableWidgetlist.setItem(riga, colonna, item)
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
                 item = self.tableWidgetlist.item(riga, colonna)
-                match colonna:
-                    case 0:
-                        item.setText(_translate("cassa", data.listaProdottiMagazzino[riga - data.nFarmMagaz].nome))
-                    case 1:
-                        item.setText(
-                            _translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].giacenza)))
-                    case 2:
-                        item.setText(
-                            _translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].prezzo)))
-                    case 3:
-                        item.setText(
-                            _translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
+                if colonna == 0:
+                    item.setText(_translate("cassa", data.listaProdottiMagazzino[riga - data.nFarmMagaz].nome))
+                if colonna == 1:
+                    item.setText(_translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].giacenza)))
+                if colonna == 2:
+                    item.setText(_translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].prezzo)))
+                if colonna == 3:
+                    item.setText(_translate("cassa", str(data.listaProdottiMagazzino[riga - data.nFarmMagaz].codice)))
 
     # Il seguente metodo inizializza una nuova lista contenente tutti i prodotti o farmaci il cui nome o codice
     # contenga i caratteri che l'utente inserisce

@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
+from GestioneFarmacia.Gui.GestioneMagazzino.magazzino import Ui_Magazzino
 
 # istanza della classe gestore per aquisire il path assoluto
 gestore = Gestore()
@@ -146,7 +147,6 @@ class Ui_Menu(object):
 
     # metodo che permette di aprire il magazzino
     def openMagazzino(self):
-        from GestioneFarmacia.Gui.GestioneMagazzino.magazzino import Ui_Magazzino
         self.magazzino = QtWidgets.QFrame()
         self.ui = Ui_Magazzino()
         self.ui.setupUi(self.magazzino)
