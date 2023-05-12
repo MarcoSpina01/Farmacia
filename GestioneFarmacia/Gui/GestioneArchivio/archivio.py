@@ -170,6 +170,7 @@ class Ui_Archivio(object):
         self.menu.show()
         self.Frame.close()
 
+    #Il metodo gestisce la creazione di una tabella da popolare con tutti gli ordini effettuati
     def creaArchivioOrdini(self):
         data.downloadArchivioOrdini()
         self.tableWidgetordini.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
@@ -192,6 +193,7 @@ class Ui_Archivio(object):
         item = self.tableWidgetordini.horizontalHeaderItem(3)
         item.setText(_translate("Form", "Data"))
 
+    #Il metodo popola la tabella con tutti gli ordini effettuati
     def popolaOrdini(self):
         _translate = QtCore.QCoreApplication.translate
         for riga in range(0, data.nOrdini):
@@ -209,6 +211,7 @@ class Ui_Archivio(object):
                 if (colonna == 3):
                     item.setText(_translate("Form", str(data.archivioOrdini[riga].date)))
 
+    #Il metodo gestisce la ricerca tra gli ordini (fatta per fornitore o per data) creand una lista temporanea di ordini
     def ricercaOrdiniPerFornitore(self):
         param = self.ricercaarchivioordini.text()
         ordiniRicercati = []
@@ -216,11 +219,11 @@ class Ui_Archivio(object):
             self.popolaOrdini()
             return
         for element in data.archivioOrdini:
-            if (element.fornitore == param):
+            if (param in element.fornitore or param in element.date):
                 ordiniRicercati.append(element)
         self.popolaRicerca(ordiniRicercati)
 
-
+    #Il metodo aggiorna la tabella degli ordini in base alla ricerca effettuata dopo aver premuto il rispettivo bottone
     def popolaRicerca(self, ordiniRicercati):
         self.tableWidgetordini.clear()
         self.creaArchivioOrdini()
@@ -239,6 +242,10 @@ class Ui_Archivio(object):
                     item.setText(_translate("Form", str(ordiniRicercati[riga].totale)[0:5] + "€"))
                 if (colonna == 3):
                     item.setText(_translate("Form", str(ordiniRicercati[riga].date)))
+
+    # La gestione delle classi sottostanti è fatta allo stesso modo di quelle precedenti, vengono quindi creati e popolati
+    # gli archivi di vendite, clienti e appuntamenti con la possibilità per ognuno di ricercare per i vari parametri
+    # rispettivamente: data, nome e cognome, e codice fiscale
 
     def creaArchivioVendite(self):
         data.downloadArchivioVendite()

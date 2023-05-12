@@ -9,6 +9,8 @@ from GestioneFarmacia.GestioneMagazzino.Ordine import Ordine
 gestore=Gestore()
 
 class data:
+
+    #Inizializziamo le collection di dati(in questo caso liste) per contenere tutti i dati proveniente dai file
     listaAppuntamenti = []
     listaFarmaciMagazzino = []
     listaProdottiMagazzino = []
@@ -29,6 +31,11 @@ class data:
         pass
 
     today = datetime.now()
+
+
+    # I metodi di questa classe riguardano esclusivamente la lettura e la scrittura su file di tipo pickle,
+    # per quanto riguarda l'upload verrà gestito tramite un semplice dump dei dati presenti a runtime sul programma
+    # invece il download viene gestito tramite il metodo load utilizzando una variabile di appoggio.
 
     @staticmethod
     def uploadArchivioVendite():
@@ -170,31 +177,6 @@ class data:
             if ((data.listaProdottiMagazzino[i].scadenza != None)):
                 print(str(data.listaProdottiMagazzino[i].scadenza) + " ")
             print(str(data.listaProdottiMagazzino[i].giacenza) + " ")
-
-    @staticmethod
-    def showFornitore():
-        for i in range(len(data.listaFarmaciFornitore)):
-            print(str(data.listaFarmaciFornitore[i].codice) + " " +
-                  data.listaFarmaciFornitore[i].nome + " " +
-                  data.listaFarmaciFornitore[i].tipologia + " " +
-                  str(data.listaFarmaciFornitore[i].prezzo) + " " +
-                  data.listaFarmaciFornitore[i].dosaggio + " " +
-                  str(data.listaFarmaciFornitore[i].scadenza) + " " +
-                  str(data.listaFarmaciFornitore[i].giacenza) + " " +
-                  str(data.listaFarmaciFornitore[i].minsan) + " " +
-                  str(data.listaFarmaciFornitore[i].flagRicetta) + " " +
-                  str(data.listaFarmaciFornitore[i].flagBase))
-        for i in range(len(data.listaProdottiFornitore)):
-            print(str(data.listaProdottiFornitore[i].codice) + " " +
-                  data.listaProdottiFornitore[i].nome + " " +
-                  data.listaProdottiFornitore[i].tipologia + " " +
-                  str(data.listaProdottiFornitore[i].prezzo) + " ")
-            if((data.listaProdottiFornitore[i].dosaggio != None)):
-                print(data.listaProdottiFornitore[i].dosaggio + " ")
-            if ((data.listaProdottiFornitore[i].scadenza != None)):
-                print(str(data.listaProdottiFornitore[i].scadenza) + " ")
-            print(str(data.listaProdottiFornitore[i].giacenza) + " ")
-
 
     @staticmethod
     def downloadAppuntamenti():
