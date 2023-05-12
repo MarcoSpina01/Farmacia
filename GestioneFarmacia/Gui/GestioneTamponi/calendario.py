@@ -2,6 +2,8 @@ from datetime import datetime
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox
+
+from GestioneFarmacia.GestioneSistema.Statistiche import Statistiche
 from GestioneFarmacia.GestioneSistema.data import data
 from GestioneFarmacia.GestioneSistema.gestione import Gestore
 from GestioneFarmacia.GestioneTamponi.Appuntamento import Appuntamento
@@ -95,12 +97,11 @@ class Ui_DialogCalendario(object):
 "")
         self.statistichebtn.setObjectName("statistichebtn")
 
-        # self.form.registrazione.clicked.connect(self.passaDati)
 
         self.homebtn.clicked.connect(self.returnToHome)
         self.nuovoappbtn.clicked.connect(self.openRegistrazione)
         self.eliminaappbtn.clicked.connect(self.eliminaAppuntamento)
-
+        self.statistichebtn.clicked.connect(self.statisticheEsiti)
 
         self.retranslateUi(DialogCalendario)
         QtCore.QMetaObject.connectSlotsByName(DialogCalendario)
@@ -262,3 +263,8 @@ class Ui_DialogCalendario(object):
         else:
             messagebox.showinfo("Error", "Seleziona una riga non vuota")
             return
+
+
+    def statisticheEsiti(self):
+        self.st = Statistiche()
+        self.st.plotPieEsiti()
