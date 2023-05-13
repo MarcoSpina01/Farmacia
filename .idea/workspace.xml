@@ -4,16 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10934dc4-f9e2-4b8f-aa83-6b77a839590f" name="Changes" comment="Commenti">
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Farmacia.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Farmacia.iml" afterDir="false" />
+    <list default="true" id="f1782e77-4bfd-465b-97a1-3105ed0e01a6" name="Changes" comment="UI test">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GestioneFarmacia/GestioneSistema/Statistiche.py" beforeDir="false" afterPath="$PROJECT_DIR$/GestioneFarmacia/GestioneSistema/Statistiche.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GestioneFarmacia/Gui/GraphDialog.py" beforeDir="false" afterPath="$PROJECT_DIR$/GestioneFarmacia/Gui/GraphDialog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneTamponi/GraphDialog.py" beforeDir="false" afterPath="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneTamponi/GraphDialog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneTamponi/calendario.py" beforeDir="false" afterPath="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneTamponi/calendario.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneTamponi/graphDialog.ui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneTamponi/registrazione.py" beforeDir="false" afterPath="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneTamponi/registrazione.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GestioneFarmacia/archivioclienti.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/GestioneFarmacia/archivioclienti.pickle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GestioneFarmacia/archivioesiti.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/GestioneFarmacia/archivioesiti.pickle" afterDir="false" />
     </list>
-    <list id="c5396118-0a55-43e5-9fa4-9f0182c6b496" name="Changes by Michelangelo" comment="Changes by Michelangelo" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,22 +66,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Program Files/Farmacia",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "reference.idesettings.debugger.python",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Program Files/Farmacia&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.idesettings.debugger.python&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\crowh\PycharmProjects\Farmacia\GestioneFarmacia" />
@@ -144,9 +145,10 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\EzeBo\AppData\Local\Microsoft\WindowsApps\python3.10.exe" />
+      <option name="SDK_NAME" value="Python 3.10" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GestioneFarmacia" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -169,7 +171,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="10934dc4-f9e2-4b8f-aa83-6b77a839590f" name="Changes" comment="" />
+      <changelist id="f1782e77-4bfd-465b-97a1-3105ed0e01a6" name="Changes" comment="UI test" />
       <created>1672929461616</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -209,6 +211,7 @@
       <workItem from="1683890526865" duration="552000" />
       <workItem from="1683902987488" duration="337000" />
       <workItem from="1683904797365" duration="5645000" />
+      <workItem from="1683968884604" duration="1232000" />
     </task>
     <task id="LOCAL-00001" summary="Update prodotto">
       <created>1672998637384</created>
@@ -499,18 +502,21 @@
     <option name="LAST_COMMIT_MESSAGE" value="Commenti" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Farmacia$ProvaAncora.coverage" NAME="ProvaAncora Coverage Results" MODIFIED="1681758266644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Farmacia$data.coverage" NAME="data Coverage Results" MODIFIED="1678984510462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/GestioneMagazzino" />
+    <SUITE FILE_PATH="coverage/Farmacia$ricercamagazzino.coverage" NAME="ricercamagazzino Coverage Results" MODIFIED="1673648846094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneMagazzino" />
     <SUITE FILE_PATH="coverage/Farmacia$menu.coverage" NAME="menu Coverage Results" MODIFIED="1678980117065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneLogin" />
-    <SUITE FILE_PATH="coverage/Farmacia$main.coverage" NAME="main Coverage Results" MODIFIED="1683911806925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia" />
+    <SUITE FILE_PATH="coverage/Farmacia$registrazione.coverage" NAME="registrazione Coverage Results" MODIFIED="1683113825679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneTamponi" />
     <SUITE FILE_PATH="coverage/Farmacia$fornitoreangelini.coverage" NAME="fornitoreangelini Coverage Results" MODIFIED="1677322557346" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneMagazzino" />
     <SUITE FILE_PATH="coverage/Farmacia$cassa.coverage" NAME="cassa Coverage Results" MODIFIED="1679422553771" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneCassa" />
-    <SUITE FILE_PATH="coverage/Farmacia$GestoreMagazzino.coverage" NAME="GestoreMagazzino Coverage Results" MODIFIED="1678875222351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/GestioneMagazzino" />
-    <SUITE FILE_PATH="coverage/Farmacia$data.coverage" NAME="data Coverage Results" MODIFIED="1678984510462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/GestioneMagazzino" />
-    <SUITE FILE_PATH="coverage/Farmacia$Statistiche.coverage" NAME="Statistiche Coverage Results" MODIFIED="1683909185080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads" />
-    <SUITE FILE_PATH="coverage/Farmacia$calendario.coverage" NAME="calendario Coverage Results" MODIFIED="1683911279210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneTamponi" />
     <SUITE FILE_PATH="coverage/Farmacia$.coverage" NAME=" Coverage Results" MODIFIED="1683625693191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Pytest" />
-    <SUITE FILE_PATH="coverage/Farmacia$ricercamagazzino.coverage" NAME="ricercamagazzino Coverage Results" MODIFIED="1673648846094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneMagazzino" />
-    <SUITE FILE_PATH="coverage/Farmacia$login.coverage" NAME="login Coverage Results" MODIFIED="1678980200432" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneLogin" />
-    <SUITE FILE_PATH="coverage/Farmacia$archivio.coverage" NAME="archivio Coverage Results" MODIFIED="1678980294708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneArchivio" />
+    <SUITE FILE_PATH="coverage/Farmacia$Prova.coverage" NAME="Prova Coverage Results" MODIFIED="1681755146051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Farmacia$assistenza.coverage" NAME="assistenza Coverage Results" MODIFIED="1672932682241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneLogin" />
+    <SUITE FILE_PATH="coverage/Farmacia$archivio.coverage" NAME="archivio Coverage Results" MODIFIED="1681765605139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneArchivio" />
+    <SUITE FILE_PATH="coverage/Farmacia$Statistiche.coverage" NAME="Statistiche Coverage Results" MODIFIED="1683909185080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads" />
+    <SUITE FILE_PATH="coverage/Farmacia$calendario.coverage" NAME="calendario Coverage Results" MODIFIED="1683121348732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneTamponi" />
+    <SUITE FILE_PATH="coverage/Farmacia$main.coverage" NAME="main Coverage Results" MODIFIED="1683931814336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia" />
+    <SUITE FILE_PATH="coverage/Farmacia$GestoreMagazzino.coverage" NAME="GestoreMagazzino Coverage Results" MODIFIED="1678875222351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/GestioneMagazzino" />
+    <SUITE FILE_PATH="coverage/Farmacia$login.coverage" NAME="login Coverage Results" MODIFIED="1678980200432" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GestioneFarmacia/Gui/GestioneLogin" />
   </component>
 </project>

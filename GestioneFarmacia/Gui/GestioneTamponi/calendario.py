@@ -127,6 +127,7 @@ class Ui_DialogCalendario(object):
         self.eliminaappbtn.setText(_translate("DialogCalendario", "Elimina Appuntamento"))
         self.homebtn.setText(_translate("DialogCalendario", "Home"))
 
+    # Il metodo openRegistrazione consente di aprire il modulo di registrazione appuntamento
     def openRegistrazione(self):
         from GestioneFarmacia.Gui.GestioneTamponi.registrazione import Ui_Registrazione
         self.registrazione = QtWidgets.QFrame()
@@ -134,6 +135,7 @@ class Ui_DialogCalendario(object):
         self.ui.setupUi(self.registrazione)
         self.registrazione.show()
 
+    # Il metodo returnHome consente di tornare alla home
     def returnToHome(self):
         from GestioneFarmacia.Gui.GestioneLogin.menu import Ui_Menu
         self.menu = QtWidgets.QFrame()
@@ -142,32 +144,36 @@ class Ui_DialogCalendario(object):
         self.menu.show()
         self.Frame.close()
 
-    def getgiorno(self):  #prende la data selezionata sul calendario e la trasformo in una data Python convertita in stringa per usarla nei confronti
+    # Il metodo getgiorno consente di prendere la data selezionata sul calendario e la restituisce trasformata in una data Python convertita in stringa per usarla nei confronti
+    def getgiorno(self):
         giorno = self.calendarWidget.selectedDate().toPyDate().strftime("%y-%m-%d")
         return giorno
 
+
+    #Il metodo popolaCalendario permette di associare gli appuntamenti ad una data nel calendario
     def popolaCalendario(self):
-        self.AppuntamentiTable.setRowCount(0)                       #fa partire da vuota la table
+        self.AppuntamentiTable.setRowCount(0)
         data.downloadAppuntamenti()
         row = 0
-        self.AppuntamentiTable.setRowCount(len(data.listaAppuntamenti))           #setto la quangtità di righe della table come uguale alla lunghezza della lista di appuntamenti
+        self.AppuntamentiTable.setRowCount(len(data.listaAppuntamenti))
         for appuntamento in data.listaAppuntamenti:
 
              if appuntamento.get_data().strftime("%y-%m-%d") == self.getgiorno():
-                self.AppuntamentiTable.setItem(row, 0, QTableWidgetItem(str(appuntamento.get_idapp()))) #nella colonna id appuntamneto metto l'id dell'appuntamento i esimo
-                self.AppuntamentiTable.setItem(row, 1, QTableWidgetItem(appuntamento.get_cff()))  #nella colonna cf metto il cf dell'appuntamento i esimo
+                self.AppuntamentiTable.setItem(row, 0, QTableWidgetItem(str(appuntamento.get_idapp())))
+                self.AppuntamentiTable.setItem(row, 1, QTableWidgetItem(appuntamento.get_cff()))
                 self.AppuntamentiTable.setItem(row, 2, QTableWidgetItem(appuntamento.get_data().strftime("%y-%m-%d")))
-                if appuntamento.get_stato() == False:   #in base allo stato dell'appuntamento faccuio comparire la scritta CONCLUSO o NON CONCLUSO
+                if appuntamento.get_stato() == False:
                   self.AppuntamentiTable.setItem(row, 3, QTableWidgetItem("Non concluso"))
                   self.AppuntamentiTable.setItem(row, 4, QTableWidgetItem("Nessun Risultato"))
                 else:
                   self.AppuntamentiTable.setItem(row, 3, QTableWidgetItem("Concluso"))
-                  if appuntamento.get_tampone().get_esito() == False: #in base allo stato faccio comparire la scritta POSITIVO O NEGATIVO
+                  if appuntamento.get_tampone().get_esito() == False:
                       self.AppuntamentiTable.setItem(row, 4, QTableWidgetItem("NEGATIVO"))
                   else:
                       self.AppuntamentiTable.setItem(row, 4, QTableWidgetItem("POSITIVO"))
                 row = row+1
 
+    #Il metodo filtraAppuntamenti consente di scegliere se visualizzare solo gli appuntamenti con esito o solo quelli senza esito
     def filtraAppuntamenti(self):
         if self.ricercaappCombo.currentText() == "Non Concluso":
             self.visualizzaNonConclusi()
@@ -176,6 +182,7 @@ class Ui_DialogCalendario(object):
         elif self.ricercaappCombo.currentText() == '':
             self.AppuntamentiTable.setRowCount(0)
 
+   #Il metodo visualizzaNonConclusi consente di riempire la tabella con i soli appuntamenti senza esito
     def visualizzaNonConclusi(self):
         self.AppuntamentiTable.setRowCount(0)
         data.downloadAppuntamenti()
@@ -190,6 +197,7 @@ class Ui_DialogCalendario(object):
                 self.AppuntamentiTable.setItem(row, 4, QTableWidgetItem("Nessun Risultato"))
                 row = row+1
 
+    # Il metodo visualizzaConclusi consente di riempire la tabella con i soli appuntamenti con esito
     def visualizzaConclusi(self):
         self.AppuntamentiTable.setRowCount(0)
         data.downloadAppuntamenti()
@@ -207,6 +215,7 @@ class Ui_DialogCalendario(object):
                     self.AppuntamentiTable.setItem(row, 4, QTableWidgetItem("POSITIVO"))
                 row = row+1
 
+    # Il metodo eliminaAppuntamento consente eliminare un appuntamento selezionato
     def eliminaAppuntamento(self):
         from tkinter import messagebox
         cod = self.AppuntamentiTable.item(self.AppuntamentiTable.currentRow(), 0)
@@ -227,6 +236,7 @@ class Ui_DialogCalendario(object):
                         messagebox.showinfo("Avviso", "Appuntamento già concluso, non si può eliminare!")
                         return
 
+    # Il metodo chiudiAppuntamento consente di assegnare un esito al tampone e chiudere l'appuntamento
     def chiudiAppuntamento(self):
         import random
         from _datetime import datetime
@@ -262,7 +272,7 @@ class Ui_DialogCalendario(object):
             messagebox.showinfo("Error", "Seleziona una riga non vuota")
             return
 
-
+    # Il metodo statisticheEsiti mostra un pie chart con la precentuale di positivi e negativi
     def statisticheEsiti(self):
         self.st = Statistiche()
         self.st.plotPieEsiti()

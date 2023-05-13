@@ -11,7 +11,7 @@ class Statistiche():
     def __init__(self):
         pass
 
-
+    # Il metodo plotEsiti crea un pie chart, lo salva come file png e, richiamando setGraph, lo setta come immagine di una label
     def plotPieEsiti(self):
         data.downloadEsiti()
         cp = 0

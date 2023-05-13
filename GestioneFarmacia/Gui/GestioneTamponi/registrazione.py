@@ -255,6 +255,7 @@ class Ui_Registrazione(object):
     def returnToCalendario(self):
         self.Frame.close()
 
+    # Il metodo svuotaForm consente di fare la pulizia del form
     def svutaForm(self):
         self.lineEdit.clear()
         self.cognomele.clear()
@@ -264,6 +265,7 @@ class Ui_Registrazione(object):
         self.emaille.clear()
         self.indirizzole.clear()
 
+    # Il metodo passaDati è il metodo che crea e aggiunge l'appuntamento soddisfatte delle condizioni di controllo
     def passaDati(self):
         from tkinter import messagebox
         if self.lineEdit.text() != '' and self.cognomele.text() != '' and self.cvle.text() != '' and \
@@ -301,8 +303,7 @@ class Ui_Registrazione(object):
             messagebox.showinfo("Error", "Riempi tutti i campi")
             return
 
-    #Metodo che permette di popolare le combobox della scelta della data
-    #Il numero di giorni disponibili alla scelta varia dinamicamente in base al mese selezionato
+    # Il metodo popolaCombo consente riempire le combobox dei giorni in relazione a quale mese è selezionato
     def popolaCombo(self):
         self.giornoCombo.clear()
         temp = []
