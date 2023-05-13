@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1782e77-4bfd-465b-97a1-3105ed0e01a6" name="Changes" comment="STATISTICHE FUNZIONANTI E COMMENTI AGGIUNTI A calendario, registrazione, graphDialog e statistiche" />
+    <list default="true" id="f1782e77-4bfd-465b-97a1-3105ed0e01a6" name="Changes" comment="STATISTICHE FUNZIONANTI E COMMENTI AGGIUNTI A calendario, registrazione, graphDialog e statistiche">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,7 +65,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Users/EzeBo/PycharmProjects/DrugStore",
+    "last_opened_file_path": "C:/Users/EzeBo/PycharmProjects/Farmacia",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -202,6 +204,7 @@
       <workItem from="1683902987488" duration="337000" />
       <workItem from="1683904797365" duration="5645000" />
       <workItem from="1683968884604" duration="1365000" />
+      <workItem from="1683971870485" duration="303000" />
     </task>
     <task id="LOCAL-00001" summary="Update prodotto">
       <created>1672998637384</created>
@@ -441,7 +444,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683970214318</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="STATISTICHE FUNZIONANTI E COMMENTI AGGIUNTI A calendario, registrazione, graphDialog e statistiche">
+      <created>1683971902911</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1683971902911</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
