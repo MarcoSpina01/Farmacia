@@ -436,7 +436,7 @@ class Ui_Archivio(object):
                 if (colonna == 2):
                     item.setText(_translate("Form", str(data.listaEsiti[riga].data)))
                 if (colonna == 3):
-                    if data.listaEsiti[riga].esito:
+                    if data.listaEsiti[riga].get_tampone().get_esito():
                         item.setText(_translate("Form", "Positivo"))
                     else:
                         item.setText(_translate("Form", "Negativo"))
